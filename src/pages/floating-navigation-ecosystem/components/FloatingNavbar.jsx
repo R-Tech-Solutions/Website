@@ -9,11 +9,11 @@ const FloatingNavbar = ({ isScrolled, currentSection }) => {
 
   const navigationItems = [
     { name: 'Opening', path: '/3d-opening-sequence', icon: 'Play', section: 'hero' },
-    { name: 'Portfolio', path: '/portfolio-showcase', icon: 'Layers', section: 'portfolio' },
-    { name: 'Services', path: '/services-revelation', icon: 'Sparkles', section: 'services' },
-    { name: 'Process', path: '/process-theater', icon: 'Workflow', section: 'process' },
-    { name: 'Team', path: '/team-dimension', icon: 'Users', section: 'team' },
-    { name: 'Navigation', path: '/floating-navigation-ecosystem', icon: 'Navigation', section: 'navigation' },
+    { name: 'Portfolio', path: '/portfolio', icon: 'Layers', section: 'portfolio' },
+    { name: 'Services', path: '/services', icon: 'Sparkles', section: 'services' },
+    { name: 'Process', path: '/process', icon: 'Workflow', section: 'process' },
+    { name: 'Team', path: '/team', icon: 'Users', section: 'team' },
+    // { name: 'Navigation', path: '/floating-navigation-ecosystem', icon: 'Navigation', section: 'navigation' },
   ];
 
   const isActivePath = (path) => location?.pathname === path;

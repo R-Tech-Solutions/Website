@@ -9,28 +9,28 @@ const NavigationPrompt = ({ isVisible, onExplore }) => {
     {
       title: "Portfolio Showcase",
       description: "Explore our crafted digital experiences",
-      path: "/portfolio-showcase",
+      path: "/portfolio",
       icon: "Layers",
       color: "from-primary to-primary/70"
     },
     {
       title: "Services Revelation",
       description: "Discover our creative capabilities",
-      path: "/services-revelation",
+      path: "/services",
       icon: "Sparkles",
       color: "from-accent to-accent/70"
     },
     {
       title: "Team Dimension",
       description: "Meet the minds behind the magic",
-      path: "/team-dimension",
+      path: "/team",
       icon: "Users",
       color: "from-success to-success/70"
     },
     {
       title: "Process Theater",
       description: "Journey through our methodology",
-      path: "/process-theater",
+      path: "/process",
       icon: "Workflow",
       color: "from-warning to-warning/70"
     }
@@ -181,7 +181,7 @@ const NavigationPrompt = ({ isVisible, onExplore }) => {
             <span>Replay Experience</span>
           </Button>
           
-          <Link to="/floating-navigation-ecosystem">
+          {/* <Link to="/floating-navigation-ecosystem">
             <Button
               variant="default"
               size="lg"
@@ -191,7 +191,7 @@ const NavigationPrompt = ({ isVisible, onExplore }) => {
               <Icon name="Navigation" size={20} />
               <span>Explore Navigation</span>
             </Button>
-          </Link>
+          </Link> */}
         </motion.div>
 
         {/* Skip hint */}

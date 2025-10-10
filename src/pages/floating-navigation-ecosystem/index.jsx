@@ -172,7 +172,7 @@ const FloatingNavigationEcosystem = () => {
   return (
     <>
       <Helmet>
-        <title>Floating Navigation Ecosystem - GlassForge Studio</title>
+        <title>R-Tech Solutions</title>
         <meta name="description" content="Advanced glassmorphic navigation system with contextual adaptations, progress visualization, and seamless 3D interactions for premium web experiences." />
         <meta name="keywords" content="floating navigation, glassmorphism, 3D navigation, contextual navigation, progress indicators" />
       </Helmet>
@@ -252,7 +252,7 @@ const FloatingNavigationEcosystem = () => {
                     <div className="flex items-center space-x-6">
                       <div className="flex items-center space-x-2">
                         <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-accent"></div>
-                        <span className="font-semibold text-glass-text-primary">GlassForge</span>
+                        <span className="font-semibold text-glass-text-primary">R-Tech Solutions</span>
                       </div>
                       <div className="flex space-x-4">
                         {['Home', 'Work', 'About', 'Contact']?.map((item, index) => (

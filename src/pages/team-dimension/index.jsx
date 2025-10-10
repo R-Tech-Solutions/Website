@@ -500,7 +500,7 @@ const TeamDimension = () => {
               >
                 Start a Project
               </Button>
-              <Link to="/portfolio-showcase">
+              <Link to="/portfolio">
                 <Button
                   variant="outline"
                   size="lg"
@@ -524,7 +524,7 @@ const TeamDimension = () => {
       {/* Floating Navigation */}
       <div className="fixed bottom-8 right-8 z-40">
         <div className="flex flex-col space-y-3">
-          <Link to="/process-theater">
+          <Link to="/process">
             <Button
               variant="default"
               size="icon"
@@ -532,7 +532,7 @@ const TeamDimension = () => {
               iconName="ArrowRight"
             />
           </Link>
-          <Link to="/services-revelation">
+          <Link to="/services">
             <Button
               variant="outline"
               size="icon"

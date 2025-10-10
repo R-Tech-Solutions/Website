@@ -10,7 +10,7 @@ const QuickAccessShortcuts = ({ isVisible }) => {
       name: 'View Work',
       description: 'Explore our projects',
       icon: 'Eye',
-      path: '/portfolio-showcase',
+      path: '/portfolio',
       color: 'from-blue-500 to-cyan-500'
     },
     {
@@ -26,7 +26,7 @@ const QuickAccessShortcuts = ({ isVisible }) => {
       name: 'Our Services',
       description: 'What we offer',
       icon: 'Sparkles',
-      path: '/services-revelation',
+      path: '/services',
       color: 'from-purple-500 to-pink-500'
     }
   ];
