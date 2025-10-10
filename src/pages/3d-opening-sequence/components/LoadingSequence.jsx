@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 const LoadingSequence = ({ onComplete, duration = 4000 }) => {
   const [progress, setProgress] = useState(0);
   const [currentPhase, setCurrentPhase] = useState(0);
-  
+
   const phases = [
     { label: "Web Solutions", progress: 25 },
     { label: "App Solutions", progress: 50 },
@@ -16,11 +16,11 @@ const LoadingSequence = ({ onComplete, duration = 4000 }) => {
     const interval = setInterval(() => {
       setProgress(prev => {
         const newProgress = prev + (100 / (duration / 50));
-        
+
         // Update phase based on progress
         const phaseIndex = Math.floor((newProgress / 100) * phases?.length);
         setCurrentPhase(Math.min(phaseIndex, phases?.length - 1));
-        
+
         if (newProgress >= 100) {
           clearInterval(interval);
           setTimeout(onComplete, 500);
@@ -84,7 +84,7 @@ const LoadingSequence = ({ onComplete, duration = 4000 }) => {
               }}
             >
               <motion.div
-                className="w-8 h-8 bg-gradient-to-br from-primary to-accent rounded-lg"
+                className="w-8 h-8 rounded-lg overflow-hidden flex items-center justify-center"
                 animate={{
                   rotate: [0, 180, 360],
                   scale: [1, 1.1, 1]
@@ -94,9 +94,15 @@ const LoadingSequence = ({ onComplete, duration = 4000 }) => {
                   repeat: Infinity,
                   ease: "easeInOut"
                 }}
-              />
+              >
+                <img
+                  src="/new brand.png"
+                  alt="Logo"
+                  className="w-full h-full object-contain"
+                />
+              </motion.div>
             </motion.div>
-            
+
             {/* Orbiting particles */}
             {Array.from({ length: 3 }, (_, i) => (
               <motion.div
@@ -168,7 +174,7 @@ const LoadingSequence = ({ onComplete, duration = 4000 }) => {
               />
             </motion.div>
           </div>
-          
+
           {/* Progress percentage */}
           <motion.span
             className="absolute -top-6 right-0 text-xs text-glass-text-secondary font-mono"

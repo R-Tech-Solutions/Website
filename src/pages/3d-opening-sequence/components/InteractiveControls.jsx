@@ -159,11 +159,6 @@ const InteractiveControls = ({
           variants={buttonVariants}
           className="glass-surface rounded-lg p-3 max-w-[200px]"
         >
-          <p className="text-xs text-glass-text-secondary leading-relaxed">
-            Use these controls to customize your viewing experience. 
-            Press <kbd className="px-1 py-0.5 bg-glass-base rounded text-xs">Space</kbd> to play/pause, 
-            or <kbd className="px-1 py-0.5 bg-glass-base rounded text-xs">Esc</kbd> to skip.
-          </p>
         </motion.div>
       </motion.div>
       {/* Keyboard shortcuts indicator */}
@@ -173,9 +168,6 @@ const InteractiveControls = ({
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1, duration: 0.5 }}
       >
-        <p className="text-xs text-glass-text-secondary whitespace-nowrap">
-          Press <kbd className="px-1 py-0.5 bg-glass-base rounded text-xs">?</kbd> for help
-        </p>
       </motion.div>
     </motion.div>
   );

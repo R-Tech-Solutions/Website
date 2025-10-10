@@ -199,7 +199,6 @@ const NavigationPrompt = ({ isVisible, onExplore }) => {
           className="text-sm text-glass-text-secondary/60 mt-8"
           variants={itemVariants}
         >
-          Press <kbd className="px-2 py-1 bg-glass-surface rounded text-xs">Esc</kbd> to skip this prompt
         </motion.p>
       </div>
     </motion.div>
