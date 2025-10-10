@@ -60,14 +60,14 @@ const CinematicTitle = ({ isVisible }) => {
   const glowVariants = {
     hidden: {
       opacity: 0,
-      scale: 0.5
+      scale: 0.8
     },
     visible: {
-      opacity: [0, 0.6, 0.3],
-      scale: [0.5, 1.2, 1],
+      opacity: [0.3, 0.7, 0.4],
+      scale: [0.9, 1.1, 1],
       transition: {
-        duration: 2,
-        delay: 0.5,
+        duration: 1, // faster cycle
+        delay: 0, // no initial delay
         repeat: Infinity,
         repeatType: "reverse",
         ease: "easeInOut"

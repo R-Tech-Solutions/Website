@@ -37,13 +37,13 @@ const NavigationPrompt = ({ isVisible, onExplore }) => {
   ];
 
   const containerVariants = {
-    hidden: { 
-      opacity: 0, 
+    hidden: {
+      opacity: 0,
       y: 50,
-      scale: 0.9 
+      scale: 0.9
     },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       y: 0,
       scale: 1,
       transition: {
@@ -55,13 +55,13 @@ const NavigationPrompt = ({ isVisible, onExplore }) => {
   };
 
   const itemVariants = {
-    hidden: { 
-      opacity: 0, 
+    hidden: {
+      opacity: 0,
       x: -30,
-      rotateY: -15 
+      rotateY: -15
     },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       x: 0,
       rotateY: 0,
       transition: {
@@ -120,8 +120,8 @@ const NavigationPrompt = ({ isVisible, onExplore }) => {
             <motion.div
               key={item?.path}
               variants={itemVariants}
-              whileHover={{ 
-                scale: 1.02, 
+              whileHover={{
+                scale: 1.02,
                 y: -5,
                 transition: { duration: 0.2 }
               }}
@@ -139,13 +139,13 @@ const NavigationPrompt = ({ isVisible, onExplore }) => {
                     animate="pulse"
                     style={{ animationDelay: `${index * 0.2}s` }}
                   >
-                    <Icon 
-                      name={item?.icon} 
-                      size={24} 
+                    <Icon
+                      name={item?.icon}
+                      size={24}
                       className="text-white"
                     />
                   </motion.div>
-                  
+
                   <div className="flex-1 text-left">
                     <h3 className="text-lg font-semibold text-glass-text-primary group-hover:text-primary transition-colors duration-300 mb-2">
                       {item?.title}
@@ -154,10 +154,10 @@ const NavigationPrompt = ({ isVisible, onExplore }) => {
                       {item?.description}
                     </p>
                   </div>
-                  
-                  <Icon 
-                    name="ArrowRight" 
-                    size={20} 
+
+                  <Icon
+                    name="ArrowRight"
+                    size={20}
                     className="text-glass-text-secondary group-hover:text-primary group-hover:translate-x-1 transition-all duration-300"
                   />
                 </div>
@@ -171,27 +171,18 @@ const NavigationPrompt = ({ isVisible, onExplore }) => {
           className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6"
           variants={itemVariants}
         >
-          <Button
-            variant="outline"
-            size="lg"
-            onClick={onExplore}
-            className="glass-interactive border-primary/20 text-primary hover:bg-primary/10 flex items-center space-x-2"
-          >
-            <Icon name="RotateCcw" size={20} />
-            <span>Replay Experience</span>
-          </Button>
-          
-          {/* <Link to="/floating-navigation-ecosystem">
+
+          <Link to="/portfolio">
             <Button
               variant="default"
               size="lg"
               className="bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 shadow-glass-subtle flex items-center space-x-2"
               onClick={onExplore}
             >
-              <Icon name="Navigation" size={20} />
-              <span>Explore Navigation</span>
+              <Icon name="Portfolio" size={20} />
+              <span>Explore Home</span>
             </Button>
-          </Link> */}
+          </Link>
         </motion.div>
 
         {/* Skip hint */}
