@@ -1,0 +1,170 @@
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  darkMode: ["class"],
+  content: [
+    './pages/**/*.{js,jsx}',
+    './components/**/*.{js,jsx}',
+    './app/**/*.{js,jsx}',
+    './src/**/*.{js,jsx}',
+  ],
+  prefix: "",
+  theme: {
+    container: {
+      center: true,
+      padding: "2rem",
+      screens: {
+        "2xl": "1400px",
+      },
+    },
+    extend: {
+      colors: {
+        border: "var(--color-border)", /* white with opacity */
+        input: "var(--color-input)", /* slate-50 */
+        ring: "var(--color-ring)", /* blue-500 */
+        background: "var(--color-background)", /* white */
+        foreground: "var(--color-foreground)", /* slate-900 */
+        primary: {
+          DEFAULT: "var(--color-primary)", /* blue-500 */
+          foreground: "var(--color-primary-foreground)", /* white */
+        },
+        secondary: {
+          DEFAULT: "var(--color-secondary)", /* slate-50 */
+          foreground: "var(--color-secondary-foreground)", /* slate-800 */
+        },
+        destructive: {
+          DEFAULT: "var(--color-destructive)", /* red-500 */
+          foreground: "var(--color-destructive-foreground)", /* white */
+        },
+        muted: {
+          DEFAULT: "var(--color-muted)", /* slate-200 */
+          foreground: "var(--color-muted-foreground)", /* slate-500 */
+        },
+        accent: {
+          DEFAULT: "var(--color-accent)", /* violet-500 */
+          foreground: "var(--color-accent-foreground)", /* white */
+        },
+        popover: {
+          DEFAULT: "var(--color-popover)", /* white */
+          foreground: "var(--color-popover-foreground)", /* slate-800 */
+        },
+        card: {
+          DEFAULT: "var(--color-card)", /* slate-50 */
+          foreground: "var(--color-card-foreground)", /* slate-800 */
+        },
+        success: {
+          DEFAULT: "var(--color-success)", /* emerald-500 */
+          foreground: "var(--color-success-foreground)", /* white */
+        },
+        warning: {
+          DEFAULT: "var(--color-warning)", /* amber-500 */
+          foreground: "var(--color-warning-foreground)", /* white */
+        },
+        error: {
+          DEFAULT: "var(--color-error)", /* red-500 */
+          foreground: "var(--color-error-foreground)", /* white */
+        },
+        // Glass Morphism Specific Colors
+        glass: {
+          base: "var(--color-glass-base)", /* slate-50 */
+          surface: "var(--color-glass-surface)", /* slate-200 */
+          depth: "var(--color-glass-depth)", /* slate-900 */
+          text: {
+            primary: "var(--color-glass-text-primary)", /* slate-800 */
+            secondary: "var(--color-glass-text-secondary)", /* slate-500 */
+          },
+        },
+      },
+      borderRadius: {
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 2px)",
+        sm: "calc(var(--radius) - 4px)",
+      },
+      fontFamily: {
+        sans: ['Inter', 'sans-serif'],
+        mono: ['JetBrains Mono', 'monospace'],
+      },
+      fontSize: {
+        'xs': ['0.75rem', { lineHeight: '1rem' }],
+        'sm': ['0.875rem', { lineHeight: '1.25rem' }],
+        'base': ['1rem', { lineHeight: '1.5rem' }],
+        'lg': ['1.125rem', { lineHeight: '1.75rem' }],
+        'xl': ['1.25rem', { lineHeight: '1.75rem' }],
+        '2xl': ['1.5rem', { lineHeight: '2rem' }],
+        '3xl': ['1.875rem', { lineHeight: '2.25rem' }],
+        '4xl': ['2.25rem', { lineHeight: '2.5rem' }],
+        '5xl': ['3rem', { lineHeight: '1' }],
+        '6xl': ['3.75rem', { lineHeight: '1' }],
+        '7xl': ['4.5rem', { lineHeight: '1' }],
+        '8xl': ['6rem', { lineHeight: '1' }],
+        '9xl': ['8rem', { lineHeight: '1' }],
+      },
+      spacing: {
+        '13': '3.25rem', /* 52px - golden ratio */
+        '21': '5.25rem', /* 84px - golden ratio */
+        '34': '8.5rem', /* 136px - golden ratio */
+        '55': '13.75rem', /* 220px - golden ratio */
+        '89': '22.25rem', /* 356px - golden ratio */
+      },
+      boxShadow: {
+        'glass': 'var(--glass-shadow-primary)',
+        'glass-subtle': 'var(--glass-shadow-subtle)',
+        'glass-interactive': 'var(--glass-shadow-interactive)',
+      },
+      backdropBlur: {
+        'glass': '12px',
+        'glass-heavy': '24px',
+      },
+      animation: {
+        'glass-float': 'glassFloat 6s ease-in-out infinite',
+        'prism-rotate': 'prismRotate 12s linear infinite',
+        'particle-genesis': 'particleGenesis 4s ease-out forwards',
+      },
+      keyframes: {
+        glassFloat: {
+          '0%, 100%': {
+            transform: 'translateY(0px) rotateX(0deg)',
+          },
+          '50%': {
+            transform: 'translateY(-20px) rotateX(5deg)',
+          },
+        },
+        prismRotate: {
+          '0%': { transform: 'rotateY(0deg) rotateX(0deg)' },
+          '25%': { transform: 'rotateY(90deg) rotateX(15deg)' },
+          '50%': { transform: 'rotateY(180deg) rotateX(0deg)' },
+          '75%': { transform: 'rotateY(270deg) rotateX(-15deg)' },
+          '100%': { transform: 'rotateY(360deg) rotateX(0deg)' },
+        },
+        particleGenesis: {
+          '0%': {
+            opacity: '0',
+            transform: 'scale(0) rotate(0deg)',
+          },
+          '50%': {
+            opacity: '0.7',
+            transform: 'scale(1.2) rotate(180deg)',
+          },
+          '100%': {
+            opacity: '1',
+            transform: 'scale(1) rotate(360deg)',
+          },
+        },
+      },
+      transitionTimingFunction: {
+        'glass': 'cubic-bezier(0.4, 0, 0.2, 1)',
+      },
+      transitionDuration: {
+        '300': '300ms',
+        '600': '600ms',
+        '1200': '1200ms',
+      },
+      perspective: {
+        '1000': '1000px',
+        '2000': '2000px',
+      },
+    },
+  },
+  plugins: [
+    require('tailwindcss-animate'),
+  ],
+};

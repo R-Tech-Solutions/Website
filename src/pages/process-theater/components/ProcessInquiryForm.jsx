@@ -216,7 +216,7 @@ const ProcessInquiryForm = ({ selectedProjectType, currentStage }) => {
             Project Description
           </label>
           <textarea
-            className="w-full h-32 px-4 py-3 glass-surface rounded-xl border border-border/20 text-glass-text-primary placeholder-glass-text-secondary resize-none focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/30 transition-all duration-300"
+            className="w-full h-32 px-4 py-3 glass-surface rounded-xl border border-[var(--color-border)]/20 text-glass-text-primary placeholder-glass-text-secondary resize-none focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/30 transition-all duration-300"
             placeholder="Tell us about your project vision, goals, and any specific requirements..."
             value={formData?.description}
             onChange={(e) => handleInputChange('description', e?.target?.value)}
@@ -256,7 +256,7 @@ const ProcessInquiryForm = ({ selectedProjectType, currentStage }) => {
         </div>
 
         {/* Trust Indicators */}
-        <div className="pt-4 border-t border-border/20">
+        <div className="pt-4 border-t border-[var(--color-border)]/20">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
             <div className="flex items-center justify-center space-x-2">
               <Icon name="Shield" size={16} className="text-success" />
