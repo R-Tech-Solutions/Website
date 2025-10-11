@@ -12,6 +12,9 @@ import ProcessTheater from './pages/process-theater';
 import ContactInquiryHub from './pages/contact-inquiry-hub';
 import PerformanceOptimizedNavigation from './pages/performance-optimized-navigation-system';
 import Home from './pages/home'
+import Careers from './pages/Careers'
+import Blogs from './pages/Blogs'
+import PostPage from './pages/Blogs/Post'
 const Routes = () => {
   return (
     <BrowserRouter>
@@ -22,13 +25,16 @@ const Routes = () => {
         <Route path="/" element={<OpeningSequence />} />
         <Route path="/services" element={<ServicesRevelation />} />
         {/* <Route path="/floating-navigation-ecosystem" element={<FloatingNavigationEcosystem />} /> */}
-        <Route path="/seq" element={<OpeningSequence />} />
+        <Route path="/R-Tech" element={<OpeningSequence />} />
         <Route path="/team" element={<TeamDimension />} />
         <Route path="/portfolio" element={<PortfolioShowcase />} />
         <Route path="/process" element={<ProcessTheater />} />
         <Route path="/contact" element={<ContactInquiryHub />} />
         <Route path="/performance-optimized-navigation-system" element={<PerformanceOptimizedNavigation />} />
         <Route path="/home" element={<Home />}/>
+        <Route path="/careers" element={<Careers/>}/>
+  <Route path="/blogs" element={<Blogs/>}/>
+  <Route path="/blogs/:id" element={<PostPage/>} />
         <Route path="*" element={<NotFound />} />
       </RouterRoutes>
       </ErrorBoundary>

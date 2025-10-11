@@ -613,7 +613,9 @@ const PortfolioShowcase = () => {
         <meta name="description" content="Explore our portfolio of cutting-edge digital experiences through interactive 3D glass containers. Discover web applications, mobile apps, and enterprise solutions crafted with precision." />
         <meta name="keywords" content="portfolio, 3D showcase, web development, mobile apps, enterprise software, glass morphism, interactive design" />
       </Helmet>
-      <Header />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <Header />
+      </div>
       <main className="pt-20">
         {/* Hero Section */}
         <section className="relative py-20 overflow-hidden">

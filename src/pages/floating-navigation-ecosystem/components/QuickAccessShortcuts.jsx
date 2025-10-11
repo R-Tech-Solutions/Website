@@ -18,7 +18,7 @@ const QuickAccessShortcuts = ({ isVisible }) => {
       name: 'Start Project',
       description: 'Begin collaboration',
       icon: 'MessageCircle',
-      path: '/seq',
+      path: '/R-Tech',
       color: 'from-primary to-accent'
     },
     {

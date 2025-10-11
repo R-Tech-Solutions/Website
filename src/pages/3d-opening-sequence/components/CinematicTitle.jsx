@@ -66,8 +66,8 @@ const CinematicTitle = ({ isVisible }) => {
       opacity: [0.3, 0.7, 0.4],
       scale: [0.9, 1.1, 1],
       transition: {
-        duration: 1, // faster cycle
-        delay: 0, // no initial delay
+        duration: 0.8,
+        delay: 0,
         repeat: Infinity,
         repeatType: "reverse",
         ease: "easeInOut"
@@ -79,7 +79,7 @@ const CinematicTitle = ({ isVisible }) => {
   const subtitle = "(Pvt) ltd";
 
   return (
-    <div className="relative z-10 text-center">
+    <div className="relative z-10 text-center px-4 md:px-0">
       {/* Background glow effect */}
       <motion.div
         className="absolute inset-0 -m-8 bg-gradient-to-r from-primary/20 via-accent/20 to-primary/20 rounded-full blur-3xl"
@@ -94,12 +94,12 @@ const CinematicTitle = ({ isVisible }) => {
         className="relative"
       >
         {/* Main title */}
-        <div className="flex justify-center items-center mb-4">
+        <div className="flex flex-wrap justify-center items-center mb-4 -mx-1">
           {title?.split('')?.map((letter, index) => (
             <motion.span
               key={index}
               variants={letterVariants}
-              className="text-6xl md:text-8xl lg:text-9xl font-bold bg-gradient-to-br from-glass-text-primary via-primary to-accent bg-clip-text text-transparent inline-block transform-3d"
+              className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-bold bg-gradient-to-br from-glass-text-primary via-primary to-accent bg-clip-text text-transparent inline-block transform-3d px-0.5"
               style={{
                 textShadow: "0 0 30px rgba(59, 130, 246, 0.3)",
                 fontFamily: 'Inter, sans-serif',
@@ -107,7 +107,7 @@ const CinematicTitle = ({ isVisible }) => {
                 letterSpacing: '-0.02em'
               }}
             >
-              {letter}
+              {letter === ' ' ? '\u00A0' : letter}
             </motion.span>
           ))}
         </div>
@@ -117,7 +117,7 @@ const CinematicTitle = ({ isVisible }) => {
           variants={subtitleVariants}
           className="relative"
         >
-          <h2 className="text-2xl md:text-4xl lg:text-5xl font-light text-glass-text-secondary font-mono tracking-wider">
+          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-light text-glass-text-secondary font-mono tracking-wider">
             {subtitle}
           </h2>
 
@@ -125,14 +125,14 @@ const CinematicTitle = ({ isVisible }) => {
           <motion.div
             className="h-0.5 bg-gradient-to-r from-transparent via-primary to-transparent mt-4 mx-auto"
             initial={{ width: 0 }}
-            animate={isVisible ? { width: "200px" } : { width: 0 }}
+            animate={isVisible ? { width: "min(200px, 80vw)" } : { width: 0 }}
             transition={{ duration: 1.5, delay: 1.5, ease: "easeOut" }}
           />
         </motion.div>
 
         {/* Tagline */}
         <motion.p
-          className="text-lg md:text-xl text-glass-text-secondary/80 mt-8 max-w-2xl mx-auto leading-relaxed"
+          className="text-sm sm:text-base md:text-lg lg:text-xl text-glass-text-secondary/80 mt-6 md:mt-8 max-w-2xl mx-auto leading-relaxed px-4"
           initial={{ opacity: 0, y: 20 }}
           animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 1, delay: 2, ease: "easeOut" }}

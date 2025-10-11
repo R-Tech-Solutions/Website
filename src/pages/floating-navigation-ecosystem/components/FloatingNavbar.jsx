@@ -8,7 +8,7 @@ const FloatingNavbar = ({ isScrolled, currentSection }) => {
   const location = useLocation();
 
   const navigationItems = [
-    { name: 'Opening', path: '/seq', icon: 'Play', section: 'hero' },
+    { name: 'Opening', path: '/R-Tech', icon: 'Play', section: 'hero' },
     { name: 'Portfolio', path: '/portfolio', icon: 'Layers', section: 'portfolio' },
     { name: 'Services', path: '/services', icon: 'Sparkles', section: 'services' },
     { name: 'Process', path: '/process', icon: 'Workflow', section: 'process' },
@@ -20,7 +20,7 @@ const FloatingNavbar = ({ isScrolled, currentSection }) => {
   const isActiveSection = (section) => currentSection === section;
 
   const Logo = () => (
-    <Link to="/seq" className="flex items-center space-x-3 group">
+    <Link to="/R-Tech" className="flex items-center space-x-3 group">
       <div className="relative">
         <div className="w-10 h-10 glass-morphism rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
           <div className="w-6 h-6 bg-gradient-to-br from-primary to-accent rounded-lg animate-glass-float"></div>
