@@ -30,9 +30,7 @@ export default function Home() {
 				<ClientsScroller />
 			</div>
 
-			<footer id="contact" className="py-8 text-center text-sm text-muted-foreground">
-				© {new Date().getFullYear()} R-Tech Solutions — Built with care.
-			</footer>
+
 		</main>
 	);
 }

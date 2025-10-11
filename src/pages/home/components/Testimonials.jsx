@@ -302,7 +302,10 @@ export default function Testimonials({ items = DEFAULT_TESTIMONIALS }) {
                         </p>
 
                         {/* Button */}
-                        <button className="group relative px-8 py-4 bg-gradient-to-r from-blue-500 to-violet-500 text-white font-semibold rounded-xl shadow-glass-interactive overflow-hidden transform transition-all duration-300 hover:scale-105">
+                        <button
+                            onClick={() => window.location.href = "/careers"}
+                            className="group relative px-8 py-4 bg-gradient-to-r from-blue-500 to-violet-500 text-white font-semibold rounded-xl shadow-glass-interactive overflow-hidden transform transition-all duration-300 hover:scale-105"
+                        >
                             <span className="relative z-10 flex items-center gap-2 mx-auto w-fit">
                                 Explore Careers
                                 <Sparkles className="w-5 h-5 transition-transform group-hover:rotate-12" />

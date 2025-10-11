@@ -99,90 +99,16 @@ export default function DownloadBundle() {
                     </p>
                   </div>
                 </div>
-
-                {/* Stats Bar */}
-                <div className="flex flex-wrap gap-6 mb-8 pb-8 border-b border-white/20">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-400 to-green-500 flex items-center justify-center">
-                      <Download className="w-5 h-5 text-white" />
-                    </div>
-                    <div>
-                      <div className="text-2xl font-bold text-slate-900">{downloadCount.toLocaleString()}</div>
-                      <div className="text-xs text-slate-500">Downloads</div>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center">
-                      <Star className="w-5 h-5 text-white fill-white" />
-                    </div>
-                    <div>
-                      <div className="text-2xl font-bold text-slate-900">4.9/5</div>
-                      <div className="text-xs text-slate-500">Rating</div>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-400 to-purple-500 flex items-center justify-center">
-                      <Sparkles className="w-5 h-5 text-white" />
-                    </div>
-                    <div>
-                      <div className="text-2xl font-bold text-slate-900">705+</div>
-                      <div className="text-xs text-slate-500">Components</div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Bundle Contents Grid */}
-                <div className="grid sm:grid-cols-2 gap-4 mb-8">
-                  {bundleContents.map((item, i) => (
-                    <div 
-                      key={i}
-                      className="glass-surface rounded-xl p-4 transform transition-all duration-300 hover:scale-105 hover:shadow-glass"
-                    >
-                      <div className="flex items-center gap-3">
-                        <div className={`w-10 h-10 rounded-lg bg-gradient-to-br ${item.color} flex items-center justify-center`}>
-                          <item.icon className="w-5 h-5 text-white" />
-                        </div>
-                        <div>
-                          <div className="text-sm font-semibold text-slate-900">{item.name}</div>
-                          <div className="text-xs text-slate-500">{item.count} items</div>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Features List */}
-                <div className="grid sm:grid-cols-2 gap-3 mb-8">
-                  {features.map((feature, i) => (
-                    <div key={i} className="flex items-center gap-2">
-                      <CheckCircle className="w-4 h-4 text-emerald-500 flex-shrink-0" />
-                      <span className="text-sm text-slate-600">{feature}</span>
-                    </div>
-                  ))}
-                </div>
-
                 {/* Action Buttons */}
                 <div className="flex flex-wrap gap-4">
                   <button className="group relative px-8 py-4 bg-gradient-to-r from-blue-500 to-violet-500 text-white font-semibold rounded-xl shadow-glass-interactive overflow-hidden transform transition-all duration-300 hover:scale-105 hover:shadow-glass-interactive">
                     <span className="relative z-10 flex items-center gap-2">
                       <Download className="w-5 h-5" />
-                      Get the Bundle
+                      Download Now
                       <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                     </span>
                     <div className="absolute inset-0 bg-gradient-to-r from-violet-500 to-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   </button>
-
-                  <button className="px-8 py-4 glass-interactive text-slate-700 font-semibold rounded-xl transform transition-all duration-300 hover:scale-105">
-                    View Contents
-                  </button>
-
-                  <a 
-                    className="flex items-center gap-2 px-6 py-4 text-sm text-slate-600 hover:text-blue-600 transition-colors duration-300 underline underline-offset-4" 
-                    href="#tech"
-                  >
-                    <Zap className="w-4 h-4" />
-                    See tech used
-                  </a>
                 </div>
               </div>
 
@@ -197,55 +123,6 @@ export default function DownloadBundle() {
 
           {/* Preview Card */}
           <div className="lg:col-span-1 space-y-6">
-            {/* Bundle Preview */}
-            <div className="glass-interactive rounded-3xl p-6 transform transition-all duration-300 hover:scale-105">
-              <div className="flex items-center justify-between mb-4">
-                <h4 className="text-lg font-semibold text-slate-900">Bundle Preview</h4>
-                <div className="glass-morphism rounded-full px-3 py-1 text-xs font-semibold text-violet-600">
-                  7.6 MB
-                </div>
-              </div>
-
-              <p className="text-sm text-slate-600 mb-6">
-                Includes UI kits, productivity tools, and performance utilities.
-              </p>
-
-              {/* Preview Items */}
-              <div className="space-y-3 mb-6">
-                {previewItems.map((item, i) => (
-                  <div 
-                    key={i}
-                    className={`glass-surface rounded-xl p-3 cursor-pointer transform transition-all duration-300 ${activePreview === i ? 'scale-105 shadow-glass' : 'hover:scale-102'}`}
-                    onClick={() => setActivePreview(i)}
-                  >
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-3">
-                        <div className={`w-8 h-8 rounded-lg flex items-center justify-center text-xs font-mono font-semibold ${
-                          activePreview === i 
-                            ? 'bg-gradient-to-br from-blue-500 to-violet-500 text-white' 
-                            : 'bg-slate-200 text-slate-600'
-                        }`}>
-                          {item.type}
-                        </div>
-                        <div>
-                          <div className="text-sm font-medium text-slate-900">{item.title}</div>
-                          <div className="text-xs text-slate-500">{item.size}</div>
-                        </div>
-                      </div>
-                      {activePreview === i && (
-                        <CheckCircle className="w-4 h-4 text-emerald-500" />
-                      )}
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              <button className="w-full py-3 bg-gradient-to-r from-emerald-500 to-green-500 text-white font-semibold rounded-xl shadow-glass transform transition-all duration-300 hover:scale-105 hover:shadow-glass-interactive flex items-center justify-center gap-2">
-                <Download className="w-4 h-4" />
-                Download Now
-              </button>
-            </div>
-
             {/* Trust Badge */}
             <div className="glass-morphism rounded-2xl p-6 text-center">
               <Shield className="w-12 h-12 text-blue-500 mx-auto mb-3" />

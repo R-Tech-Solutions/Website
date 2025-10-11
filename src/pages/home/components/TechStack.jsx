@@ -183,15 +183,6 @@ export default function TechStack({ items = ['React', 'Vite', 'Tailwind CSS', 'T
                   {/* 3D Shadow */}
                   <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${tech.color} opacity-0 group-hover:opacity-30 blur-xl transform translate-y-4 -z-10 transition-opacity duration-300`} />
                 </div>
-
-                {/* Tooltip on Hover */}
-                {isHovered && (
-                  <div className="absolute -bottom-16 left-1/2 transform -translate-x-1/2 glass-morphism rounded-xl px-4 py-2 whitespace-nowrap shadow-glass z-20 animate-particle-genesis">
-                    <div className="text-xs font-semibold text-slate-700">
-                      Production Ready ✓
-                    </div>
-                  </div>
-                )}
               </div>
             );
           })}

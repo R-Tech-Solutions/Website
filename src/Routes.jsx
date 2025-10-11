@@ -15,28 +15,30 @@ import Home from './pages/home'
 import Careers from './pages/Careers'
 import Blogs from './pages/Blogs'
 import PostPage from './pages/Blogs/Post'
+import Pricing from './pages/Pricing'
 const Routes = () => {
   return (
     <BrowserRouter>
       <ErrorBoundary>
-      <ScrollToTop />
-      <RouterRoutes>
-        {/* Define your route here */}
-        <Route path="/" element={<OpeningSequence />} />
-        <Route path="/services" element={<ServicesRevelation />} />
-        {/* <Route path="/floating-navigation-ecosystem" element={<FloatingNavigationEcosystem />} /> */}
-        <Route path="/R-Tech" element={<OpeningSequence />} />
-        <Route path="/team" element={<TeamDimension />} />
-        <Route path="/portfolio" element={<PortfolioShowcase />} />
-        <Route path="/process" element={<ProcessTheater />} />
-        <Route path="/contact" element={<ContactInquiryHub />} />
-        <Route path="/performance-optimized-navigation-system" element={<PerformanceOptimizedNavigation />} />
-        <Route path="/home" element={<Home />}/>
-        <Route path="/careers" element={<Careers/>}/>
-  <Route path="/blogs" element={<Blogs/>}/>
-  <Route path="/blogs/:id" element={<PostPage/>} />
-        <Route path="*" element={<NotFound />} />
-      </RouterRoutes>
+        <ScrollToTop />
+        <RouterRoutes>
+          {/* Define your route here */}
+          <Route path="/" element={<OpeningSequence />} />
+          <Route path="/services" element={<ServicesRevelation />} />
+          {/* <Route path="/floating-navigation-ecosystem" element={<FloatingNavigationEcosystem />} /> */}
+          <Route path="/R-Tech" element={<OpeningSequence />} />
+          <Route path="/team" element={<TeamDimension />} />
+          <Route path="/portfolio" element={<PortfolioShowcase />} />
+          <Route path="/process" element={<ProcessTheater />} />
+          <Route path="/contact" element={<ContactInquiryHub />} />
+          <Route path="/performance-optimized-navigation-system" element={<PerformanceOptimizedNavigation />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/pricing" element={<Pricing />} />
+          <Route path="/careers" element={<Careers />} />
+          <Route path="/blogs" element={<Blogs />} />
+          <Route path="/blogs/:id" element={<PostPage />} />
+          <Route path="*" element={<NotFound />} />
+        </RouterRoutes>
       </ErrorBoundary>
     </BrowserRouter>
   );

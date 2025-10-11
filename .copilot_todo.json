@@ -1,0 +1,22 @@
+{
+  "todo": [
+    {
+      "id": 1,
+      "title": "Create Pricing page and components",
+      "description": "Build an advanced Pricing page using existing styles and components; add Pricing components and wire into routes and header.",
+      "status": "in-progress"
+    },
+    {
+      "id": 2,
+      "title": "Add route for /pricing",
+      "description": "Ensure Routes.jsx contains a route that renders the new Pricing page at /pricing.",
+      "status": "not-started"
+    },
+    {
+      "id": 3,
+      "title": "Update Header to highlight Pricing",
+      "description": "Ensure header navigation shows Pricing as active when on /pricing.",
+      "status": "not-started"
+    }
+  ]
+}
