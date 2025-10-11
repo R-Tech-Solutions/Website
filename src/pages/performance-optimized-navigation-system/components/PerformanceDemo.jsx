@@ -14,7 +14,7 @@ const PerformanceDemo = ({ onNavigate }) => {
       title: 'Smart Navigation',
       description: 'Experience optimized page transitions with preloading',
       icon: 'Navigation2',
-      action: () => handleNavigation('/contact-inquiry-hub')
+      action: () => handleNavigation('/contact')
     },
     {
       id: 'scrolling',
@@ -151,7 +151,7 @@ const PerformanceDemo = ({ onNavigate }) => {
                 <Button
                   variant="default"
                   size="lg"
-                  onClick={() => handleNavigation('/contact-inquiry-hub')}
+                  onClick={() => handleNavigation('/contact')}
                   disabled={isLoading}
                   className="bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90"
                   iconName={isLoading ? "Loader2" : "ArrowRight"}

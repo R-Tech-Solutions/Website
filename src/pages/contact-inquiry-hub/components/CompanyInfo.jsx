@@ -8,30 +8,30 @@ const CompanyInfo = () => {
     {
       icon: 'Phone',
       title: 'Call Us',
-      value: '+1 (555) 123-4567',
+      value: '+94 (74) 140-1400',
       description: 'Mon-Fri 9AM-6PM EST',
-      action: () => window.open('tel:+15551234567')
+      action: () => window.open('tel:+94741401400')
     },
     {
       icon: 'Mail',
       title: 'Email Us',
-      value: 'info@rtechsolution.com',
+      value: 'info@rtechsl.com',
       description: 'We respond within 2 hours',
-      action: () => window.open('mailto:info@rtechsolution.com')
+      action: () => window.open('mailto:info@rtechsl.com')
     },
     {
       icon: 'MessageCircle',
       title: 'WhatsApp',
-      value: '+1 (555) 123-4567',
+      value: '+94 (74) 140-1400',
       description: 'Instant messaging support',
-      action: () => window.open('https://wa.me/15551234567')
+      action: () => window.open('https://wa.me/94741401400')
     },
     {
       icon: 'MapPin',
       title: 'Visit Us',
       value: '123 Technology Street',
       description: 'Tech Park, City 12345',
-      action: () => window.open('https://maps.google.com')
+      action: () => window.open('https://maps.app.goo.gl/5JKRLs2BSX8XHDfU9')
     }
   ];
 
@@ -59,7 +59,7 @@ const CompanyInfo = () => {
         className="glass-morphism rounded-3xl p-8 text-center"
       >
         <img 
-          src="/assets/images/image-1760000663777.png" 
+          src="/new brand.png" 
           alt="R-tech Solution Pvt Ltd" 
           className="h-20 w-auto mx-auto mb-6"
         />

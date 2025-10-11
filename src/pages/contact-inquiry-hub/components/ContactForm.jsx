@@ -15,7 +15,15 @@ const ContactForm = ({ selectedService, onSubmit, onBack, isSubmitting }) => {
     timeline: '',
     budget: '',
     message: '',
-    preferredContact: 'email'
+    preferredContact: 'email',
+    // Service-specific fields
+    appPlatform: '',
+    webPlatform: '',
+    posType: '',
+    posCategory: '',
+    cctvLocation: '',
+    cctvQuantity: '',
+    networkingLocation: ''
   });
 
   const [errors, setErrors] = useState({});
@@ -33,6 +41,43 @@ const ContactForm = ({ selectedService, onSubmit, onBack, isSubmitting }) => {
     { value: '30k-50k', label: '$30,000 - $50,000' },
     { value: '50k+', label: '$50,000+' },
     { value: 'discuss', label: 'Let\'s discuss' }
+  ];
+
+  const appPlatformOptions = [
+    { value: 'ios', label: 'iOS' },
+    { value: 'android', label: 'Android' },
+    { value: 'both', label: 'Both/Cross-Platform' }
+  ];
+
+  const webPlatformOptions = [
+    { value: 'portfolio', label: 'Portfolio' },
+    { value: 'ecommerce', label: 'E-commerce' },
+    { value: 'office', label: 'Office' },
+    { value: 'custom', label: 'Custom' }
+  ];
+
+  const posTypeOptions = [
+    { value: 'online', label: 'Online' },
+    { value: 'system', label: 'System' }
+  ];
+
+  const posCategoryOptions = [
+    { value: 'grocery', label: 'Grocery' },
+    { value: 'supermarket', label: 'Supermarket' },
+    { value: 'restaurant', label: 'Restaurant' }
+  ];
+
+  const locationOptions = [
+    { value: 'indoor', label: 'Indoor' },
+    { value: 'outdoor', label: 'Outdoor' }
+  ];
+
+  const cctvQuantityOptions = [
+    { value: '1-5', label: '1-5 cameras' },
+    { value: '6-10', label: '6-10 cameras' },
+    { value: '11-20', label: '11-20 cameras' },
+    { value: '21-50', label: '21-50 cameras' },
+    { value: '50+', label: '50+ cameras' }
   ];
 
   const contactMethods = [
@@ -56,6 +101,25 @@ const ContactForm = ({ selectedService, onSubmit, onBack, isSubmitting }) => {
     else if (!/\S+@\S+\.\S+/?.test(formData?.email)) newErrors.email = 'Email is invalid';
     if (!formData?.phone?.trim()) newErrors.phone = 'Phone number is required';
     if (!formData?.message?.trim()) newErrors.message = 'Message is required';
+
+    // Service-specific validation
+    if (selectedService?.id === 'app' && !formData?.appPlatform) {
+      newErrors.appPlatform = 'Please select a platform';
+    }
+    if (selectedService?.id === 'web' && !formData?.webPlatform) {
+      newErrors.webPlatform = 'Please select a platform';
+    }
+    if (selectedService?.id === 'pos') {
+      if (!formData?.posType) newErrors.posType = 'Please select system type';
+      if (!formData?.posCategory) newErrors.posCategory = 'Please select business category';
+    }
+    if (selectedService?.id === 'cctv') {
+      if (!formData?.cctvLocation) newErrors.cctvLocation = 'Please select location';
+      if (!formData?.cctvQuantity) newErrors.cctvQuantity = 'Please select quantity';
+    }
+    if (selectedService?.id === 'networking' && !formData?.networkingLocation) {
+      newErrors.networkingLocation = 'Please select location';
+    }
 
     setErrors(newErrors);
     return Object.keys(newErrors)?.length === 0;
@@ -147,17 +211,19 @@ const ContactForm = ({ selectedService, onSubmit, onBack, isSubmitting }) => {
 
         {/* Project Details */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <Select
-              label="Project Timeline"
-              value={formData?.timeline}
-              onChange={(value) => handleInputChange('timeline', value)}
-              options={timelineOptions}
-              placeholder="Select timeline"
-              className="glass-select"
-            />
-          </div>
-          <div>
+          {selectedService?.id !== 'cctv' && selectedService?.id !== 'networking' && (
+            <div>
+              <Select
+                label="Project Timeline"
+                value={formData?.timeline}
+                onChange={(value) => handleInputChange('timeline', value)}
+                options={timelineOptions}
+                placeholder="Select timeline"
+                className="glass-select"
+              />
+            </div>
+          )}
+          <div className={selectedService?.id === 'cctv' || selectedService?.id === 'networking' ? 'md:col-span-2' : ''}>
             <Select
               label="Budget Range"
               value={formData?.budget}
@@ -168,6 +234,206 @@ const ContactForm = ({ selectedService, onSubmit, onBack, isSubmitting }) => {
             />
           </div>
         </div>
+
+        {/* Service-Specific Fields */}
+        {/* Mobile App Platform */}
+        {selectedService?.id === 'app' && (
+          <div>
+            <label className="block text-sm font-medium text-glass-text-primary mb-3">
+              Platform *
+            </label>
+            <div className="grid grid-cols-3 gap-3">
+              {appPlatformOptions?.map((platform) => (
+                <motion.button
+                  key={platform?.value}
+                  type="button"
+                  onClick={() => handleInputChange('appPlatform', platform?.value)}
+                  className={`p-3 rounded-xl text-sm font-medium transition-all duration-300 ${
+                    formData?.appPlatform === platform?.value
+                      ? 'glass-interactive text-primary border-primary/20'
+                      : 'glass-surface text-glass-text-secondary hover:glass-interactive'
+                  }`}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  {platform?.label}
+                </motion.button>
+              ))}
+            </div>
+            {errors?.appPlatform && (
+              <p className="text-red-500 text-sm mt-2">{errors?.appPlatform}</p>
+            )}
+          </div>
+        )}
+
+        {/* Web Development Platform */}
+        {selectedService?.id === 'web' && (
+          <div>
+            <label className="block text-sm font-medium text-glass-text-primary mb-3">
+              Platform *
+            </label>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+              {webPlatformOptions?.map((platform) => (
+                <motion.button
+                  key={platform?.value}
+                  type="button"
+                  onClick={() => handleInputChange('webPlatform', platform?.value)}
+                  className={`p-3 rounded-xl text-sm font-medium transition-all duration-300 ${
+                    formData?.webPlatform === platform?.value
+                      ? 'glass-interactive text-primary border-primary/20'
+                      : 'glass-surface text-glass-text-secondary hover:glass-interactive'
+                  }`}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  {platform?.label}
+                </motion.button>
+              ))}
+            </div>
+            {errors?.webPlatform && (
+              <p className="text-red-500 text-sm mt-2">{errors?.webPlatform}</p>
+            )}
+          </div>
+        )}
+
+        {/* POS System Type and Category */}
+        {selectedService?.id === 'pos' && (
+          <>
+            <div>
+              <label className="block text-sm font-medium text-glass-text-primary mb-3">
+                System Type *
+              </label>
+              <div className="grid grid-cols-2 gap-3">
+                {posTypeOptions?.map((type) => (
+                  <motion.button
+                    key={type?.value}
+                    type="button"
+                    onClick={() => handleInputChange('posType', type?.value)}
+                    className={`p-3 rounded-xl text-sm font-medium transition-all duration-300 ${
+                      formData?.posType === type?.value
+                        ? 'glass-interactive text-primary border-primary/20'
+                        : 'glass-surface text-glass-text-secondary hover:glass-interactive'
+                    }`}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    {type?.label}
+                  </motion.button>
+                ))}
+              </div>
+              {errors?.posType && (
+                <p className="text-red-500 text-sm mt-2">{errors?.posType}</p>
+              )}
+            </div>
+            
+            {formData?.posType && (
+              <div>
+                <label className="block text-sm font-medium text-glass-text-primary mb-3">
+                  Business Category *
+                </label>
+                <div className="grid grid-cols-3 gap-3">
+                  {posCategoryOptions?.map((category) => (
+                    <motion.button
+                      key={category?.value}
+                      type="button"
+                      onClick={() => handleInputChange('posCategory', category?.value)}
+                      className={`p-3 rounded-xl text-sm font-medium transition-all duration-300 ${
+                        formData?.posCategory === category?.value
+                          ? 'glass-interactive text-primary border-primary/20'
+                          : 'glass-surface text-glass-text-secondary hover:glass-interactive'
+                      }`}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      {category?.label}
+                    </motion.button>
+                  ))}
+                </div>
+                {errors?.posCategory && (
+                  <p className="text-red-500 text-sm mt-2">{errors?.posCategory}</p>
+                )}
+              </div>
+            )}
+          </>
+        )}
+
+        {/* CCTV Location and Quantity */}
+        {selectedService?.id === 'cctv' && (
+          <>
+            <div>
+              <label className="block text-sm font-medium text-glass-text-primary mb-3">
+                Location *
+              </label>
+              <div className="grid grid-cols-2 gap-3">
+                {locationOptions?.map((location) => (
+                  <motion.button
+                    key={location?.value}
+                    type="button"
+                    onClick={() => handleInputChange('cctvLocation', location?.value)}
+                    className={`p-3 rounded-xl text-sm font-medium transition-all duration-300 ${
+                      formData?.cctvLocation === location?.value
+                        ? 'glass-interactive text-primary border-primary/20'
+                        : 'glass-surface text-glass-text-secondary hover:glass-interactive'
+                    }`}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    {location?.label}
+                  </motion.button>
+                ))}
+              </div>
+              {errors?.cctvLocation && (
+                <p className="text-red-500 text-sm mt-2">{errors?.cctvLocation}</p>
+              )}
+            </div>
+
+            {formData?.cctvLocation && (
+              <div>
+                <Select
+                  label="Number of Cameras *"
+                  value={formData?.cctvQuantity}
+                  onChange={(value) => handleInputChange('cctvQuantity', value)}
+                  options={cctvQuantityOptions}
+                  placeholder="Select quantity range"
+                  className="glass-select"
+                />
+                {errors?.cctvQuantity && (
+                  <p className="text-red-500 text-sm mt-2">{errors?.cctvQuantity}</p>
+                )}
+              </div>
+            )}
+          </>
+        )}
+
+        {/* Networking Location */}
+        {selectedService?.id === 'networking' && (
+          <div>
+            <label className="block text-sm font-medium text-glass-text-primary mb-3">
+              Location *
+            </label>
+            <div className="grid grid-cols-2 gap-3">
+              {locationOptions?.map((location) => (
+                <motion.button
+                  key={location?.value}
+                  type="button"
+                  onClick={() => handleInputChange('networkingLocation', location?.value)}
+                  className={`p-3 rounded-xl text-sm font-medium transition-all duration-300 ${
+                    formData?.networkingLocation === location?.value
+                      ? 'glass-interactive text-primary border-primary/20'
+                      : 'glass-surface text-glass-text-secondary hover:glass-interactive'
+                  }`}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  {location?.label}
+                </motion.button>
+              ))}
+            </div>
+            {errors?.networkingLocation && (
+              <p className="text-red-500 text-sm mt-2">{errors?.networkingLocation}</p>
+            )}
+          </div>
+        )}
 
         {/* Preferred Contact Method */}
         <div>

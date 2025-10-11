@@ -13,7 +13,7 @@ const ContactInquiryHub = () => {
   const [formStep, setFormStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const containerRef = useRef(null);
-  
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"]
@@ -110,9 +110,9 @@ const ContactInquiryHub = () => {
             className="mb-12"
           >
             <div className="flex items-center justify-center mb-6">
-              <img 
-                src="/assets/images/image-1760000663777.png" 
-                alt="R-tech Solution Pvt Ltd" 
+              <img
+                src="/new brand.png"
+                alt="R-tech Solution Pvt Ltd"
                 className="h-16 w-auto mr-4"
               />
               <div className="text-left">
@@ -122,9 +122,9 @@ const ContactInquiryHub = () => {
                 <p className="text-lg text-glass-text-secondary mt-2">R-tech Solution Pvt Ltd</p>
               </div>
             </div>
-            
+
             <p className="text-xl md:text-2xl text-glass-text-secondary max-w-4xl mx-auto leading-relaxed">
-              Get in touch with R-tech Solution Pvt Ltd for all your technology needs. 
+              Get in touch with R-tech Solution Pvt Ltd for all your technology needs.
               We specialize in POS systems, mobile apps, web development, CCTV, and networking solutions.
             </p>
           </motion.div>
@@ -187,31 +187,43 @@ const ContactInquiryHub = () => {
                 Located in the heart of the technology district
               </p>
             </div>
-            
-            <div className="glass-interactive rounded-2xl overflow-hidden h-96 bg-card/50 flex items-center justify-center">
-              <div className="text-center">
-                <Icon name="MapPin" size={48} className="text-primary mx-auto mb-4" />
-                <h3 className="text-xl font-semibold text-glass-text-primary mb-2">
-                  R-tech Solution Pvt Ltd
-                </h3>
-                <p className="text-glass-text-secondary">
-                  123 Technology Street<br />
-                  Tech Park, City 12345<br />
-                  Phone: +1 (555) 123-4567
-                </p>
+
+            {/* Interactive Map Section */}
+            <motion.div
+              className="group relative glass-interactive rounded-2xl overflow-hidden h-96 bg-card/50"
+              whileHover={{ scale: 1.02 }}
+              transition={{ duration: 0.4 }}
+            >
+              {/* Google Map (Default View) */}
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3957.582873154662!2d80.6262631105786!3d7.288207992688839!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae3695e645b83af%3A0xa5d2d32338faae42!2sR-Tech%20Solutions%20Private%20Limited!5e0!3m2!1sen!2slk!4v1760157358429!5m2!1sen!2slk"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen=""
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                className="absolute inset-0 w-full h-full"
+              ></iframe>
+
+              {/* Overlay Card (Visible on Hover) */}
+              <div className="absolute inset-0 flex items-center justify-center bg-black/50 backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                <div className="bg-white/90 rounded-xl p-6 text-center shadow-xl transform scale-95 group-hover:scale-100 transition-all duration-500 max-w-sm mx-auto">
+                  <Icon name="MapPin" size={40} className="text-primary mx-auto mb-3" />
+                  <h3 className="text-xl font-semibold text-gray-800 mb-2">
+                    R-tech Solution Pvt Ltd
+                  </h3>
+                  <p className="text-gray-600">
+                    262 Peradeniya Road<br />
+                    Kandy<br />
+                    Phone: +94 (76) 618-7001
+                  </p>
+                </div>
               </div>
-            </div>
+            </motion.div>
           </motion.div>
         </div>
       </section>
-      {/* Footer */}
-      <footer className="py-8 px-4 sm:px-6 lg:px-8 border-t border-white/10">
-        <div className="max-w-7xl mx-auto text-center">
-          <p className="text-glass-text-secondary">
-            © {new Date()?.getFullYear()} R-tech Solution Pvt Ltd. Empowering businesses with technology.
-          </p>
-        </div>
-      </footer>
     </div>
   );
 };

@@ -11,7 +11,7 @@ import PortfolioShowcase from './pages/portfolio-showcase';
 import ProcessTheater from './pages/process-theater';
 import ContactInquiryHub from './pages/contact-inquiry-hub';
 import PerformanceOptimizedNavigation from './pages/performance-optimized-navigation-system';
-
+import Home from './pages/home'
 const Routes = () => {
   return (
     <BrowserRouter>
@@ -22,12 +22,13 @@ const Routes = () => {
         <Route path="/" element={<OpeningSequence />} />
         <Route path="/services" element={<ServicesRevelation />} />
         {/* <Route path="/floating-navigation-ecosystem" element={<FloatingNavigationEcosystem />} /> */}
-        <Route path="/3d-opening-sequence" element={<OpeningSequence />} />
+        <Route path="/seq" element={<OpeningSequence />} />
         <Route path="/team" element={<TeamDimension />} />
         <Route path="/portfolio" element={<PortfolioShowcase />} />
         <Route path="/process" element={<ProcessTheater />} />
-        <Route path="/contact-inquiry-hub" element={<ContactInquiryHub />} />
+        <Route path="/contact" element={<ContactInquiryHub />} />
         <Route path="/performance-optimized-navigation-system" element={<PerformanceOptimizedNavigation />} />
+        <Route path="/home" element={<Home />}/>
         <Route path="*" element={<NotFound />} />
       </RouterRoutes>
       </ErrorBoundary>

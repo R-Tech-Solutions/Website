@@ -19,17 +19,19 @@ const Header = () => {
   }, []);
 
   const navigationItems = [
+    { name: 'Home', path: '/home', icon: 'Layers' },
     { name: 'Portfolio', path: '/portfolio', icon: 'Layers' },
     { name: 'Services', path: '/services', icon: 'Sparkles' },
     { name: 'Process', path: '/process', icon: 'Workflow' },
     { name: 'Team', path: '/team', icon: 'Users' },
+    { name: 'Careers', path: '/careers', icon: 'Users' },
   ];
 
 
   const isActivePath = (path) => location?.pathname === path;
 
   const Logo = () => (
-    <Link to="/3d-opening-sequence" className="flex items-center space-x-3 group">
+    <Link to="/seq" className="flex items-center space-x-3 group">
       <div className="relative">
         <div className="w-10 h-10 glass-morphism rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
           <img

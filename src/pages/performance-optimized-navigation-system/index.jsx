@@ -88,7 +88,7 @@ const PerformanceOptimizedNavigation = () => {
     setIsNavigating(true);
     
     // Preload critical resources for target page
-    if (path === '/contact-inquiry-hub') {
+    if (path === '/contact') {
       // Preload contact page components
       await Promise.all([
         import('../contact-inquiry-hub/components/ContactForm'),
@@ -195,7 +195,7 @@ const PerformanceOptimizedNavigation = () => {
               className="bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90"
               iconName="Zap"
               iconPosition="right"
-              onClick={() => handleNavigate('/contact-inquiry-hub')}
+              onClick={() => handleNavigate('/contact')}
               disabled={isNavigating}
             >
               {isNavigating ? 'Loading...' : 'Try Our Services'}
