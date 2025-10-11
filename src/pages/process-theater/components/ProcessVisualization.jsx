@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Icon from '../../../components/AppIcon';
 
-const ProcessVisualization = ({ activeStage, projectType }) => {
+const ProcessVisualization = ({ activeStage, projectType, onNodeClick }) => {
   const [flowAnimation, setFlowAnimation] = useState(0);
   const [particlePositions, setParticlePositions] = useState([]);
 
@@ -36,7 +36,7 @@ const ProcessVisualization = ({ activeStage, projectType }) => {
     },
     {
       id: 'strategy',
-      name: 'Strategy',
+      name: 'Define',
       icon: 'Target',
       position: { x: 30, y: 10 },
       connections: ['design'],
@@ -60,7 +60,7 @@ const ProcessVisualization = ({ activeStage, projectType }) => {
     },
     {
       id: 'testing',
-      name: 'Testing',
+      name: 'Debug',
       icon: 'CheckCircle',
       position: { x: 85, y: 40 },
       connections: ['launch'],
@@ -68,7 +68,7 @@ const ProcessVisualization = ({ activeStage, projectType }) => {
     },
     {
       id: 'launch',
-      name: 'Launch',
+      name: 'Deliver',
       icon: 'Rocket',
       position: { x: 90, y: 70 },
       connections: [],
@@ -219,7 +219,7 @@ const ProcessVisualization = ({ activeStage, projectType }) => {
         {processNodes?.map((node, index) => (
           <motion.div
             key={node?.id}
-            className="absolute transform -translate-x-1/2 -translate-y-1/2"
+            className={`absolute transform -translate-x-1/2 -translate-y-1/2 ${onNodeClick ? 'cursor-pointer' : ''}`}
             style={{
               left: `${node?.position?.x}%`,
               top: `${node?.position?.y}%`
@@ -227,29 +227,42 @@ const ProcessVisualization = ({ activeStage, projectType }) => {
             initial={{ scale: 0, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ delay: index * 0.2, duration: 0.5 }}
+            onClick={() => {
+              if (typeof onNodeClick === 'function') onNodeClick(index);
+            }}
+            whileHover={onNodeClick ? { scale: 1.03 } : undefined}
+            whileTap={onNodeClick ? { scale: 0.98 } : undefined}
           >
             {/* Node Container */}
-            <div className={`relative w-16 h-16 rounded-2xl flex items-center justify-center transition-all duration-500 ${
-              isNodeCurrent(index)
-                ? 'glass-interactive shadow-glass-interactive scale-110'
-                : isNodeActive(index)
-                ? `bg-gradient-to-br ${node?.color} text-white shadow-glass`
-                : 'glass-surface text-glass-text-secondary'
-            }`}>
-              <Icon name={node?.icon} size={20} />
-              
-              {/* Active Pulse */}
+            <div className="relative flex items-center justify-center">
+              {/* Highlight ring for current node */}
+              {isNodeCurrent(index) && (
+                <div className="absolute -inset-1 rounded-2xl pointer-events-none" style={{ boxShadow: '0 8px 22px rgba(99,102,241,0.16), 0 3px 8px rgba(139,92,246,0.08)', border: '2px solid rgba(99,102,241,0.10)' }} />
+              )}
+
+              {/* Halo behind the node so the icon remains visible */}
               {isNodeCurrent(index) && (
                 <motion.div
-                  className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary/20 to-accent/20"
-                  animate={{ scale: [1, 1.2, 1] }}
+                  className="absolute rounded-2xl"
+                  style={{ width: '72px', height: '72px', background: 'radial-gradient(closest-side, rgba(99,102,241,0.12), rgba(139,92,246,0.05), transparent)' }}
+                  animate={{ scale: [1, 1.06, 1] }}
                   transition={{ duration: 2, repeat: Infinity }}
                 />
               )}
-              
+
+              <div className={`relative w-16 h-16 rounded-2xl flex items-center justify-center transition-all duration-500 z-10 ${
+                isNodeCurrent(index)
+                  ? 'glass-interactive shadow-glass-interactive scale-105'
+                  : isNodeActive(index)
+                  ? `bg-gradient-to-br ${node?.color} text-white shadow-glass`
+                  : 'glass-surface text-glass-text-secondary'
+              }`}>
+                <Icon name={node?.icon} size={20} />
+              </div>
+
               {/* Completion Check */}
               {isNodeActive(index) && !isNodeCurrent(index) && (
-                <div className="absolute -top-1 -right-1 w-5 h-5 bg-success rounded-full flex items-center justify-center">
+                <div className="absolute -top-1 -right-1 w-5 h-5 bg-success rounded-full flex items-center justify-center z-20">
                   <Icon name="Check" size={12} className="text-white" />
                 </div>
               )}

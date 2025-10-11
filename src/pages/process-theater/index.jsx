@@ -180,6 +180,7 @@ const ProcessTheater = () => {
             <ProcessVisualization
               activeStage={activeStage}
               projectType={selectedProjectType}
+              onNodeClick={handleTimelineClick}
             />
           </motion.div>
 

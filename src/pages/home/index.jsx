@@ -6,7 +6,8 @@ import TrustedLogos from "./components/TrustedLogos";
 import Testimonials from "./components/Testimonials";
 import TechStack from "./components/TechStack";
 import ClientsScroller from "./components/ClientsScroller";
-
+import Process from "../process-theater";
+import Team from "../team-dimension"
 const TABS = [
 	{ id: 'home', label: 'Home' },
 	{ id: 'download', label: 'Download' },
@@ -27,7 +28,9 @@ export default function Home() {
 				<TrustedLogos />
 				<Testimonials />
 				<TechStack />
+				<Process/>
 				<ClientsScroller />
+				<Team/>
 			</div>
 
 
