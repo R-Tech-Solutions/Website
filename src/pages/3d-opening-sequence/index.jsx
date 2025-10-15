@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import Header from '../../components/ui/Header';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import GlassParticleSystem from './components/GlassParticleSystem';
 import MorphingGeometry from './components/MorphingGeometry';
 import CinematicTitle from './components/CinematicTitle';
@@ -12,13 +11,17 @@ const OpeningSequence = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [sequencePhase, setSequencePhase] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
-  const [isMotionReduced, setIsMotionReduced] = useState(false);
   const [showNavigation, setShowNavigation] = useState(false);
   const [userInteracted, setUserInteracted] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const [devicePerformance, setDevicePerformance] = useState('high');
+
+  // Use framer-motion's built-in reduced motion detection
+  const shouldReduceMotion = useReducedMotion();
 
   // Sequence phases: 0=particles, 1=geometry, 2=title, 3=complete
   const totalPhases = 4;
-  const phaseDuration = 3000; // 3 seconds per phase
+  const phaseDuration = useMemo(() => isMobile ? 2000 : 3000, [isMobile]); // Faster on mobile
 
   // Handle loading completion
   const handleLoadingComplete = useCallback(() => {

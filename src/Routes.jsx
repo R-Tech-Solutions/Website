@@ -17,6 +17,7 @@ import Blogs from './pages/Blogs'
 import PostPage from './pages/Blogs/Post'
 import Pricing from './pages/Pricing'
 import AppsList from './pages/apps/AppsList';
+import Faqs from './pages/Faqs';
 const Routes = () => {
   return (
     <BrowserRouter>
@@ -39,6 +40,7 @@ const Routes = () => {
           <Route path="/careers" element={<Careers />} />
           <Route path="/blogs" element={<Blogs />} />
           <Route path="/blogs/:id" element={<PostPage />} />
+          <Route path="/faqs" element={<Faqs />} />
           <Route path="*" element={<NotFound />} />
         </RouterRoutes>
       </ErrorBoundary>

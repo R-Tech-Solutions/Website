@@ -20,95 +20,132 @@ const TeamMemberCard = ({ member, index }) => {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Glass Container */}
-      <div className="relative glass-morphism rounded-2xl p-6 transform-3d transition-all duration-500 hover:scale-105 hover:shadow-2xl">
+      {/* Glass Container with Fixed Height */}
+      <div className="relative glass-morphism rounded-2xl overflow-hidden h-[420px] transform-3d transition-all duration-500 hover:scale-105 hover:shadow-2xl">
+        
+        {/* Blurred Background Image */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src={member?.avatar || "/placeholder.svg"}
+            alt={member?.name}
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 backdrop-blur-sm bg-black/20"></div>
+        </div>
+
         {/* Ambient Glow */}
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-accent/10 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0"></div>
 
-        {/* Colorful Social Media Icons Section for Partners only */}
-        {member?.department === "Partners" && member?.socialMedia && (
-          <div className="flex justify-center gap-3 mb-6 relative z-10">
-            {member?.socialMedia?.linkedin && (
-              <a
-                href={member?.socialMedia?.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg bg-[#0A66C2] text-white"
-                onClick={(e) => e.stopPropagation()}
-                title="LinkedIn"
-              >
-                <Icon name="Linkedin" size={20} />
-              </a>
-            )}
-            {member?.socialMedia?.whatsapp && (
-              <a
-                href={`https://wa.me/${member?.socialMedia?.whatsapp?.replace(/[^0-9]/g, "")}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg bg-[#25D366] text-white"
-                onClick={(e) => e.stopPropagation()}
-                title="WhatsApp"
-              >
-                <Icon name="MessageCircle" size={20} />
-              </a>
-            )}
-            {member?.socialMedia?.website && (
-              <a
-                href={member?.socialMedia?.website}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg bg-gradient-to-br from-purple-500 to-pink-500 text-white"
-                onClick={(e) => e.stopPropagation()}
-                title="Website"
-              >
-                <Icon name="Globe" size={20} />
-              </a>
-            )}
-          </div>
-        )}
+        {/* Content Container */}
+        <div className="relative z-10 h-full flex flex-col justify-between p-6">
+          
+          {/* Top Section */}
+          <div className="flex-1 flex flex-col items-center justify-center">
+            {/* Avatar Container */}
+            <div className="relative mb-4">
+              <div className="w-28 h-28 mx-auto glass-surface rounded-full p-1 overflow-hidden shadow-xl">
+                <div className="w-full h-full rounded-full overflow-hidden relative">
+                  <Image
+                    src={member?.avatar || "/placeholder.svg"}
+                    alt={member?.name}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                  {/* Glass Overlay Effect */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent rounded-full"></div>
+                </div>
+              </div>
+            </div>
 
-        {/* Avatar Container */}
-        <div className="relative mb-6 z-10">
-          <div className="w-24 h-24 mx-auto glass-surface rounded-full p-1 overflow-hidden">
-            <div className="w-full h-full rounded-full overflow-hidden relative">
-              <Image
-                src={member?.avatar || "/placeholder.svg"}
-                alt={member?.name}
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-              />
-              {/* Glass Overlay Effect */}
-              <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent rounded-full"></div>
+            <div className="text-center mb-4">
+              <h3 className="text-xl font-bold text-gray-900 mb-1 drop-shadow-lg">{member?.name}</h3>
+              <p className="text-sm text-gray-800 font-medium mb-2 drop-shadow">{member?.role}</p>
+              <p className="text-xs text-gray-700 drop-shadow">{member?.experience} years experience</p>
+            </div>
+
+            {/* Specialties */}
+            <div className="mb-2">
+              <div className="flex flex-wrap gap-1 justify-center">
+                {member?.specialties?.slice(0, 3)?.map((specialty, idx) => (
+                  <span key={idx} className="px-3 py-1 text-xs bg-gray-900/80 backdrop-blur-sm rounded-full text-white font-medium">
+                    {specialty}
+                  </span>
+                ))}
+                {member?.specialties?.length > 3 && (
+                  <span className="px-3 py-1 text-xs bg-gray-900/80 backdrop-blur-sm rounded-full text-white font-medium">
+                    +{member?.specialties?.length - 3}
+                  </span>
+                )}
+              </div>
             </div>
           </div>
+
+          {/* Social Media Section - Bottom Card */}
+          {member?.department === "Partners" && member?.socialMedia && (
+            <motion.div
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ 
+                y: isHovered ? 0 : 20, 
+                opacity: isHovered ? 1 : 0 
+              }}
+              transition={{ duration: 0.3 }}
+              className="relative"
+            >
+              <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/20 shadow-lg transition-all duration-300 hover:bg-white/20 hover:shadow-2xl hover:scale-[1.02]">
+                <div className="flex justify-center gap-4">
+                  {member?.socialMedia?.linkedin && (
+                    <motion.a
+                      href={member?.socialMedia?.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 bg-[#0A66C2] text-white shadow-lg"
+                      onClick={(e) => e.stopPropagation()}
+                      title="LinkedIn"
+                      whileHover={{ scale: 1.15, rotate: 5 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <Icon name="Linkedin" size={22} />
+                    </motion.a>
+                  )}
+                  {member?.socialMedia?.whatsapp && (
+                    <motion.a
+                      href={`https://wa.me/${member?.socialMedia?.whatsapp?.replace(/[^0-9]/g, "")}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 bg-[#25D366] text-white shadow-lg"
+                      onClick={(e) => e.stopPropagation()}
+                      title="WhatsApp"
+                      whileHover={{ scale: 1.15, rotate: -5 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <Icon name="MessageCircle" size={22} />
+                    </motion.a>
+                  )}
+                  {member?.socialMedia?.website && (
+                    <motion.a
+                      href={member?.socialMedia?.website}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 bg-gradient-to-br from-purple-500 to-pink-500 text-white shadow-lg"
+                      onClick={(e) => e.stopPropagation()}
+                      title="Website"
+                      whileHover={{ scale: 1.15, rotate: 5 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <Icon name="Globe" size={22} />
+                    </motion.a>
+                  )}
+                </div>
+              </div>
+            </motion.div>
+          )}
         </div>
 
-        <div className="text-center mb-4 relative z-10">
-          <h3 className="text-lg font-semibold text-glass-text-primary mb-1">{member?.name}</h3>
-          <p className="text-sm text-primary font-medium mb-2">{member?.role}</p>
-          <p className="text-xs text-glass-text-secondary">{member?.experience} years experience</p>
-        </div>
-
-        {/* Specialties */}
-        <div className="mb-4 relative z-10">
-          <div className="flex flex-wrap gap-1 justify-center">
-            {member?.specialties?.slice(0, 3)?.map((specialty, idx) => (
-              <span key={idx} className="px-2 py-1 text-xs glass-surface rounded-full text-glass-text-secondary">
-                {specialty}
-              </span>
-            ))}
-            {member?.specialties?.length > 3 && (
-              <span className="px-2 py-1 text-xs glass-surface rounded-full text-glass-text-secondary">
-                +{member?.specialties?.length - 3}
-              </span>
-            )}
-          </div>
-        </div>
         {/* Floating Particles */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden rounded-2xl">
+        <div className="absolute inset-0 pointer-events-none overflow-hidden rounded-2xl z-[5]">
           {[...Array(3)]?.map((_, i) => (
             <motion.div
               key={i}
-              className="absolute w-1 h-1 bg-primary/30 rounded-full"
+              className="absolute w-1 h-1 bg-white/40 rounded-full"
               style={{
                 left: `${20 + i * 30}%`,
                 top: `${10 + i * 20}%`,
@@ -130,4 +167,4 @@ const TeamMemberCard = ({ member, index }) => {
   )
 }
 
-export default TeamMemberCard
+export default TeamMemberCard     

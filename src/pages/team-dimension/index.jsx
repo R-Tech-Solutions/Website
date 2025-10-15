@@ -330,46 +330,6 @@ const TeamDimension = () => {
           )}
         </div>
       </section>
-      {/* CTA Section */}
-      <section className="py-16 relative">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="glass-morphism rounded-3xl p-12"
-          >
-            <h2 className="text-3xl font-bold text-glass-text-primary mb-6">Ready to Work with Our Team?</h2>
-            <p className="text-lg text-glass-text-secondary mb-8 max-w-2xl mx-auto">
-              Let's discuss how our talented team can bring your vision to life with cutting-edge technology and
-              creative excellence.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button
-                variant="default"
-                size="lg"
-                className="bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90"
-                iconName="MessageCircle"
-                iconPosition="left"
-              >
-                Start a Project
-              </Button>
-              <Link to="/portfolio">
-                <Button
-                  variant="outline"
-                  size="lg"
-                  className="glass-interactive border-primary/20 text-primary hover:bg-primary/10 bg-transparent"
-                  iconName="Layers"
-                  iconPosition="left"
-                >
-                  View Our Work
-                </Button>
-              </Link>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-      {/* Floating Navigation */}
       <div className="fixed bottom-8 right-8 z-40">
         <div className="flex flex-col space-y-3">
           <Link to="/process">
