@@ -98,7 +98,7 @@ const ProcessTheater = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-card to-background relative overflow-hidden">
       <Helmet>
-        <title>Process Theater - GlassForge Studio | Methodology Visualization</title>
+        <title>R-Tech Solutions</title>
         <meta name="description" content="Experience our transparent development process through interactive glass pipeline animations. See how we transform ideas into exceptional digital experiences." />
         <meta name="keywords" content="development process, project methodology, glass morphism, interactive visualization, web development workflow" />
       </Helmet>
@@ -333,29 +333,6 @@ const ProcessTheater = () => {
             <p className="text-lg text-glass-text-secondary mb-8">
               Let's discuss your project and create a customized process roadmap tailored to your needs
             </p>
-            
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button
-                variant="default"
-                size="lg"
-                onClick={handleInquiryToggle}
-                className="bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 shadow-glass"
-                iconName="MessageSquare"
-                iconPosition="left"
-              >
-                Start Project Inquiry
-              </Button>
-              
-              <Button
-                variant="outline"
-                size="lg"
-                className="glass-interactive border-primary/20 text-primary hover:bg-primary/10"
-                iconName="Calendar"
-                iconPosition="left"
-              >
-                Schedule Consultation
-              </Button>
-            </div>
           </motion.div>
 
           {/* Inquiry Form */}
@@ -374,13 +351,6 @@ const ProcessTheater = () => {
         </div>
       </section>
       {/* Footer */}
-      <footer className="py-8 px-4 sm:px-6 lg:px-8 border-t border-border/20">
-        <div className="max-w-7xl mx-auto text-center">
-          <p className="text-glass-text-secondary">
-            © {new Date()?.getFullYear()} GlassForge Studio. Crafting digital experiences with transparent innovation.
-          </p>
-        </div>
-      </footer>
     </div>
   );
 };

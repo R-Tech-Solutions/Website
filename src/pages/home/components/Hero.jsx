@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Play, Download, ArrowRight, Zap, Sparkles, Code, Palette, Layers, Globe, TrendingUp, Award, Users } from 'lucide-react';
+import { Cpu, ShieldCheck, Network, Workflow } from 'lucide-react';
 
 // ParallaxImage component (local to Hero)
 function ParallaxImage() {
@@ -178,10 +178,30 @@ export default function Hero() {
     }, []);
 
     const features = [
-        { icon: Zap, label: 'Performance', desc: 'PageSpeed, Core Web Vitals', color: 'from-blue-500 to-cyan-500' },
-        { icon: Palette, label: 'Design Systems', desc: 'Scalable UI patterns', color: 'from-violet-500 to-purple-500' },
-        { icon: Layers, label: '3D Experiences', desc: 'WebGL & Three.js', color: 'from-emerald-500 to-green-500' },
-        { icon: Code, label: 'Clean Code', desc: 'TypeScript & React', color: 'from-amber-500 to-orange-500' }
+        {
+            icon: Cpu,
+            label: 'Next-Gen Digital Solutions',
+            desc: 'Future-ready tech for modern business',
+            color: 'from-sky-500 to-blue-600'
+        },
+        {
+            icon: ShieldCheck,
+            label: 'Advanced Security & Surveillance',
+            desc: 'Smart systems to keep you protected',
+            color: 'from-purple-500 to-indigo-600'
+        },
+        {
+            icon: Network,
+            label: 'Smart Infrastructure Design',
+            desc: 'Efficient, scalable IT frameworks',
+            color: 'from-emerald-500 to-green-600'
+        },
+        {
+            icon: Workflow,
+            label: 'Reliable System Integration',
+            desc: 'Seamless tech connectivity made easy',
+            color: 'from-amber-500 to-orange-600'
+        }
     ];
     return (
         <section className="relative pt-32 pb-20 overflow-hidden" onMouseMove={handleMouseMove}>

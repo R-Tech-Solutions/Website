@@ -16,6 +16,7 @@ import Careers from './pages/Careers'
 import Blogs from './pages/Blogs'
 import PostPage from './pages/Blogs/Post'
 import Pricing from './pages/Pricing'
+import AppsList from './pages/apps/AppsList';
 const Routes = () => {
   return (
     <BrowserRouter>
@@ -33,6 +34,7 @@ const Routes = () => {
           <Route path="/contact" element={<ContactInquiryHub />} />
           <Route path="/performance-optimized-navigation-system" element={<PerformanceOptimizedNavigation />} />
           <Route path="/home" element={<Home />} />
+          <Route path="/apps" element={<AppsList />} />
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/careers" element={<Careers />} />
           <Route path="/blogs" element={<Blogs />} />

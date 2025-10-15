@@ -375,14 +375,6 @@ const ServicesRevelation = () => {
         onClose={() => setIsModalOpen(false)}
         onBookConsultation={handleBookConsultation}
       />
-      {/* Footer */}
-      <footer className="py-8 px-4 sm:px-6 lg:px-8 border-t border-white/10">
-        <div className="max-w-7xl mx-auto text-center">
-          <p className="text-glass-text-secondary">
-            © {new Date()?.getFullYear()} R-tech Solution Pvt Ltd. Empowering businesses with technology.
-          </p>
-        </div>
-      </footer>
     </div>
   );
 };

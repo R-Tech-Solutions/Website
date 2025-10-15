@@ -7,30 +7,37 @@ import Button from '../../../components/ui/Button';
 const NavigationPrompt = ({ isVisible, onExplore }) => {
   const navigationItems = [
     {
-      title: "Portfolio Showcase",
+      title: "Portfolio",
       description: "Explore our crafted digital experiences",
-      path: "/portfolio",
+      path: "/portfolio",    
       icon: "Layers",
       color: "from-primary to-primary/70"
     },
     {
-      title: "Services Revelation",
+      title: "Services",
       description: "Discover our creative capabilities",
       path: "/services",
       icon: "Sparkles",
       color: "from-accent to-accent/70"
     },
     {
-      title: "Team Dimension",
+      title: "Blog",
       description: "Meet the minds behind the magic",
-      path: "/team",
+      path: "/blogs",
       icon: "Users",
       color: "from-success to-success/70"
     },
     {
-      title: "Process Theater",
+      title: "Careers",
       description: "Journey through our methodology",
       path: "/process",
+      icon: "Workflow",
+      color: "from-warning to-warning/70"
+    },
+    {
+      title: "Contact Us",
+      description: "Journey through our methodology",
+      path: "/contact",
       icon: "Workflow",
       color: "from-warning to-warning/70"
     }
@@ -172,7 +179,7 @@ const NavigationPrompt = ({ isVisible, onExplore }) => {
           variants={itemVariants}
         >
 
-          <Link to="/portfolio">
+          <Link to="/home">
             <Button
               variant="default"
               size="lg"

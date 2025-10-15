@@ -4,8 +4,9 @@ import Image from '../../../components/AppImage';
 import Icon from '../../../components/AppIcon';
 import Button from '../../../components/ui/Button';
 
+
 const TeamProfileModal = ({ member, isOpen, onClose }) => {
-  if (!member) return null;
+  if (!member) return null
 
   return (
     <AnimatePresence>
@@ -44,61 +45,76 @@ const TeamProfileModal = ({ member, isOpen, onClose }) => {
                   <div className="relative">
                     <div className="w-32 h-32 glass-surface rounded-2xl p-2 overflow-hidden">
                       <Image
-                        src={member?.avatar}
+                        src={member?.avatar || "/placeholder.svg"}
                         alt={member?.name}
                         className="w-full h-full object-cover rounded-xl"
                       />
                       <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent rounded-2xl"></div>
                     </div>
-                    <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-success rounded-full glass-morphism flex items-center justify-center">
-                      <div className="w-3 h-3 bg-success rounded-full"></div>
-                    </div>
+                    {member?.isOnline && (
+                      <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-success rounded-full glass-morphism flex items-center justify-center">
+                        <div className="w-3 h-3 bg-success rounded-full"></div>
+                      </div>
+                    )}
                   </div>
 
                   {/* Basic Info */}
                   <div className="flex-1">
-                    <h2 className="text-2xl font-bold text-glass-text-primary mb-2">
-                      {member?.name}
-                    </h2>
-                    <p className="text-lg text-primary font-medium mb-2">
-                      {member?.role}
-                    </p>
+                    <h2 className="text-2xl font-bold text-glass-text-primary mb-2">{member?.name}</h2>
+                    <p className="text-lg text-primary font-medium mb-2">{member?.role}</p>
                     <p className="text-glass-text-secondary mb-4">
                       {member?.experience} years of experience in {member?.department}
                     </p>
-                    
-                    {/* Quick Stats */}
-                    <div className="grid grid-cols-3 gap-4">
-                      <div className="text-center glass-surface rounded-lg p-3">
-                        <div className="text-xl font-bold text-primary">{member?.projectsCompleted}</div>
-                        <div className="text-xs text-glass-text-secondary">Projects</div>
-                      </div>
-                      <div className="text-center glass-surface rounded-lg p-3">
-                        <div className="text-xl font-bold text-accent">{member?.clientRating}</div>
-                        <div className="text-xs text-glass-text-secondary">Rating</div>
-                      </div>
-                      <div className="text-center glass-surface rounded-lg p-3">
-                        <div className="text-xl font-bold text-success">{member?.certifications}</div>
-                        <div className="text-xs text-glass-text-secondary">Certs</div>
-                      </div>
-                    </div>
                   </div>
                 </div>
+
+                {member?.socialMedia && (
+                  <div className="mt-6 pt-6 border-t border-glass-border">
+                    <h3 className="text-sm font-semibold text-glass-text-primary mb-3 flex items-center">
+                      <Icon name="Share2" size={16} className="mr-2 text-primary" />
+                      Connect
+                    </h3>
+                    <div className="flex gap-3">
+                      {member?.socialMedia?.website && (
+                        <a
+                          href={member?.socialMedia?.website}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-2 px-4 py-2 glass-surface rounded-lg hover:bg-primary/10 transition-colors"
+                        >
+                          <Icon name="Globe" size={18} className="text-primary" />
+                          <span className="text-sm text-glass-text-secondary">Website</span>
+                        </a>
+                      )}
+                      {member?.socialMedia?.linkedin && (
+                        <a
+                          href={member?.socialMedia?.linkedin}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-2 px-4 py-2 glass-surface rounded-lg hover:bg-primary/10 transition-colors"
+                        >
+                          <Icon name="Linkedin" size={18} className="text-primary" />
+                          <span className="text-sm text-glass-text-secondary">LinkedIn</span>
+                        </a>
+                      )}
+                      {member?.socialMedia?.whatsapp && (
+                        <a
+                          href={`https://wa.me/${member?.socialMedia?.whatsapp?.replace(/[^0-9]/g, "")}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-2 px-4 py-2 glass-surface rounded-lg hover:bg-primary/10 transition-colors"
+                        >
+                          <Icon name="MessageCircle" size={18} className="text-primary" />
+                          <span className="text-sm text-glass-text-secondary">WhatsApp</span>
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                )}
               </div>
 
               {/* Content */}
               <div className="px-8 pb-8 space-y-6">
-                {/* Bio */}
-                <div>
-                  <h3 className="text-lg font-semibold text-glass-text-primary mb-3 flex items-center">
-                    <Icon name="User" size={20} className="mr-2 text-primary" />
-                    About
-                  </h3>
-                  <p className="text-glass-text-secondary leading-relaxed">
-                    {member?.bio}
-                  </p>
-                </div>
-
                 {/* Specialties */}
                 <div>
                   <h3 className="text-lg font-semibold text-glass-text-primary mb-3 flex items-center">
@@ -126,12 +142,8 @@ const TeamProfileModal = ({ member, isOpen, onClose }) => {
                   <div className="space-y-3">
                     {member?.notableProjects?.map((project, index) => (
                       <div key={index} className="glass-surface rounded-lg p-4">
-                        <h4 className="font-medium text-glass-text-primary mb-1">
-                          {project?.name}
-                        </h4>
-                        <p className="text-sm text-glass-text-secondary mb-2">
-                          {project?.description}
-                        </p>
+                        <h4 className="font-medium text-glass-text-primary mb-1">{project?.name}</h4>
+                        <p className="text-sm text-glass-text-secondary mb-2">{project?.description}</p>
                         <div className="flex items-center space-x-4 text-xs text-glass-text-secondary">
                           <span className="flex items-center">
                             <Icon name="Calendar" size={14} className="mr-1" />
@@ -156,22 +168,17 @@ const TeamProfileModal = ({ member, isOpen, onClose }) => {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {Object.entries(member?.skills)?.map(([category, skills]) => (
                       <div key={category} className="glass-surface rounded-lg p-4">
-                        <h4 className="font-medium text-glass-text-primary mb-2 capitalize">
-                          {category}
-                        </h4>
+                        <h4 className="font-medium text-glass-text-primary mb-2 capitalize">{category}</h4>
                         <div className="space-y-2">
                           {skills?.map((skill, index) => (
                             <div key={index} className="flex items-center justify-between">
-                              <span className="text-sm text-glass-text-secondary">
-                                {skill?.name}
-                              </span>
+                              <span className="text-sm text-glass-text-secondary">{skill?.name}</span>
                               <div className="flex space-x-1">
                                 {[...Array(5)]?.map((_, i) => (
                                   <div
                                     key={i}
                                     className={`w-2 h-2 rounded-full ${
-                                      i < skill?.level
-                                        ? 'bg-primary' :'bg-glass-surface'
+                                      i < skill?.level ? "bg-primary" : "bg-glass-surface"
                                     }`}
                                   />
                                 ))}
@@ -183,33 +190,13 @@ const TeamProfileModal = ({ member, isOpen, onClose }) => {
                     ))}
                   </div>
                 </div>
-
-                {/* Contact Actions */}
-                <div className="flex space-x-4 pt-4">
-                  <Button
-                    variant="default"
-                    className="bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90"
-                    iconName="MessageCircle"
-                    iconPosition="left"
-                  >
-                    Start Conversation
-                  </Button>
-                  <Button
-                    variant="outline"
-                    className="glass-interactive border-primary/20 text-primary hover:bg-primary/10"
-                    iconName="Calendar"
-                    iconPosition="left"
-                  >
-                    Schedule Meeting
-                  </Button>
-                </div>
               </div>
             </div>
           </motion.div>
         </>
       )}
     </AnimatePresence>
-  );
-};
+  )
+}
 
-export default TeamProfileModal;
+export default TeamProfileModal

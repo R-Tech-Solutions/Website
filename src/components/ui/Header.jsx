@@ -48,10 +48,11 @@ const Header = () => {
     { name: 'Portfolio', path: '/portfolio', icon: 'Folder' },
     { name: 'Pricing', path: '/pricing', icon: 'CreditCard' },
     { name: 'Services', path: '/services', icon: 'Tool' },
-    // { name: 'Process', path: '/process', icon: 'Workflow' },
-    // { name: 'Team', path: '/team', icon: 'Users' },
     { name: 'Careers', path: '/careers', icon: 'Briefcase' },
     { name: 'Blogs', path: '/blogs', icon: 'FileText' },
+    { name: 'Contact Us', path: '/contact', icon: 'FileText' },
+    { name: 'FAQs', path: '/faqs', icon: 'FileText' },
+    { name: 'Events', path: '/events', icon: 'FileText' },
   ];
 
   const isActivePath = (path) => {
