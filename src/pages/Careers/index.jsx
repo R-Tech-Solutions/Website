@@ -1,6 +1,8 @@
 import React, { useMemo, useState } from 'react';
 import CareersHeader from './components/CareersHeader';
 import Header from '../../components/ui/Header';
+import SEO from '../../components/SEO';
+import { generatePageSEO } from '../../utils/seoUtils';
 import FilterBar from './components/FilterBar';
 import JobCard from './components/JobCard';
 import ApplyModal from './components/ApplyModal';
@@ -59,45 +61,48 @@ export default function CareersPage() {
 	}
 	return (
 		<>
-			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-				<Header />
-			</div>
-			<main className="container pt-28 pb-16">{/* pt-28 gives space for the fixed header */}
-				<CareersHeader total={MOCK_JOBS.length} />
-				<section className="mb-6">
-					<FilterBar filters={filters} onChange={setFilters} />
-				</section>
-				<section id="open-roles" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-					{filtered.length > 0 ? (
-						filtered.map((job) => (
-							<div className="min-h-full flex">
-								<JobCard key={job.id} job={job} onApply={openApply} />
+			<SEO {...generatePageSEO('careers')} />
+			<div className="min-h-screen bg-gradient-to-br from-background via-card to-background">
+				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+					<Header />
+				</div>
+				<main className="container pt-20 md:pt-28 pb-16">
+					<CareersHeader total={MOCK_JOBS.length} />
+					<section className="mb-6">
+						<FilterBar filters={filters} onChange={setFilters} />
+					</section>
+					<section id="open-roles" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+						{filtered.length > 0 ? (
+							filtered.map((job) => (
+								<div className="min-h-full flex">
+									<JobCard key={job.id} job={job} onApply={openApply} />
+								</div>
+							))
+						) : (
+							<div className="glass-surface p-6 rounded-lg text-center col-span-full">
+								<h3 className="text-lg font-semibold">No roles match your filters</h3>
+								<p className="text-sm text-muted-foreground mt-2">Try resetting filters or check back later.</p>
+								<div className="mt-4 flex justify-center">
+									<CTAButton onClick={() => setFilters({ q: '', location: '', team: '' })}>Reset filters</CTAButton>
+								</div>
 							</div>
-						))
-					) : (
-						<div className="glass-surface p-6 rounded-lg text-center col-span-full">
-							<h3 className="text-lg font-semibold">No roles match your filters</h3>
-							<p className="text-sm text-muted-foreground mt-2">Try resetting filters or check back later.</p>
-							<div className="mt-4 flex justify-center">
-								<CTAButton onClick={() => setFilters({ q: '', location: '', team: '' })}>Reset filters</CTAButton>
-							</div>
+						)}
+					</section>
+
+					<section className="mt-12 glass-morphism p-6 rounded-lg flex flex-col md:flex-row items-center justify-between gap-4">
+						<div>
+							<h4 className="text-xl font-semibold">Can't find a fit?</h4>
+							<p className="text-sm text-muted-foreground">Submit your resume and we'll reach out when something opens up.</p>
 						</div>
-					)}
-				</section>
+						<div className="flex gap-3">
+							<CTAButton onClick={() => { setActiveJob({ title: 'General Application' }); setModalOpen(true); }}>Submit resume</CTAButton>
+							<a href="mailto:careers@example.com" className="px-4 py-2 border border-border rounded-md">Email us</a>
+						</div>
+					</section>
 
-				<section className="mt-12 glass-morphism p-6 rounded-lg flex flex-col md:flex-row items-center justify-between gap-4">
-					<div>
-						<h4 className="text-xl font-semibold">Can't find a fit?</h4>
-						<p className="text-sm text-muted-foreground">Submit your resume and we'll reach out when something opens up.</p>
-					</div>
-					<div className="flex gap-3">
-						<CTAButton onClick={() => { setActiveJob({ title: 'General Application' }); setModalOpen(true); }}>Submit resume</CTAButton>
-						<a href="mailto:careers@example.com" className="px-4 py-2 border border-border rounded-md">Email us</a>
-					</div>
-				</section>
-
-				<ApplyModal job={activeJob} open={modalOpen} onClose={() => setModalOpen(false)} />
-			</main>
+					<ApplyModal job={activeJob} open={modalOpen} onClose={() => setModalOpen(false)} />
+				</main>
+			</div>
 		</>
 	);
 }

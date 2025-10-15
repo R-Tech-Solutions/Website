@@ -7,10 +7,10 @@ const InteractiveControls = ({
   onPlayPause, 
   onRestart, 
   onSkip, 
-  onReduceMotion, 
   isPlaying, 
-  isMotionReduced,
-  showControls = true 
+  shouldReduceMotion,
+  showControls = true,
+  isMobile = false
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -25,8 +25,8 @@ const InteractiveControls = ({
       y: 0,
       scale: 1,
       transition: {
-        duration: 0.5,
-        staggerChildren: 0.1
+        duration: isMobile ? 0.3 : 0.5,
+        staggerChildren: isMobile ? 0.05 : 0.1
       }
     }
   };
@@ -40,48 +40,50 @@ const InteractiveControls = ({
 
   return (
     <motion.div
-      className="fixed bottom-6 right-6 z-40"
+      className={`fixed ${isMobile ? 'bottom-4 right-4' : 'bottom-6 right-6'} z-40`}
       variants={controlVariants}
       initial="hidden"
       animate="visible"
     >
-      {/* Main control button */}
+      {/* Main control button - Mobile optimized */}
       <motion.div
         className="relative"
-        whileHover={{ scale: 1.05 }}
+        whileHover={{ scale: isMobile ? 1.02 : 1.05 }}
         whileTap={{ scale: 0.95 }}
       >
         <Button
           variant="default"
           size="icon"
           onClick={() => setIsExpanded(!isExpanded)}
-          className="w-12 h-12 rounded-full glass-interactive shadow-glass-interactive bg-gradient-to-r from-primary/90 to-accent/90 hover:from-primary hover:to-accent"
+          className={`${isMobile ? 'w-10 h-10' : 'w-12 h-12'} rounded-full glass-interactive shadow-glass-interactive bg-gradient-to-r from-primary/90 to-accent/90 hover:from-primary hover:to-accent`}
           aria-label="Toggle controls"
         >
           <Icon 
             name={isExpanded ? "X" : "Settings"} 
-            size={20} 
+            size={isMobile ? 16 : 20} 
             className="text-white"
           />
         </Button>
         
-        {/* Pulse effect */}
-        <motion.div
-          className="absolute inset-0 rounded-full bg-primary/30"
-          animate={{
-            scale: [1, 1.5, 1],
-            opacity: [0.5, 0, 0.5]
-          }}
-          transition={{
-            duration: 2,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-        />
+        {/* Pulse effect - reduced on mobile */}
+        {!shouldReduceMotion && (
+          <motion.div
+            className="absolute inset-0 rounded-full bg-primary/30"
+            animate={{
+              scale: [1, 1.5, 1],
+              opacity: [0.5, 0, 0.5]
+            }}
+            transition={{
+              duration: isMobile ? 3 : 2,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          />
+        )}
       </motion.div>
-      {/* Expanded controls */}
+      {/* Expanded controls - Mobile responsive */}
       <motion.div
-        className={`absolute bottom-16 right-0 flex flex-col space-y-3 ${
+        className={`absolute ${isMobile ? 'bottom-12 right-0' : 'bottom-16 right-0'} flex flex-col ${isMobile ? 'space-y-2' : 'space-y-3'} ${
           isExpanded ? 'pointer-events-auto' : 'pointer-events-none'
         }`}
         initial={{ opacity: 0, scale: 0.8, y: 20 }}
@@ -94,21 +96,21 @@ const InteractiveControls = ({
           scale: 0.8, 
           y: 20 
         }}
-        transition={{ duration: 0.3, ease: "easeOut" }}
+        transition={{ duration: isMobile ? 0.2 : 0.3, ease: "easeOut" }}
       >
         {/* Play/Pause */}
         <motion.div variants={buttonVariants}>
           <Button
             variant="outline"
-            size="sm"
+            size={isMobile ? "xs" : "sm"}
             onClick={onPlayPause}
-            className="glass-interactive border-white/20 text-glass-text-primary hover:bg-white/10 flex items-center space-x-2 min-w-[120px] justify-start"
+            className={`glass-interactive border-white/20 text-glass-text-primary hover:bg-white/10 flex items-center space-x-2 ${isMobile ? 'min-w-[100px]' : 'min-w-[120px]'} justify-start`}
           >
             <Icon 
               name={isPlaying ? "Pause" : "Play"} 
-              size={16} 
+              size={isMobile ? 14 : 16} 
             />
-            <span>{isPlaying ? "Pause" : "Play"}</span>
+            <span className={isMobile ? 'text-xs' : 'text-sm'}>{isPlaying ? "Pause" : "Play"}</span>
           </Button>
         </motion.div>
 
@@ -116,12 +118,12 @@ const InteractiveControls = ({
         <motion.div variants={buttonVariants}>
           <Button
             variant="outline"
-            size="sm"
+            size={isMobile ? "xs" : "sm"}
             onClick={onRestart}
-            className="glass-interactive border-white/20 text-glass-text-primary hover:bg-white/10 flex items-center space-x-2 min-w-[120px] justify-start"
+            className={`glass-interactive border-white/20 text-glass-text-primary hover:bg-white/10 flex items-center space-x-2 ${isMobile ? 'min-w-[100px]' : 'min-w-[120px]'} justify-start`}
           >
-            <Icon name="RotateCcw" size={16} />
-            <span>Restart</span>
+            <Icon name="RotateCcw" size={isMobile ? 14 : 16} />
+            <span className={isMobile ? 'text-xs' : 'text-sm'}>Restart</span>
           </Button>
         </motion.div>
 
@@ -129,28 +131,12 @@ const InteractiveControls = ({
         <motion.div variants={buttonVariants}>
           <Button
             variant="outline"
-            size="sm"
+            size={isMobile ? "xs" : "sm"}
             onClick={onSkip}
-            className="glass-interactive border-white/20 text-glass-text-primary hover:bg-white/10 flex items-center space-x-2 min-w-[120px] justify-start"
+            className={`glass-interactive border-white/20 text-glass-text-primary hover:bg-white/10 flex items-center space-x-2 ${isMobile ? 'min-w-[100px]' : 'min-w-[120px]'} justify-start`}
           >
-            <Icon name="SkipForward" size={16} />
-            <span>Skip</span>
-          </Button>
-        </motion.div>
-
-        {/* Reduce Motion */}
-        <motion.div variants={buttonVariants}>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={onReduceMotion}
-            className={`glass-interactive border-white/20 hover:bg-white/10 flex items-center space-x-2 min-w-[120px] justify-start ${
-              isMotionReduced 
-                ? 'text-success bg-success/10 border-success/30' :'text-glass-text-primary'
-            }`}
-          >
-            <Icon name="Zap" size={16} />
-            <span>{isMotionReduced ? "Motion Off" : "Reduce Motion"}</span>
+            <Icon name="SkipForward" size={isMobile ? 14 : 16} />
+            <span className={isMobile ? 'text-xs' : 'text-sm'}>Skip</span>
           </Button>
         </motion.div>
 

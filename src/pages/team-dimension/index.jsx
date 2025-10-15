@@ -2,6 +2,8 @@ import { useState } from "react"
 import { motion } from "framer-motion"
 import { Link } from "react-router-dom"
 import Header from "../../components/ui/Header"
+import SEO from "../../components/SEO"
+import { generatePageSEO } from "../../utils/seoUtils"
 import Icon from "../../components/AppIcon"
 import Button from "../../components/ui/Button"
 import TeamMemberCard from './components/TeamMemberCard';
@@ -234,6 +236,7 @@ const TeamDimension = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100">
+      <SEO {...generatePageSEO('team')} />
       <Header />
       {/* Hero Section */}
       <section className="pt-24 pb-16 relative overflow-hidden">

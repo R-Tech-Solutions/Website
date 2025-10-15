@@ -1,30 +1,28 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Code, Zap, Layers, Sparkles, CheckCircle, Cpu } from 'lucide-react';
 
 export default function TechStack() {
-  const navigate = useNavigate();
-  // `pos` tracks the sliding position across duplicated items for seamless loop
   const [pos, setPos] = useState(0);
   const [disableTransition, setDisableTransition] = useState(false);
+  const [itemsPerView, setItemsPerView] = useState(5);
   const trackRef = useRef(null);
 
-  // Simplified tech data
+  // Tech data with accurate icons for each technology
   const techData = [
     { name: 'React', icon: '⚛️', color: 'from-cyan-500 to-blue-500' },
     { name: 'Vite', icon: '⚡', color: 'from-purple-500 to-violet-500' },
     { name: 'Next.js', icon: '▲', color: 'from-slate-800 to-slate-600' },
-    { name: 'HTML', icon: '🏗️', color: 'from-orange-500 to-amber-500' },
+    { name: 'HTML', icon: '🌐', color: 'from-orange-500 to-amber-500' },
     { name: 'Node.js', icon: '🟢', color: 'from-green-500 to-emerald-500' },
     { name: 'Python', icon: '🐍', color: 'from-blue-600 to-blue-500' },
     { name: 'PHP', icon: '🐘', color: 'from-indigo-500 to-purple-500' },
     { name: 'Java', icon: '☕', color: 'from-red-600 to-orange-600' },
-    { name: 'Flutter', icon: '📱', color: 'from-cyan-500 to-blue-600' },
-    { name: 'React Native', icon: '⚛️', color: 'from-cyan-500 to-blue-500' },
-    { name: 'MySQL', icon: '🗄️', color: 'from-blue-500 to-cyan-500' },
+    { name: 'Flutter', icon: '🦋', color: 'from-cyan-500 to-blue-600' },
+    { name: 'React Native', icon: '📱', color: 'from-cyan-500 to-blue-500' },
+    { name: 'MySQL', icon: '🐬', color: 'from-blue-500 to-cyan-500' },
     { name: 'PostgreSQL', icon: '🐘', color: 'from-slate-600 to-slate-800' },
     { name: 'Firebase', icon: '🔥', color: 'from-yellow-500 to-orange-500' },
-    { name: 'Supabase', icon: '🟢', color: 'from-emerald-500 to-green-600' },
+    { name: 'Supabase', icon: '⚡', color: 'from-emerald-500 to-green-600' },
     { name: 'WordPress', icon: '🌐', color: 'from-slate-700 to-blue-700' }
   ];
 
@@ -37,31 +35,46 @@ export default function TechStack() {
     { id: 'nocode', label: 'No Code Tools', icon: CheckCircle }
   ];
 
-
-  // Duplicate items so we can create a seamless loop (items + items)
+  // Duplicate items for seamless infinite loop
   const items = [...techData, ...techData];
 
-  // Auto-advance quickly
+  // Handle responsive items per view based on screen size
+  useEffect(() => {
+    const updateItemsPerView = () => {
+      if (window.innerWidth < 640) {
+        setItemsPerView(1); // Mobile: 1 card
+      } else if (window.innerWidth < 768) {
+        setItemsPerView(2); // Small tablet: 2 cards
+      } else if (window.innerWidth < 1024) {
+        setItemsPerView(3); // Tablet: 3 cards
+      } else {
+        setItemsPerView(5); // Desktop: 5 cards
+      }
+    };
+
+    updateItemsPerView();
+    window.addEventListener('resize', updateItemsPerView);
+    return () => window.removeEventListener('resize', updateItemsPerView);
+  }, []);
+
+  // Auto-advance carousel every 2.5 seconds
   useEffect(() => {
     const interval = setInterval(() => {
       setPos((p) => p + 1);
-    }, 800);
+    }, 2500);
 
     return () => clearInterval(interval);
   }, []);
 
-  // After each transition, if we've advanced into the duplicated area, jump back to the original
+  // Reset position for seamless infinite loop
   useEffect(() => {
     const el = trackRef.current;
     if (!el) return;
 
     const onTransitionEnd = () => {
       if (pos >= techData.length) {
-        // disable transition, jump back to equivalent position in original set
         setDisableTransition(true);
-        // set position to pos - techData.length (same visual location)
         setPos((p) => p - techData.length);
-        // re-enable transition on next frame
         requestAnimationFrame(() => requestAnimationFrame(() => setDisableTransition(false)));
       }
     };
@@ -71,66 +84,64 @@ export default function TechStack() {
   }, [pos, techData.length]);
 
   const handleDotClick = (index) => {
-    // jump to the matching index in the first (original) set
     setPos(index);
   };
 
   return (
-    <section className="relative py-20 overflow-hidden bg-gradient-to-br from-slate-50 via-blue-50 to-violet-50">
-      <div className="container mx-auto px-4 relative z-10">
+    <section className="relative py-12 sm:py-16 md:py-20 overflow-hidden bg-gradient-to-br from-slate-50 via-blue-50 to-violet-50">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header Section */}
-        <div className="text-center mb-12 space-y-4">
-          <div className="inline-flex items-center gap-2 bg-white/60 backdrop-blur-sm rounded-full px-6 py-2 mb-2 shadow-lg">
-            <Cpu className="w-4 h-4 text-violet-600" />
-            <span className="text-sm font-semibold text-violet-600 tracking-wider uppercase">
+        <div className="text-center mb-8 sm:mb-10 md:mb-12 space-y-3 sm:space-y-4">
+          <div className="inline-flex items-center gap-2 bg-white/60 backdrop-blur-sm rounded-full px-4 sm:px-6 py-2 mb-2 shadow-lg">
+            <Cpu className="w-3 h-3 sm:w-4 sm:h-4 text-violet-600" />
+            <span className="text-xs sm:text-sm font-semibold text-violet-600 tracking-wider uppercase">
               Our Tech Arsenal
             </span>
             <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
           </div>
 
-          <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-slate-900 via-blue-900 to-violet-900 bg-clip-text text-transparent leading-tight">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r from-slate-900 via-blue-900 to-violet-900 bg-clip-text text-transparent leading-tight px-4">
             Technology We Master
           </h2>
 
-          <p className="text-base text-slate-600 max-w-2xl mx-auto">
+          <p className="text-sm sm:text-base text-slate-600 max-w-2xl mx-auto px-4">
             Cutting-edge tools and frameworks we use to build exceptional digital experiences
           </p>
 
           <div className="flex items-center justify-center gap-4 pt-2">
-            <div className="h-px w-20 bg-gradient-to-r from-transparent to-blue-400" />
-            <Sparkles className="w-4 h-4 text-violet-500" />
-            <div className="h-px w-20 bg-gradient-to-l from-transparent to-violet-400" />
+            <div className="h-px w-12 sm:w-20 bg-gradient-to-r from-transparent to-blue-400" />
+            <Sparkles className="w-3 h-3 sm:w-4 sm:h-4 text-violet-500" />
+            <div className="h-px w-12 sm:w-20 bg-gradient-to-l from-transparent to-violet-400" />
           </div>
         </div>
 
-        {/* Category Filter */}
-        <div className="flex flex-wrap items-center justify-center gap-2 mb-10">
+        {/* Category Filter - Responsive */}
+        <div className="flex flex-wrap items-center justify-center gap-2 mb-8 sm:mb-10 px-2">
           {categories.map((cat) => {
             const Icon = cat.icon;
 
             return (
               <div
                 key={cat.id}
-                className="px-4 py-2 rounded-lg text-xs font-semibold bg-white/40 backdrop-blur-sm shadow-md text-slate-600 flex items-center gap-2"
+                className="px-3 py-2 rounded-lg text-xs sm:text-sm font-semibold bg-white/40 backdrop-blur-sm shadow-md text-slate-600 flex items-center gap-2"
               >
-                <Icon className="w-3 h-3" />
-                {cat.label}
+                <Icon className="w-3 h-3 sm:w-4 sm:h-4" />
+                <span className="hidden sm:inline">{cat.label}</span>
+                <span className="sm:hidden">{cat.label.split(' ')[0]}</span>
               </div>
             );
           })}
         </div>
 
-        {/* Carousel Container */}
-        <div className="relative mb-10">
-          {/* Navigation Buttons removed for automatic carousel */}
-
+        {/* Carousel Container - Fully Responsive */}
+        <div className="relative mb-8 sm:mb-10">
           {/* Carousel Track */}
-          <div className="overflow-hidden px-16">
+          <div className="overflow-hidden px-2 sm:px-4 md:px-8 lg:px-16">
             <div
               ref={trackRef}
-              className={`flex gap-6 ${disableTransition ? '' : 'transition-transform duration-200 ease-linear'}`}
+              className={`flex gap-3 sm:gap-4 md:gap-6 ${disableTransition ? '' : 'transition-transform duration-500 ease-in-out'}`}
               style={{
-                transform: `translateX(-${(pos % techData.length) * (100 / 5)}%)`
+                transform: `translateX(-${pos * (100 / itemsPerView)}%)`
               }}
             >
               {items.map((tech, index) => {
@@ -139,35 +150,34 @@ export default function TechStack() {
                 return (
                   <div
                     key={`${tech.name}-${index}`}
-                    className="flex-shrink-0 cursor-pointer"
+                    className="flex-shrink-0 cursor-pointer w-full sm:w-[calc(50%-0.5rem)] md:w-[calc(33.333%-1rem)] lg:w-[calc(20%-1.2rem)]"
                     onClick={() => setPos(originalIndex)}
-                    style={{ width: 'calc(20% - 1.2rem)' }}
                   >
                     <div className="relative group h-full">
-                      {/* Main Card */}
-                      <div className={`bg-white/70 backdrop-blur-md rounded-xl p-8 h-64 flex flex-col items-center justify-center transform transition-all duration-300 shadow-lg hover:shadow-2xl`}>
-                        {/* Background Gradient */}
+                      {/* Main Card - Responsive Heights */}
+                      <div className="bg-white/70 backdrop-blur-md rounded-xl p-4 sm:p-6 md:p-8 h-40 sm:h-48 md:h-56 lg:h-64 flex flex-col items-center justify-center transform transition-all duration-300 shadow-lg hover:shadow-2xl">
+                        {/* Background Gradient on Hover */}
                         <div className={`absolute inset-0 rounded-xl bg-gradient-to-br ${tech.color} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
 
                         {/* Content */}
-                        <div className="relative z-10 flex flex-col items-center text-center space-y-4">
-                          {/* Icon */}
-                          <div className="text-7xl transform transition-all duration-300 group-hover:scale-105">
+                        <div className="relative z-10 flex flex-col items-center text-center space-y-2 sm:space-y-3 md:space-y-4">
+                          {/* Icon - Responsive Sizes */}
+                          <div className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl transform transition-all duration-300 group-hover:scale-110">
                             {tech.icon}
                           </div>
 
-                          {/* Tech Name */}
-                          <div className="font-bold text-xl transition-colors duration-300 text-slate-900 group-hover:text-white">
+                          {/* Tech Name - Responsive Text */}
+                          <div className="font-bold text-base sm:text-lg md:text-xl transition-colors duration-300 text-slate-900 group-hover:text-white">
                             {tech.name}
                           </div>
                         </div>
 
-                        {/* Corner Accents */}
-                        <div className="absolute top-2 right-2 w-6 h-6 border-t-2 border-r-2 border-white/20 rounded-tr-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                        <div className="absolute bottom-2 left-2 w-6 h-6 border-b-2 border-l-2 border-white/20 rounded-bl-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                        {/* Corner Accents - Responsive */}
+                        <div className="absolute top-1.5 right-1.5 sm:top-2 sm:right-2 w-4 h-4 sm:w-6 sm:h-6 border-t-2 border-r-2 border-white/20 rounded-tr-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                        <div className="absolute bottom-1.5 left-1.5 sm:bottom-2 sm:left-2 w-4 h-4 sm:w-6 sm:h-6 border-b-2 border-l-2 border-white/20 rounded-bl-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                       </div>
 
-                      {/* 3D Shadow */}
+                      {/* 3D Shadow Effect */}
                       <div className={`absolute inset-0 rounded-xl bg-gradient-to-br ${tech.color} opacity-0 group-hover:opacity-20 blur-xl transform translate-y-2 -z-10 transition-opacity duration-300`} />
                     </div>
                   </div>
@@ -176,49 +186,49 @@ export default function TechStack() {
             </div>
           </div>
 
-          {/* Carousel Indicators */}
-          <div className="flex justify-center gap-2 mt-6">
+          {/* Carousel Indicators - Responsive */}
+          <div className="flex justify-center gap-1.5 sm:gap-2 mt-4 sm:mt-6">
             {techData.map((_, index) => (
               <button
                 key={index}
                 onClick={() => handleDotClick(index)}
-                className={`h-2 rounded-full transition-all duration-300 ${index === (pos % techData.length)
-                  ? 'w-8 bg-gradient-to-r from-blue-500 to-violet-500'
-                  : 'w-2 bg-slate-300 hover:bg-slate-400'
-                  }`}
+                className={`h-1.5 sm:h-2 rounded-full transition-all duration-300 ${
+                  index === (pos % techData.length)
+                    ? 'w-6 sm:w-8 bg-gradient-to-r from-blue-500 to-violet-500'
+                    : 'w-1.5 sm:w-2 bg-slate-300 hover:bg-slate-400'
+                }`}
                 aria-label={`Go to slide ${index + 1}`}
               />
             ))}
           </div>
         </div>
 
-        {/* Bottom CTA */}
-        <div className="bg-white/50 backdrop-blur-md rounded-2xl p-8 text-center relative overflow-hidden group shadow-xl">
+        {/* Bottom CTA - Fully Responsive */}
+        <div className="bg-white/50 backdrop-blur-md rounded-2xl p-6 sm:p-8 text-center relative overflow-hidden group shadow-xl mx-2 sm:mx-0">
           <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-violet-500/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-600" />
 
-          <div className="relative z-10 space-y-4">
+          <div className="relative z-10 space-y-3 sm:space-y-4">
             <div className="inline-flex items-center gap-2 bg-white/60 backdrop-blur-sm rounded-full px-4 py-2 mb-2 shadow-lg">
-              <Zap className="w-4 h-4 text-amber-500" />
-              <span className="text-sm font-semibold text-slate-700">Always Learning</span>
+              <Zap className="w-3 h-3 sm:w-4 sm:h-4 text-amber-500" />
+              <span className="text-xs sm:text-sm font-semibold text-slate-700">Always Learning</span>
             </div>
 
-            <h3 className="text-2xl md:text-3xl font-bold text-slate-900 mb-2">
+            <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-slate-900 mb-2">
               Ready to Build Something Amazing?
             </h3>
 
-            <p className="text-slate-600 max-w-2xl mx-auto mb-6">
+            <p className="text-sm sm:text-base text-slate-600 max-w-2xl mx-auto mb-4 sm:mb-6 px-4">
               Our tech stack is constantly evolving. We stay ahead of the curve to deliver cutting-edge solutions.
             </p>
 
             <button
-              onClick={() => navigate('/contact')}
-              className="group relative px-8 py-3 bg-gradient-to-r from-blue-500 to-violet-500 text-white font-semibold rounded-xl shadow-xl overflow-hidden transform transition-all duration-300 hover:scale-105 hover:shadow-2xl"
+              className="group/btn relative px-6 sm:px-8 py-3 bg-gradient-to-r from-blue-500 to-violet-500 text-white font-semibold rounded-xl shadow-xl overflow-hidden transform transition-all duration-300 hover:scale-105 hover:shadow-2xl text-sm sm:text-base"
             >
               <span className="relative z-10 flex items-center gap-2 mx-auto w-fit">
                 Let's Talk Tech
-                <Code className="w-5 h-5 transition-transform group-hover:rotate-12" />
+                <Code className="w-4 h-4 sm:w-5 sm:h-5 transition-transform group-hover/btn:rotate-12" />
               </span>
-              <div className="absolute inset-0 bg-gradient-to-r from-violet-500 to-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="absolute inset-0 bg-gradient-to-r from-violet-500 to-purple-500 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300" />
             </button>
           </div>
         </div>

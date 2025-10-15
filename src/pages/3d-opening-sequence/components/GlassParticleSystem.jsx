@@ -1,25 +1,35 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
 
-const GlassParticleSystem = ({ isActive, intensity = 1 }) => {
+const GlassParticleSystem = ({ isActive, intensity = 1, isMobile = false, devicePerformance = 'high' }) => {
   const containerRef = useRef(null);
   const [particles, setParticles] = useState([]);
 
+  // Optimize particle count based on device performance and mobile status
+  const optimizedParticleCount = useMemo(() => {
+    let baseCount = 50;
+    if (devicePerformance === 'low') baseCount = 20;
+    else if (devicePerformance === 'medium') baseCount = 35;
+    
+    if (isMobile) baseCount *= 0.6;
+    
+    return Math.floor(baseCount * intensity);
+  }, [intensity, isMobile, devicePerformance]);
+
   useEffect(() => {
-    // Generate particle data
-    const particleCount = Math.floor(50 * intensity);
-    const newParticles = Array.from({ length: particleCount }, (_, i) => ({
+    // Generate optimized particle data
+    const newParticles = Array.from({ length: optimizedParticleCount }, (_, i) => ({
       id: i,
       x: Math.random() * 100,
       y: Math.random() * 100,
-      size: Math.random() * 4 + 2,
+      size: Math.random() * (isMobile ? 2 : 4) + (isMobile ? 1 : 2),
       opacity: Math.random() * 0.7 + 0.3,
       delay: Math.random() * 2,
-      duration: Math.random() * 3 + 2,
+      duration: Math.random() * (isMobile ? 2 : 3) + (isMobile ? 1.5 : 2),
       rotateSpeed: Math.random() * 360 + 180,
     }));
     setParticles(newParticles);
-  }, [intensity]);
+  }, [intensity, optimizedParticleCount, isMobile]);
 
   return (
     <div 
@@ -61,16 +71,16 @@ const GlassParticleSystem = ({ isActive, intensity = 1 }) => {
           }}
         />
       ))}
-      {/* Floating glass shards */}
-      {Array.from({ length: 8 }, (_, i) => (
+      {/* Floating glass shards - optimized for mobile */}
+      {Array.from({ length: isMobile ? 4 : (devicePerformance === 'low' ? 4 : 8) }, (_, i) => (
         <motion.div
           key={`shard-${i}`}
           className="absolute glass-interactive rounded-lg"
           style={{
             left: `${Math.random() * 90 + 5}%`,
             top: `${Math.random() * 90 + 5}%`,
-            width: `${Math.random() * 20 + 10}px`,
-            height: `${Math.random() * 20 + 10}px`,
+            width: `${Math.random() * (isMobile ? 15 : 20) + (isMobile ? 8 : 10)}px`,
+            height: `${Math.random() * (isMobile ? 15 : 20) + (isMobile ? 8 : 10)}px`,
           }}
           initial={{ 
             scale: 0, 
@@ -81,13 +91,13 @@ const GlassParticleSystem = ({ isActive, intensity = 1 }) => {
             scale: [0, 1.2, 1],
             rotate: [0, 180, 360],
             opacity: [0, 0.6, 0.4],
-            y: [0, -30, 0],
+            y: [0, isMobile ? -20 : -30, 0],
           } : {
             scale: 0,
             opacity: 0
           }}
           transition={{
-            duration: 4 + i * 0.5,
+            duration: isMobile ? 3 + i * 0.3 : 4 + i * 0.5,
             delay: i * 0.3,
             repeat: Infinity,
             repeatType: "reverse",

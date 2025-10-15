@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import Icon from '../../../components/AppIcon';
 import Button from '../../../components/ui/Button';
 
-const NavigationPrompt = ({ isVisible, onExplore }) => {
+const NavigationPrompt = ({ isVisible, onExplore, isMobile = false, shouldReduceMotion = false }) => {
   const navigationItems = [
     {
       title: "Portfolio",
@@ -54,9 +54,9 @@ const NavigationPrompt = ({ isVisible, onExplore }) => {
       y: 0,
       scale: 1,
       transition: {
-        duration: 0.8,
+        duration: isMobile ? 0.6 : 0.8,
         ease: "easeOut",
-        staggerChildren: 0.1
+        staggerChildren: isMobile ? 0.05 : 0.1
       }
     }
   };
@@ -72,7 +72,7 @@ const NavigationPrompt = ({ isVisible, onExplore }) => {
       x: 0,
       rotateY: 0,
       transition: {
-        duration: 0.6,
+        duration: isMobile ? 0.4 : 0.6,
         ease: "easeOut"
       }
     }
@@ -87,7 +87,7 @@ const NavigationPrompt = ({ isVisible, onExplore }) => {
         "0 0 20px rgba(59, 130, 246, 0.3)"
       ],
       transition: {
-        duration: 2,
+        duration: isMobile ? 3 : 2,
         repeat: Infinity,
         ease: "easeInOut"
       }
@@ -104,23 +104,23 @@ const NavigationPrompt = ({ isVisible, onExplore }) => {
       animate="visible"
       exit="hidden"
     >
-      <div className="max-w-4xl mx-auto px-6 text-center">
-        {/* Header */}
+      <div className={`${isMobile ? 'max-w-sm' : 'max-w-4xl'} mx-auto ${isMobile ? 'px-4' : 'px-6'} text-center`}>
+        {/* Header - Mobile responsive */}
         <motion.div
-          className="mb-12"
+          className={isMobile ? 'mb-8' : 'mb-12'}
           variants={itemVariants}
         >
-          <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-glass-text-primary to-primary bg-clip-text text-transparent mb-4">
+          <h2 className={`${isMobile ? 'text-2xl md:text-3xl' : 'text-4xl md:text-5xl'} font-bold bg-gradient-to-r from-glass-text-primary to-primary bg-clip-text text-transparent mb-4`}>
             Begin Your Journey
           </h2>
-          <p className="text-xl text-glass-text-secondary max-w-2xl mx-auto leading-relaxed">
+          <p className={`${isMobile ? 'text-base md:text-lg' : 'text-xl'} text-glass-text-secondary max-w-2xl mx-auto leading-relaxed`}>
             Choose your path through our digital realm. Each destination offers a unique perspective on our craft.
           </p>
         </motion.div>
 
-        {/* Navigation Grid */}
+        {/* Navigation Grid - Mobile responsive */}
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12"
+          className={`grid ${isMobile ? 'grid-cols-1 gap-4' : 'grid-cols-1 md:grid-cols-2 gap-6'} ${isMobile ? 'mb-8' : 'mb-12'}`}
           variants={containerVariants}
         >
           {navigationItems?.map((item, index) => (
@@ -136,35 +136,35 @@ const NavigationPrompt = ({ isVisible, onExplore }) => {
             >
               <Link
                 to={item?.path}
-                className="block p-6 glass-interactive rounded-xl shadow-glass-subtle hover:shadow-glass-interactive transition-all duration-300 group"
+                className={`block ${isMobile ? 'p-4' : 'p-6'} glass-interactive rounded-xl shadow-glass-subtle hover:shadow-glass-interactive transition-all duration-300 group`}
                 onClick={onExplore}
               >
-                <div className="flex items-start space-x-4">
+                <div className={`flex items-start ${isMobile ? 'space-x-3' : 'space-x-4'}`}>
                   <motion.div
-                    className={`w-12 h-12 rounded-lg bg-gradient-to-br ${item?.color} flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}
-                    variants={pulseVariants}
-                    animate="pulse"
+                    className={`${isMobile ? 'w-10 h-10' : 'w-12 h-12'} rounded-lg bg-gradient-to-br ${item?.color} flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}
+                    variants={shouldReduceMotion ? {} : pulseVariants}
+                    animate={shouldReduceMotion ? {} : "pulse"}
                     style={{ animationDelay: `${index * 0.2}s` }}
                   >
                     <Icon
                       name={item?.icon}
-                      size={24}
+                      size={isMobile ? 20 : 24}
                       className="text-white"
                     />
                   </motion.div>
 
                   <div className="flex-1 text-left">
-                    <h3 className="text-lg font-semibold text-glass-text-primary group-hover:text-primary transition-colors duration-300 mb-2">
+                    <h3 className={`${isMobile ? 'text-base' : 'text-lg'} font-semibold text-glass-text-primary group-hover:text-primary transition-colors duration-300 mb-2`}>
                       {item?.title}
                     </h3>
-                    <p className="text-sm text-glass-text-secondary group-hover:text-glass-text-primary transition-colors duration-300">
+                    <p className={`${isMobile ? 'text-xs' : 'text-sm'} text-glass-text-secondary group-hover:text-glass-text-primary transition-colors duration-300`}>
                       {item?.description}
                     </p>
                   </div>
 
                   <Icon
                     name="ArrowRight"
-                    size={20}
+                    size={isMobile ? 16 : 20}
                     className="text-glass-text-secondary group-hover:text-primary group-hover:translate-x-1 transition-all duration-300"
                   />
                 </div>
@@ -173,21 +173,20 @@ const NavigationPrompt = ({ isVisible, onExplore }) => {
           ))}
         </motion.div>
 
-        {/* Alternative Actions */}
+        {/* Alternative Actions - Mobile responsive */}
         <motion.div
-          className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6"
+          className={`flex flex-col ${isMobile ? 'space-y-3' : 'sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6'}`}
           variants={itemVariants}
         >
-
           <Link to="/home">
             <Button
               variant="default"
-              size="lg"
+              size={isMobile ? "md" : "lg"}
               className="bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 shadow-glass-subtle flex items-center space-x-2"
               onClick={onExplore}
             >
-              <Icon name="Portfolio" size={20} />
-              <span>Explore Home</span>
+              <Icon name="Portfolio" size={isMobile ? 16 : 20} />
+              <span className={isMobile ? 'text-sm' : 'text-base'}>Explore Home</span>
             </Button>
           </Link>
         </motion.div>

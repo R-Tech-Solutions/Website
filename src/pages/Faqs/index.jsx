@@ -17,6 +17,8 @@ import {
   Shield
 } from "lucide-react";
 import Header from "../../components/ui/Header";
+import SEO from "../../components/SEO";
+import { generatePageSEO } from "../../utils/seoUtils";
 import WebFaq from "./components/WebFaq";
 import AppFaq from "./components/AppFaq";
 import SystemFaq from "./components/SystemFaq";
@@ -210,10 +212,11 @@ export default function Faqs() {
 
 	return (
 		<div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
+			<SEO {...generatePageSEO('faqs')} />
 			<Header />
 			
 			{/* Hero Section */}
-			<section className="relative pt-20 pb-16 overflow-hidden">
+			<section className="relative pt-16 md:pt-20 pb-12 md:pb-16 overflow-hidden">
 				{/* Animated Background */}
 				<div className="absolute inset-0">
 					<div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-purple-500/5 to-cyan-500/5"></div>

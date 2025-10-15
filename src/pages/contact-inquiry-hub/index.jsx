@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import Header from '../../components/ui/Header';
+import SEO from '../../components/SEO';
+import { generatePageSEO } from '../../utils/seoUtils';
 import Icon from '../../components/AppIcon';
 import Button from '../../components/ui/Button';
 import ContactForm from './components/ContactForm';
@@ -85,6 +87,7 @@ const ContactInquiryHub = () => {
 
   return (
     <div ref={containerRef} className="min-h-screen bg-gradient-to-br from-background via-card to-background relative">
+      <SEO {...generatePageSEO('contact')} />
       <Header />
       {/* Background Effects */}
       <motion.div

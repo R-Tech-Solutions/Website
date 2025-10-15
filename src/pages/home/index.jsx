@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
 import Header from "../../components/ui/Header";
+import SEO from "../../components/SEO";
+import { generatePageSEO } from "../../utils/seoUtils";
 import Hero from "./components/Hero";
 import DownloadBundle from "./components/DownloadBundle";
 import TrustedLogos from "./components/TrustedLogos";
@@ -20,6 +22,7 @@ const TABS = [
 export default function Home() {
 	return (
 		<main className="min-h-screen bg-background text-foreground">
+			<SEO {...generatePageSEO('home')} />
 			<Header />
 
 			<div className="container mx-auto">

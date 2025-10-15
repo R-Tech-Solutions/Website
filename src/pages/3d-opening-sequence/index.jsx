@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
+import SEO from '../../components/SEO';
+import { generatePageSEO } from '../../utils/seoUtils';
 import GlassParticleSystem from './components/GlassParticleSystem';
 import MorphingGeometry from './components/MorphingGeometry';
 import CinematicTitle from './components/CinematicTitle';
@@ -23,27 +25,48 @@ const OpeningSequence = () => {
   const totalPhases = 4;
   const phaseDuration = useMemo(() => isMobile ? 2000 : 3000, [isMobile]); // Faster on mobile
 
-  // Handle loading completion
-  const handleLoadingComplete = useCallback(() => {
-    setIsLoading(false);
-    setUserInteracted(true);
+  // Detect mobile device and performance
+  useEffect(() => {
+    const checkDevice = () => {
+      const isMobileDevice = window.innerWidth < 768 || /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      setIsMobile(isMobileDevice);
+      
+      // Detect device performance based on hardware concurrency and memory
+      const cores = navigator.hardwareConcurrency || 4;
+      const memory = navigator.deviceMemory || 4;
+      const performance = cores >= 8 && memory >= 8 ? 'high' : cores >= 4 && memory >= 4 ? 'medium' : 'low';
+      setDevicePerformance(performance);
+    };
+
+    checkDevice();
+    window.addEventListener('resize', checkDevice);
+    return () => window.removeEventListener('resize', checkDevice);
   }, []);
 
-  // Auto-advance sequence phases
+  // Handle loading completion with optimized timing
+  const handleLoadingComplete = useCallback(() => {
+    // Add small delay to ensure smooth transition
+    setTimeout(() => {
+      setIsLoading(false);
+      setUserInteracted(true);
+    }, 300);
+  }, []);
+
+  // Auto-advance sequence phases with mobile optimization
   useEffect(() => {
-    if (isLoading || !isPlaying || isMotionReduced) return;
+    if (isLoading || !isPlaying || shouldReduceMotion) return;
 
     const timer = setTimeout(() => {
       if (sequencePhase < totalPhases - 1) {
         setSequencePhase(prev => prev + 1);
       } else {
-        // Sequence complete, show navigation
-        setTimeout(() => setShowNavigation(true), 1000);
+        // Sequence complete, show navigation with optimized delay
+        setTimeout(() => setShowNavigation(true), isMobile ? 500 : 1000);
       }
     }, phaseDuration);
 
     return () => clearTimeout(timer);
-  }, [sequencePhase, isPlaying, isLoading, isMotionReduced]);
+  }, [sequencePhase, isPlaying, isLoading, shouldReduceMotion, phaseDuration, isMobile]);
 
   // Keyboard controls
   useEffect(() => {
@@ -91,25 +114,9 @@ const OpeningSequence = () => {
     setUserInteracted(true);
   }, []);
 
-  const handleReduceMotion = useCallback(() => {
-    setIsMotionReduced(prev => !prev);
-    setUserInteracted(true);
-  }, []);
-
   const handleExplore = useCallback(() => {
     setShowNavigation(false);
     setUserInteracted(true);
-  }, []);
-
-  // Check for reduced motion preference
-  useEffect(() => {
-    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    setIsMotionReduced(mediaQuery?.matches);
-    
-    const handleChange = (e) => setIsMotionReduced(e?.matches);
-    mediaQuery?.addEventListener('change', handleChange);
-    
-    return () => mediaQuery?.removeEventListener('change', handleChange);
   }, []);
 
   // Background gradient that responds to sequence phase
@@ -124,20 +131,20 @@ const OpeningSequence = () => {
   };
 
   if (isLoading) {
-    return <LoadingSequence onComplete={handleLoadingComplete} />;
+    return <LoadingSequence onComplete={handleLoadingComplete} isMobile={isMobile} devicePerformance={devicePerformance} />;
   }
 
   return (
     <div className="min-h-screen relative overflow-hidden">
-      <Header />
-      {/* Dynamic background */}
+      <SEO {...generatePageSEO('home')} />
+      {/* Dynamic background with mobile optimization */}
       <motion.div
         className={`absolute inset-0 bg-gradient-to-br ${getBackgroundGradient()}`}
-        animate={{
+        animate={shouldReduceMotion ? {} : {
           opacity: [0.8, 1, 0.9, 1]
         }}
-        transition={{
-          duration: 2,
+        transition={shouldReduceMotion ? {} : {
+          duration: isMobile ? 3 : 2,
           repeat: Infinity,
           repeatType: "reverse",
           ease: "easeInOut"
@@ -152,17 +159,19 @@ const OpeningSequence = () => {
             
             {/* Phase 0: Particle System */}
             <AnimatePresence>
-              {(sequencePhase >= 0 && !isMotionReduced) && (
+              {(sequencePhase >= 0 && !shouldReduceMotion) && (
                 <motion.div
                   className="absolute inset-0"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: sequencePhase >= 0 ? 1 : 0 }}
                   exit={{ opacity: 0 }}
-                  transition={{ duration: 1 }}
+                  transition={{ duration: isMobile ? 0.5 : 1 }}
                 >
                   <GlassParticleSystem 
                     isActive={isPlaying && sequencePhase >= 0}
-                    intensity={isMotionReduced ? 0.3 : 1}
+                    intensity={shouldReduceMotion ? 0.3 : (isMobile ? 0.6 : 1)}
+                    isMobile={isMobile}
+                    devicePerformance={devicePerformance}
                   />
                 </motion.div>
               )}
@@ -179,11 +188,13 @@ const OpeningSequence = () => {
                     scale: sequencePhase >= 1 ? 1 : 0.5
                   }}
                   exit={{ opacity: 0, scale: 0.5 }}
-                  transition={{ duration: 1.5, ease: "easeOut" }}
+                  transition={{ duration: isMobile ? 1 : 1.5, ease: "easeOut" }}
                 >
                   <MorphingGeometry 
-                    isActive={isPlaying && sequencePhase >= 1 && !isMotionReduced}
+                    isActive={isPlaying && sequencePhase >= 1 && !shouldReduceMotion}
                     variant="primary"
+                    isMobile={isMobile}
+                    devicePerformance={devicePerformance}
                   />
                 </motion.div>
               )}
@@ -197,27 +208,29 @@ const OpeningSequence = () => {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: sequencePhase >= 2 ? 1 : 0 }}
                   exit={{ opacity: 0 }}
-                  transition={{ duration: 1 }}
+                  transition={{ duration: isMobile ? 0.5 : 1 }}
                 >
                   <CinematicTitle 
                     isVisible={isPlaying && sequencePhase >= 2}
+                    isMobile={isMobile}
+                    shouldReduceMotion={shouldReduceMotion}
                   />
                 </motion.div>
               )}
             </AnimatePresence>
 
-            {/* Background geometric elements */}
-            {!isMotionReduced && (
+            {/* Background geometric elements - optimized for mobile */}
+            {!shouldReduceMotion && devicePerformance !== 'low' && (
               <>
                 <motion.div
-                  className="absolute top-20 left-20 w-32 h-32"
-                  animate={{
+                  className={`absolute ${isMobile ? 'top-10 left-10 w-20 h-20' : 'top-20 left-20 w-32 h-32'}`}
+                  animate={shouldReduceMotion ? {} : {
                     rotate: [0, 360],
                     scale: [1, 1.1, 1],
                     opacity: [0.3, 0.6, 0.3]
                   }}
-                  transition={{
-                    duration: 8,
+                  transition={shouldReduceMotion ? {} : {
+                    duration: isMobile ? 12 : 8,
                     repeat: Infinity,
                     ease: "easeInOut"
                   }}
@@ -225,18 +238,20 @@ const OpeningSequence = () => {
                   <MorphingGeometry 
                     isActive={isPlaying}
                     variant="secondary"
+                    isMobile={isMobile}
+                    devicePerformance={devicePerformance}
                   />
                 </motion.div>
 
                 <motion.div
-                  className="absolute bottom-20 right-20 w-24 h-24"
-                  animate={{
+                  className={`absolute ${isMobile ? 'bottom-10 right-10 w-16 h-16' : 'bottom-20 right-20 w-24 h-24'}`}
+                  animate={shouldReduceMotion ? {} : {
                     rotate: [360, 0],
                     scale: [1, 0.8, 1],
                     opacity: [0.2, 0.5, 0.2]
                   }}
-                  transition={{
-                    duration: 6,
+                  transition={shouldReduceMotion ? {} : {
+                    duration: isMobile ? 10 : 6,
                     repeat: Infinity,
                     ease: "easeInOut",
                     delay: 2
@@ -245,6 +260,8 @@ const OpeningSequence = () => {
                   <MorphingGeometry 
                     isActive={isPlaying}
                     variant="tertiary"
+                    isMobile={isMobile}
+                    devicePerformance={devicePerformance}
                   />
                 </motion.div>
               </>
@@ -252,22 +269,24 @@ const OpeningSequence = () => {
           </div>
         </div>
       </div>
-      {/* Interactive Controls */}
+      {/* Interactive Controls - Mobile Optimized */}
       <InteractiveControls
         onPlayPause={handlePlayPause}
         onRestart={handleRestart}
         onSkip={handleSkip}
-        onReduceMotion={handleReduceMotion}
         isPlaying={isPlaying}
-        isMotionReduced={isMotionReduced}
+        shouldReduceMotion={shouldReduceMotion}
         showControls={userInteracted}
+        isMobile={isMobile}
       />
-      {/* Navigation Prompt */}
+      {/* Navigation Prompt - Mobile Responsive */}
       <AnimatePresence>
         {showNavigation && (
           <NavigationPrompt
             isVisible={showNavigation}
             onExplore={handleExplore}
+            isMobile={isMobile}
+            shouldReduceMotion={shouldReduceMotion}
           />
         )}
       </AnimatePresence>

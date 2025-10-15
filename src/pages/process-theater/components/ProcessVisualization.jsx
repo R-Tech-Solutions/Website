@@ -97,17 +97,17 @@ const ProcessVisualization = ({ activeStage, projectType, onNodeClick }) => {
   const isNodeCurrent = (nodeIndex) => nodeIndex === activeStage;
 
   return (
-    <div className="glass-morphism rounded-2xl p-8 shadow-glass">
-      <div className="text-center mb-8">
-        <h3 className="text-2xl font-bold text-glass-text-primary mb-2">
+    <div className="glass-morphism rounded-2xl p-4 md:p-8 shadow-glass">
+      <div className="text-center mb-6 md:mb-8">
+        <h3 className="text-xl md:text-2xl font-bold text-glass-text-primary mb-2">
           Process Visualization
         </h3>
-        <p className="text-glass-text-secondary">
+        <p className="text-sm md:text-base text-glass-text-secondary px-4">
           Interactive pipeline showing your project's journey through our methodology
         </p>
       </div>
       {/* Main Visualization Container */}
-      <div className="relative w-full h-96 glass-surface rounded-xl overflow-hidden">
+      <div className="relative w-full h-64 md:h-96 glass-surface rounded-xl overflow-hidden">
         {/* Background Particles */}
         <div className="absolute inset-0">
           {particlePositions?.map((particle) => (
@@ -243,27 +243,27 @@ const ProcessVisualization = ({ activeStage, projectType, onNodeClick }) => {
               {/* Halo behind the node so the icon remains visible */}
               {isNodeCurrent(index) && (
                 <motion.div
-                  className="absolute rounded-2xl"
-                  style={{ width: '72px', height: '72px', background: 'radial-gradient(closest-side, rgba(99,102,241,0.12), rgba(139,92,246,0.05), transparent)' }}
+                  className="absolute rounded-xl md:rounded-2xl"
+                  style={{ width: '56px', height: '56px', background: 'radial-gradient(closest-side, rgba(99,102,241,0.12), rgba(139,92,246,0.05), transparent)' }}
                   animate={{ scale: [1, 1.06, 1] }}
                   transition={{ duration: 2, repeat: Infinity }}
                 />
               )}
 
-              <div className={`relative w-16 h-16 rounded-2xl flex items-center justify-center transition-all duration-500 z-10 ${
+              <div className={`relative w-12 h-12 md:w-16 md:h-16 rounded-xl md:rounded-2xl flex items-center justify-center transition-all duration-500 z-10 ${
                 isNodeCurrent(index)
                   ? 'glass-interactive shadow-glass-interactive scale-105'
                   : isNodeActive(index)
                   ? `bg-gradient-to-br ${node?.color} text-white shadow-glass`
                   : 'glass-surface text-glass-text-secondary'
               }`}>
-                <Icon name={node?.icon} size={20} />
+                <Icon name={node?.icon} size={16} className="md:w-5 md:h-5" />
               </div>
 
               {/* Completion Check */}
               {isNodeActive(index) && !isNodeCurrent(index) && (
-                <div className="absolute -top-1 -right-1 w-5 h-5 bg-success rounded-full flex items-center justify-center z-20">
-                  <Icon name="Check" size={12} className="text-white" />
+                <div className="absolute -top-1 -right-1 w-4 h-4 md:w-5 md:h-5 bg-success rounded-full flex items-center justify-center z-20">
+                  <Icon name="Check" size={10} className="text-white md:w-3 md:h-3" />
                 </div>
               )}
             </div>
@@ -305,21 +305,21 @@ const ProcessVisualization = ({ activeStage, projectType, onNodeClick }) => {
         )}
       </div>
       {/* Legend */}
-      <div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="mt-4 md:mt-6 grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4">
         <div className="flex items-center space-x-2">
-          <div className="w-3 h-3 rounded-full bg-glass-text-secondary"></div>
+          <div className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-glass-text-secondary"></div>
           <span className="text-xs text-glass-text-secondary">Pending</span>
         </div>
         <div className="flex items-center space-x-2">
-          <div className="w-3 h-3 rounded-full bg-gradient-to-r from-primary to-accent"></div>
+          <div className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-gradient-to-r from-primary to-accent"></div>
           <span className="text-xs text-glass-text-secondary">Active</span>
         </div>
         <div className="flex items-center space-x-2">
-          <div className="w-3 h-3 rounded-full bg-success"></div>
+          <div className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-success"></div>
           <span className="text-xs text-glass-text-secondary">Completed</span>
         </div>
         <div className="flex items-center space-x-2">
-          <div className="w-3 h-3 rounded-full bg-accent animate-pulse"></div>
+          <div className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-accent animate-pulse"></div>
           <span className="text-xs text-glass-text-secondary">Current</span>
         </div>
       </div>

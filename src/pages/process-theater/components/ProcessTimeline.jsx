@@ -35,14 +35,14 @@ const ProcessTimeline = ({ activeStage = 0, totalStages: totalProp, onTimelineCl
   }, [activeStage, userInteracted]);
 
   return (
-    <div className="glass-morphism rounded-2xl p-6 shadow-glass">
-      <div className="flex items-center justify-between mb-6">
-        <h3 className="text-lg font-semibold text-glass-text-primary">
+    <div className="glass-morphism rounded-2xl p-4 md:p-6 shadow-glass">
+      <div className="flex items-center justify-between mb-4 md:mb-6">
+        <h3 className="text-base md:text-lg font-semibold text-glass-text-primary">
           Project Timeline
         </h3>
         <div className="flex items-center space-x-2">
-          <Icon name="Clock" size={16} className="text-accent" />
-          <span className="text-sm font-mono text-glass-text-secondary">
+          <Icon name="Clock" size={14} className="text-accent md:w-4 md:h-4" />
+          <span className="text-xs md:text-sm font-mono text-glass-text-secondary">
             12-16 weeks
           </span>
         </div>
@@ -94,18 +94,18 @@ const ProcessTimeline = ({ activeStage = 0, totalStages: totalProp, onTimelineCl
                 {index === internalActive && (
                   <motion.div
                     className="absolute rounded-full"
-                    style={{ width: '68px', height: '68px', background: 'radial-gradient(closest-side, rgba(99,102,241,0.12), rgba(139,92,246,0.06), transparent)' }}
+                    style={{ width: '56px', height: '56px', background: 'radial-gradient(closest-side, rgba(99,102,241,0.12), rgba(139,92,246,0.06), transparent)' }}
                     animate={{ scale: [1, 1.08, 1] }}
                     transition={{ duration: 2, repeat: Infinity }}
                   />
                 )}
 
-                <div className={`w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 relative z-10 ${
+                <div className={`w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center transition-all duration-300 relative z-10 ${
                   index <= internalActive
                     ? `bg-gradient-to-br ${stage?.color} text-white shadow-glass`
                     : 'glass-surface text-glass-text-secondary hover:text-primary'
                 }`}>
-                  <Icon name={stage?.icon} size={18} />
+                  <Icon name={stage?.icon} size={14} className="md:w-[18px] md:h-[18px]" />
                 </div>
               </div>
 
@@ -123,8 +123,8 @@ const ProcessTimeline = ({ activeStage = 0, totalStages: totalProp, onTimelineCl
 
               {/* Completion Check */}
               {index < internalActive && (
-                <div className="absolute -top-1 -right-1 w-4 h-4 bg-success rounded-full flex items-center justify-center">
-                  <Icon name="Check" size={10} className="text-white" />
+                <div className="absolute -top-1 -right-1 w-3 h-3 md:w-4 md:h-4 bg-success rounded-full flex items-center justify-center">
+                  <Icon name="Check" size={8} className="text-white md:w-[10px] md:h-[10px]" />
                 </div>
               )}
             </motion.div>
@@ -132,9 +132,9 @@ const ProcessTimeline = ({ activeStage = 0, totalStages: totalProp, onTimelineCl
         </div>
       </div>
       {/* Timeline Stats */}
-      <div className="mt-8 grid grid-cols-3 gap-4">
+      <div className="mt-6 md:mt-8 grid grid-cols-3 gap-2 md:gap-4">
         <div className="text-center">
-          <div className="text-2xl font-bold text-primary">
+          <div className="text-lg md:text-2xl font-bold text-primary">
             {internalActive + 1}
           </div>
           <div className="text-xs text-glass-text-secondary uppercase tracking-wide">
@@ -142,7 +142,7 @@ const ProcessTimeline = ({ activeStage = 0, totalStages: totalProp, onTimelineCl
           </div>
         </div>
         <div className="text-center">
-          <div className="text-2xl font-bold text-accent">
+          <div className="text-lg md:text-2xl font-bold text-accent">
             {Math.round(((internalActive + 1) / totalStages) * 100)}%
           </div>
           <div className="text-xs text-glass-text-secondary uppercase tracking-wide">
@@ -150,7 +150,7 @@ const ProcessTimeline = ({ activeStage = 0, totalStages: totalProp, onTimelineCl
           </div>
         </div>
         <div className="text-center">
-          <div className="text-2xl font-bold text-glass-text-primary">
+          <div className="text-lg md:text-2xl font-bold text-glass-text-primary">
             {totalStages - internalActive - 1}
           </div>
           <div className="text-xs text-glass-text-secondary uppercase tracking-wide">

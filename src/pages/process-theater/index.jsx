@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Helmet } from 'react-helmet';
 import Header from '../../components/ui/Header';
+import SEO from '../../components/SEO';
+import { generatePageSEO } from '../../utils/seoUtils';
 import Icon from '../../components/AppIcon';
 import Button from '../../components/ui/Button';
 import ProcessStage from './components/ProcessStage';
@@ -97,6 +99,7 @@ const ProcessTheater = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-card to-background relative overflow-hidden">
+      <SEO {...generatePageSEO('process')} />
       <Helmet>
         <title>R-Tech Solutions</title>
         <meta name="description" content="Experience our transparent development process through interactive glass pipeline animations. See how we transform ideas into exceptional digital experiences." />

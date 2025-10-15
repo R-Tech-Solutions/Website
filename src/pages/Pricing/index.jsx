@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import Header from '../../components/ui/Header';
+import SEO from '../../components/SEO';
+import { generatePageSEO } from '../../utils/seoUtils';
 import PricingHero from './components/PricingHero';
 import PricingFeatures from './components/PricingFeatures';
 import PricingCard from './components/PricingCard';
@@ -46,14 +48,15 @@ const Pricing = () => {
 	};
 
 	return (
-		<div>
+		<div className="min-h-screen bg-gradient-to-br from-background via-card to-background">
+			<SEO {...generatePageSEO('pricing')} />
 			{/* Global header showcased on this page */}
 			<Header />
-			<div className="pt-28">
+			<div className="pt-20 md:pt-28">
 				<PricingHero onCTAClick={handleCTAClick} />
 
-				<main className="max-w-7xl mx-auto px-4">
-					<section className="py-6">
+				<main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+					<section className="py-4 md:py-6">
 						<TabNav
 							tabs={[
 								{ key: 'web', label: 'Web Development' },
@@ -67,11 +70,21 @@ const Pricing = () => {
 						/>
 					</section>
 
-					<section className="py-8">
-						<h2 className="text-2xl font-bold text-glass-text-primary">{activeTab === 'web' ? 'Web Development Packages' : activeTab === 'app' ? 'App Development Packages' : activeTab === 'pos' ? 'POS & Retail Packages' : activeTab === 'cctv' ? 'CCTV & Security Packages' : 'Networking Packages'}</h2>
-						<p className="text-glass-text-secondary mt-2">Select a tailored package. Each category includes two well-defined packages to get you started quickly.</p>
+					<section className="py-6 md:py-8">
+						<div className="text-center mb-8">
+							<h2 className="text-2xl md:text-3xl font-bold text-glass-text-primary mb-2">
+								{activeTab === 'web' ? 'Web Development Packages' : 
+								 activeTab === 'app' ? 'App Development Packages' : 
+								 activeTab === 'pos' ? 'POS & Retail Packages' : 
+								 activeTab === 'cctv' ? 'CCTV & Security Packages' : 
+								 'Networking Packages'}
+							</h2>
+							<p className="text-glass-text-secondary max-w-2xl mx-auto">
+								Select a tailored package. Each category includes two well-defined packages to get you started quickly.
+							</p>
+						</div>
 
-						<div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+						<div className="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
 							{(function renderPackages() {
 								const common = {
 									onCTAClick: () => handleCTAClick('start'),
@@ -112,21 +125,21 @@ const Pricing = () => {
 
 					<PricingFeatures />
 
-					<section className="py-12">
-						<div className="glass-interactive rounded-2xl p-6">
-							<h3 className="text-lg font-semibold">Customer references</h3>
-							<p className="text-sm text-glass-text-secondary mt-2">Companies we've helped with similar deployments.</p>
-							<div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
-								<div className="p-4 bg-white/60 rounded-lg">
-									<p className="font-semibold">Acme Retail</p>
+					<section className="py-8 md:py-12">
+						<div className="glass-morphism rounded-2xl p-4 md:p-6 shadow-glass">
+							<h3 className="text-lg md:text-xl font-semibold text-glass-text-primary mb-2">Customer References</h3>
+							<p className="text-sm md:text-base text-glass-text-secondary mb-6">Companies we've helped with similar deployments.</p>
+							<div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+								<div className="glass-surface rounded-lg p-4 hover:glass-interactive transition-all duration-300">
+									<p className="font-semibold text-glass-text-primary mb-1">Acme Retail</p>
 									<p className="text-sm text-glass-text-secondary">Implemented POS across 15 stores with offline sync.</p>
 								</div>
-								<div className="p-4 bg-white/60 rounded-lg">
-									<p className="font-semibold">BlueWave Logistics</p>
+								<div className="glass-surface rounded-lg p-4 hover:glass-interactive transition-all duration-300">
+									<p className="font-semibold text-glass-text-primary mb-1">BlueWave Logistics</p>
 									<p className="text-sm text-glass-text-secondary">Network redesign and CCTV analytics for 3 warehouses.</p>
 								</div>
-								<div className="p-4 bg-white/60 rounded-lg">
-									<p className="font-semibold">Stellar Apps</p>
+								<div className="glass-surface rounded-lg p-4 hover:glass-interactive transition-all duration-300">
+									<p className="font-semibold text-glass-text-primary mb-1">Stellar Apps</p>
 									<p className="text-sm text-glass-text-secondary">Built cross-platform app used by 50k monthly users.</p>
 								</div>
 							</div>

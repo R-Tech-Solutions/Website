@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { motion } from 'framer-motion';
 
-const LoadingSequence = ({ onComplete, duration = 4000 }) => {
+const LoadingSequence = ({ onComplete, duration = 4000, isMobile = false, devicePerformance = 'high' }) => {
   const [progress, setProgress] = useState(0);
   const [currentPhase, setCurrentPhase] = useState(0);
 
@@ -12,10 +12,17 @@ const LoadingSequence = ({ onComplete, duration = 4000 }) => {
     { label: "Networking & CCTV", progress: 100 }
   ];
 
+  // Optimize duration based on device performance
+  const optimizedDuration = useMemo(() => {
+    if (devicePerformance === 'low') return duration * 0.7;
+    if (isMobile) return duration * 0.8;
+    return duration;
+  }, [duration, isMobile, devicePerformance]);
+
   useEffect(() => {
     const interval = setInterval(() => {
       setProgress(prev => {
-        const newProgress = prev + (100 / (duration / 50));
+        const newProgress = prev + (100 / (optimizedDuration / 50));
 
         // Update phase based on progress
         const phaseIndex = Math.floor((newProgress / 100) * phases?.length);
@@ -31,14 +38,14 @@ const LoadingSequence = ({ onComplete, duration = 4000 }) => {
     }, 50);
 
     return () => clearInterval(interval);
-  }, [duration, onComplete, phases?.length]);
+  }, [optimizedDuration, onComplete, phases?.length]);
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-background via-glass-base to-background">
-      {/* Background pattern */}
+      {/* Background pattern - optimized for mobile */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent/20 animate-pulse" />
-        {Array.from({ length: 20 }, (_, i) => (
+        {Array.from({ length: isMobile ? 10 : 20 }, (_, i) => (
           <motion.div
             key={i}
             className="absolute w-1 h-1 bg-primary/30 rounded-full"
@@ -51,7 +58,7 @@ const LoadingSequence = ({ onComplete, duration = 4000 }) => {
               scale: [1, 1.5, 1],
             }}
             transition={{
-              duration: 2,
+              duration: isMobile ? 3 : 2,
               delay: i * 0.1,
               repeat: Infinity,
               ease: "easeInOut"
@@ -60,16 +67,16 @@ const LoadingSequence = ({ onComplete, duration = 4000 }) => {
         ))}
       </div>
       <div className="relative z-10 text-center max-w-md mx-auto px-6">
-        {/* Logo formation animation */}
+        {/* Logo formation animation - Mobile optimized */}
         <motion.div
-          className="mb-8 flex justify-center"
+          className={`${isMobile ? 'mb-6' : 'mb-8'} flex justify-center`}
           initial={{ scale: 0, rotate: -180 }}
           animate={{ scale: 1, rotate: 0 }}
-          transition={{ duration: 1, ease: "easeOut" }}
+          transition={{ duration: isMobile ? 0.8 : 1, ease: "easeOut" }}
         >
           <div className="relative">
             <motion.div
-              className="w-16 h-16 glass-morphism rounded-xl flex items-center justify-center"
+              className={`${isMobile ? 'w-12 h-12' : 'w-16 h-16'} glass-morphism rounded-xl flex items-center justify-center`}
               animate={{
                 boxShadow: [
                   "0 0 20px rgba(59, 130, 246, 0.3)",
@@ -78,19 +85,19 @@ const LoadingSequence = ({ onComplete, duration = 4000 }) => {
                 ]
               }}
               transition={{
-                duration: 2,
+                duration: isMobile ? 3 : 2,
                 repeat: Infinity,
                 ease: "easeInOut"
               }}
             >
               <motion.div
-                className="w-8 h-8 rounded-lg overflow-hidden flex items-center justify-center"
+                className={`${isMobile ? 'w-6 h-6' : 'w-8 h-8'} rounded-lg overflow-hidden flex items-center justify-center`}
                 animate={{
                   rotate: [0, 180, 360],
                   scale: [1, 1.1, 1]
                 }}
                 transition={{
-                  duration: 3,
+                  duration: isMobile ? 4 : 3,
                   repeat: Infinity,
                   ease: "easeInOut"
                 }}
@@ -103,24 +110,24 @@ const LoadingSequence = ({ onComplete, duration = 4000 }) => {
               </motion.div>
             </motion.div>
 
-            {/* Orbiting particles */}
-            {Array.from({ length: 3 }, (_, i) => (
+            {/* Orbiting particles - reduced on mobile */}
+            {Array.from({ length: isMobile ? 2 : 3 }, (_, i) => (
               <motion.div
                 key={i}
-                className="absolute w-2 h-2 bg-accent/60 rounded-full"
+                className={`absolute ${isMobile ? 'w-1.5 h-1.5' : 'w-2 h-2'} bg-accent/60 rounded-full`}
                 style={{
                   left: "50%",
                   top: "50%",
-                  marginLeft: "-4px",
-                  marginTop: "-4px"
+                  marginLeft: isMobile ? "-3px" : "-4px",
+                  marginTop: isMobile ? "-3px" : "-4px"
                 }}
                 animate={{
-                  x: [0, Math.cos((i * 120) * Math.PI / 180) * 40],
-                  y: [0, Math.sin((i * 120) * Math.PI / 180) * 40],
+                  x: [0, Math.cos((i * 120) * Math.PI / 180) * (isMobile ? 30 : 40)],
+                  y: [0, Math.sin((i * 120) * Math.PI / 180) * (isMobile ? 30 : 40)],
                   rotate: [0, 360]
                 }}
                 transition={{
-                  duration: 2,
+                  duration: isMobile ? 3 : 2,
                   delay: i * 0.2,
                   repeat: Infinity,
                   ease: "linear"
@@ -130,19 +137,19 @@ const LoadingSequence = ({ onComplete, duration = 4000 }) => {
           </div>
         </motion.div>
 
-        {/* Loading text */}
+        {/* Loading text - Mobile responsive */}
         <motion.h2
-          className="text-2xl font-bold bg-gradient-to-r from-glass-text-primary to-primary bg-clip-text text-transparent mb-2"
+          className={`${isMobile ? 'text-xl' : 'text-2xl'} font-bold bg-gradient-to-r from-glass-text-primary to-primary bg-clip-text text-transparent mb-2`}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
+          transition={{ duration: isMobile ? 0.6 : 0.8, delay: 0.5 }}
         >
           R-Tech Solutions
         </motion.h2>
 
         {/* Phase indicator */}
         <motion.p
-          className="text-glass-text-secondary mb-8 font-mono text-sm"
+          className={`text-glass-text-secondary ${isMobile ? 'mb-6' : 'mb-8'} font-mono ${isMobile ? 'text-xs' : 'text-sm'}`}
           key={currentPhase}
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}

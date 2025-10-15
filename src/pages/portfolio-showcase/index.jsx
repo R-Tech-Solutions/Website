@@ -2,6 +2,8 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { Helmet } from 'react-helmet';
 import Header from '../../components/ui/Header';
+import SEO from '../../components/SEO';
+import { generatePageSEO } from '../../utils/seoUtils';
 import Icon from '../../components/AppIcon';
 import Button from '../../components/ui/Button';
 import ProjectCard from './components/ProjectCard';
@@ -608,6 +610,7 @@ const PortfolioShowcase = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-glass-base via-white to-glass-surface">
+      <SEO {...generatePageSEO('portfolio')} />
       <Helmet>
         <title>Portfolio Showcase - GlassForge Studio | Interactive 3D Project Gallery</title>
         <meta name="description" content="Explore our portfolio of cutting-edge digital experiences through interactive 3D glass containers. Discover web applications, mobile apps, and enterprise solutions crafted with precision." />
