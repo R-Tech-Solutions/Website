@@ -6,6 +6,7 @@ import Icon from '../../../components/AppIcon';
 
 const TeamMemberCard = ({ member, index }) => {
   const [isHovered, setIsHovered] = useState(false)
+  const [isSelected, setIsSelected] = useState(false)
 
   return (
     <motion.div
@@ -19,10 +20,19 @@ const TeamMemberCard = ({ member, index }) => {
       className="group relative perspective-1000"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      onClick={() => setIsSelected((s) => !s)}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          setIsSelected((s) => !s);
+        }
+      }}
+      role="button"
+      tabIndex={0}
     >
       {/* Glass Container with Fixed Height */}
       <div className="relative glass-morphism rounded-2xl overflow-hidden h-[420px] transform-3d transition-all duration-500 hover:scale-105 hover:shadow-2xl">
-        
+
         {/* Blurred Background Image */}
         <div className="absolute inset-0 z-0">
           <Image
@@ -38,7 +48,7 @@ const TeamMemberCard = ({ member, index }) => {
 
         {/* Content Container */}
         <div className="relative z-10 h-full flex flex-col justify-between p-6">
-          
+
           {/* Top Section */}
           <div className="flex-1 flex flex-col items-center justify-center">
             {/* Avatar Container */}
@@ -57,25 +67,12 @@ const TeamMemberCard = ({ member, index }) => {
             </div>
 
             <div className="text-center mb-4">
-              <h3 className="text-xl font-bold text-gray-900 mb-1 drop-shadow-lg">{member?.name}</h3>
-              <p className="text-sm text-gray-800 font-medium mb-2 drop-shadow">{member?.role}</p>
-              <p className="text-xs text-gray-700 drop-shadow">{member?.experience} years experience</p>
-            </div>
-
-            {/* Specialties */}
-            <div className="mb-2">
-              <div className="flex flex-wrap gap-1 justify-center">
-                {member?.specialties?.slice(0, 3)?.map((specialty, idx) => (
-                  <span key={idx} className="px-3 py-1 text-xs bg-gray-900/80 backdrop-blur-sm rounded-full text-white font-medium">
-                    {specialty}
-                  </span>
-                ))}
-                {member?.specialties?.length > 3 && (
-                  <span className="px-3 py-1 text-xs bg-gray-900/80 backdrop-blur-sm rounded-full text-white font-medium">
-                    +{member?.specialties?.length - 3}
-                  </span>
-                )}
-              </div>
+              <h3 className={`text-xl text-xl font-bold mb-1 drop-shadow-lg ${(isHovered || isSelected) ? 'text-gray-400 bg-transparent backdrop-blur-none rounded-none' : 'text-white bg-gray-900/80 backdrop-blur-sm rounded-full'}`}>
+                {member?.name}
+              </h3>
+              <span className={`px-3 py-1 text-xs font-medium ${(isHovered || isSelected) ? 'text-gray-400 bg-transparent backdrop-blur-none rounded-none' : 'text-white backdrop-blur-sm rounded-full'}`}>
+                {member?.role}
+              </span>
             </div>
           </div>
 
@@ -83,9 +80,9 @@ const TeamMemberCard = ({ member, index }) => {
           {member?.department === "Partners" && member?.socialMedia && (
             <motion.div
               initial={{ y: 20, opacity: 0 }}
-              animate={{ 
-                y: isHovered ? 0 : 20, 
-                opacity: isHovered ? 1 : 0 
+              animate={{
+                y: isHovered ? 0 : 20,
+                opacity: isHovered ? 1 : 0
               }}
               transition={{ duration: 0.3 }}
               className="relative"

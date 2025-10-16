@@ -22,29 +22,29 @@ const TeamDimension = () => {
     // Partners
     {
       id: 1,
-      name: "Sarah Chen",
-      role: "Co-Founder & Creative Director",
+      name: "Mr. Roshan Ekanayake",
+      role: "Managing Director",
       department: "Partners",
       experience: 12,
       avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=400",
       specialties: ["Strategic Vision", "Brand Strategy", "Business Development"],
       socialMedia: {
-        website: "https://sarahchen.design",
-        whatsapp: "+1234567890",
-        linkedin: "https://linkedin.com/in/sarahchen",
+        website: "https://roshanekanayake.com/",
+        whatsapp: "+94766356336",
+        linkedin: "https://www.linkedin.com/in/roshan-ekanayake-89887a189/",
       }
     },
     {
       id: 2,
-      name: "Michael Anderson",
-      role: "Co-Founder & Technical Director",
+      name: "Mr. Darshana Buddika",
+      role: "Director",
       department: "Partners",
       experience: 14,
       avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400",
       specialties: ["Technical Strategy", "Architecture", "Innovation"],
       socialMedia: {
         website: "https://michaelanderson.tech",
-        whatsapp: "+1234567891",
+        whatsapp: "+18327263965",
         linkedin: "https://linkedin.com/in/michaelanderson",
       }
     },
@@ -54,7 +54,7 @@ const TeamDimension = () => {
       role: "Digital Marketting & Buisness administartor",
       department: "Administration",
       experience: 1,
-      avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400",
+      avatar: "/public/assets/Members/Gimhan.jpg",
       specialties: ["Bsc (Hons) Software Engineer"],
     },
     {
@@ -117,7 +117,7 @@ const TeamDimension = () => {
       role: "Full Stack Developer (WEB)",
       department: "Developer Teams",
       experience: 1,
-      avatar: "https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?w=400",
+      avatar: "/public/assets/Members/Dilki.jpg",
       specialties: ["Bsc (Hons) Software Engineer"],
     },
   ]

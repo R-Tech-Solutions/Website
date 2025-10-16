@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Routes as RouterRoutes, Route } from "react-router-dom";
+import { BrowserRouter, Routes as RouterRoutes, Route, useLocation } from "react-router-dom";
 import ScrollToTop from "./components/ScrollToTop";
 import ErrorBoundary from "./components/ErrorBoundary";
 import NotFound from "./pages/NotFound";
@@ -18,34 +18,51 @@ import PostPage from './pages/Blogs/Post'
 import Pricing from './pages/Pricing'
 import AppsList from './pages/apps/AppsList';
 import Faqs from './pages/Faqs';
+import Footer from './components/ui/Footer';
+
 const Routes = () => {
   return (
     <BrowserRouter>
       <ErrorBoundary>
         <ScrollToTop />
-        <RouterRoutes>
-          {/* Define your route here */}
-          <Route path="/" element={<OpeningSequence />} />
-          <Route path="/services" element={<ServicesRevelation />} />
-          {/* <Route path="/floating-navigation-ecosystem" element={<FloatingNavigationEcosystem />} /> */}
-          <Route path="/R-Tech" element={<OpeningSequence />} />
-          <Route path="/team" element={<TeamDimension />} />
-          <Route path="/portfolio" element={<PortfolioShowcase />} />
-          <Route path="/process" element={<ProcessTheater />} />
-          <Route path="/contact" element={<ContactInquiryHub />} />
-          <Route path="/performance-optimized-navigation-system" element={<PerformanceOptimizedNavigation />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/apps" element={<AppsList />} />
-          <Route path="/pricing" element={<Pricing />} />
-          <Route path="/careers" element={<Careers />} />
-          <Route path="/blogs" element={<Blogs />} />
-          <Route path="/blogs/:id" element={<PostPage />} />
-          <Route path="/faqs" element={<Faqs />} />
-          <Route path="*" element={<NotFound />} />
-        </RouterRoutes>
+        <InnerRoutes />
       </ErrorBoundary>
     </BrowserRouter>
   );
 };
+
+function InnerRoutes() {
+  const location = useLocation();
+
+  // Hide Footer only on the /R-Tech route (normalize trailing slashes)
+  const hideFooter = location.pathname.replace(/\/+$/, "") === "/R-Tech";
+
+  return (
+    <>
+      <RouterRoutes>
+        {/* Define your route here */}
+        <Route path="/" element={<OpeningSequence />} />
+        <Route path="/services" element={<ServicesRevelation />} />
+        {/* <Route path="/floating-navigation-ecosystem" element={<FloatingNavigationEcosystem />} /> */}
+        <Route path="/R-Tech" element={<OpeningSequence />} />
+        <Route path="/team" element={<TeamDimension />} />
+        <Route path="/portfolio" element={<PortfolioShowcase />} />
+        <Route path="/process" element={<ProcessTheater />} />
+        <Route path="/contact" element={<ContactInquiryHub />} />
+        <Route path="/performance-optimized-navigation-system" element={<PerformanceOptimizedNavigation />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/apps" element={<AppsList />} />
+        <Route path="/pricing" element={<Pricing />} />
+        <Route path="/careers" element={<Careers />} />
+        <Route path="/blogs" element={<Blogs />} />
+        <Route path="/blogs/:id" element={<PostPage />} />
+        <Route path="/faqs" element={<Faqs />} />
+        <Route path="*" element={<NotFound />} />
+      </RouterRoutes>
+
+      {!hideFooter && <Footer />}
+    </>
+  );
+}
 
 export default Routes;
