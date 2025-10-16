@@ -31,9 +31,9 @@ export default function Home() {
 				<TrustedLogos />
 				<Testimonials />
 				<TechStack />
-				<Process/>
+				{/* <Process/> */}
 				<ClientsScroller />
-				<Team/>
+				{/* <Team/> */}
 			</div>
 
 

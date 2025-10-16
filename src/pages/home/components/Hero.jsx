@@ -5,6 +5,7 @@ import { Cpu, ShieldCheck, Network, Workflow } from 'lucide-react';
 function ParallaxImage() {
     const ref = useRef(null);
     const [offset, setOffset] = useState(0);
+    const [isActive, setIsActive] = useState(false);
 
     useEffect(() => {
         const onScroll = () => {
@@ -24,14 +25,33 @@ function ParallaxImage() {
             window.removeEventListener('resize', onScroll);
         };
     }, []);
+    
     return (
         <div ref={ref} className="space-y-6">
-            <div className="relative h-96 md:h-[520px] overflow-hidden rounded-3xl shadow-lg">
+            <div 
+                className="relative h-96 md:h-[520px] overflow-hidden rounded-3xl shadow-lg cursor-pointer group"
+                onMouseEnter={() => setIsActive(true)}
+                onMouseLeave={() => setIsActive(false)}
+                onClick={() => setIsActive(!isActive)}
+            >
+                <img
+                    src="/brand2.png"
+                    alt="Showcase"
+                    className="absolute inset-0 w-full h-full object-cover transition-all duration-500"
+                    style={{ 
+                        transform: `translateY(${offset}px)`,
+                        filter: isActive ? 'blur(8px) grayscale(100%)' : 'blur(0px) grayscale(0%)',
+                        opacity: isActive ? 0.3 : 1
+                    }}
+                />
                 <img
                     src="/new brand.png"
-                    alt="Showcase"
-                    className="absolute inset-0 w-full h-full object-cover"
-                    style={{ transform: `translateY(${offset}px)` }}
+                    alt="New Brand"
+                    className="absolute inset-0 w-full h-full object-contain p-8 transition-all duration-500"
+                    style={{ 
+                        opacity: isActive ? 1 : 0,
+                        transform: isActive ? 'scale(1)' : 'scale(0.8)',
+                    }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-violet-500/10 opacity-30" />
             </div>
@@ -50,6 +70,7 @@ export default function Hero() {
     const paragraph = 'Srilanka';
     const [loopText, setLoopText] = useState('');
     const phrases = halftext.split(',').map(s => s.trim()).filter(Boolean);
+    const [mobileLogoActive, setMobileLogoActive] = useState(false);
 
     // Typing animation
     useEffect(() => {
@@ -203,6 +224,7 @@ export default function Hero() {
             color: 'from-amber-500 to-orange-600'
         }
     ];
+
     return (
         <section className="relative pt-32 pb-20 overflow-hidden" onMouseMove={handleMouseMove}>
             <div className="container mx-auto px-4 relative z-10">
@@ -244,11 +266,29 @@ export default function Hero() {
                         </div>
 
                         {/* Mobile logo card (box, rounded) - appears only on small screens and sits before the description */}
-                        <div className="sm:hidden w-auto h-36 mx-auto mb-4 rounded-xl overflow-hidden shadow-md border border-gray-200">
+                        <div 
+                            className="sm:hidden w-auto h-36 mx-auto mb-4 rounded-xl overflow-hidden shadow-md border border-gray-200 cursor-pointer relative"
+                            onMouseEnter={() => setMobileLogoActive(true)}
+                            onMouseLeave={() => setMobileLogoActive(false)}
+                            onClick={() => setMobileLogoActive(!mobileLogoActive)}
+                        >
+                            <img
+                                src="/brand2.png"
+                                alt="Mobile Logo"
+                                className="w-full h-full object-cover transition-all duration-500"
+                                style={{ 
+                                    filter: mobileLogoActive ? 'blur(8px) grayscale(100%)' : 'blur(0px) grayscale(0%)',
+                                    opacity: mobileLogoActive ? 0.3 : 1
+                                }}
+                            />
                             <img
                                 src="/new brand.png"
-                                alt="Mobile Logo"
-                                className="w-full h-full object-cover"
+                                alt="New Brand"
+                                className="absolute inset-0 w-full h-full object-contain p-4 transition-all duration-500"
+                                style={{ 
+                                    opacity: mobileLogoActive ? 1 : 0,
+                                    transform: mobileLogoActive ? 'scale(1)' : 'scale(0.8)',
+                                }}
                             />
                         </div>
 

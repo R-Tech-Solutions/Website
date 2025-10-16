@@ -8,6 +8,10 @@ const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
   const drawerRef = useRef(null);
+  const [whyDropdownOpen, setWhyDropdownOpen] = useState(false);
+  const [mobileWhyOpen, setMobileWhyOpen] = useState(false);
+  const dropdownRef = useRef(null);
+  const dropdownTimeoutRef = useRef(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -23,6 +27,9 @@ const Header = () => {
     const onKeyDown = (e) => {
       if (e.key === 'Escape' && isMobileMenuOpen) {
         setIsMobileMenuOpen(false);
+      }
+      if (e.key === 'Escape' && whyDropdownOpen) {
+        setWhyDropdownOpen(false);
       }
     };
 
@@ -40,19 +47,54 @@ const Header = () => {
       };
     }
 
-    return () => {};
-  }, [isMobileMenuOpen]);
+    window.addEventListener('keydown', onKeyDown);
+    return () => {
+      window.removeEventListener('keydown', onKeyDown);
+    };
+  }, [isMobileMenuOpen, whyDropdownOpen]);
 
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setWhyDropdownOpen(false);
+      }
+    };
+
+    if (whyDropdownOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => document.removeEventListener('mousedown', handleClickOutside);
+    }
+  }, [whyDropdownOpen]);
+
+  const handleDropdownMouseEnter = () => {
+    if (dropdownTimeoutRef.current) {
+      clearTimeout(dropdownTimeoutRef.current);
+    }
+    setWhyDropdownOpen(true);
+  };
+
+  const handleDropdownMouseLeave = () => {
+    dropdownTimeoutRef.current = setTimeout(() => {
+      setWhyDropdownOpen(false);
+    }, 200);
+  };
+
+  // Navigation order: Home, Portfolio, Why choose us (dropdown), Blogs, Contact Us
   const navigationItems = [
     { name: 'Home', path: '/home', icon: 'Home' },
     { name: 'Portfolio', path: '/portfolio', icon: 'Folder' },
-    { name: 'Pricing', path: '/pricing', icon: 'CreditCard' },
-    { name: 'Services', path: '/services', icon: 'Tool' },
-    { name: 'Careers', path: '/careers', icon: 'Briefcase' },
     { name: 'Blogs', path: '/blogs', icon: 'FileText' },
     { name: 'Contact Us', path: '/contact', icon: 'FileText' },
-    { name: 'FAQs', path: '/faqs', icon: 'FileText' },
-    { name: 'Events', path: '/events', icon: 'FileText' },
+  ];
+
+  // Dropdown items for the new 'Why choose us' tab
+  const whyChooseItems = [
+    { name: 'Services', path: '/services', icon: 'Tool', desc: 'Our core services and solutions' },
+    { name: 'Pricing', path: '/pricing', icon: 'CreditCard', desc: 'Flexible plans for every size' },
+    { name: 'FAQs', path: '/faqs', icon: 'FileText', desc: 'Common questions answered' },
+    { name: 'Our Team', path: '/team', icon: 'Users', desc: 'Meet the experts behind our work' },
+    { name: 'Our Process', path: '/process', icon: 'GitBranch', desc: 'How we bring ideas to life' },
   ];
 
   const isActivePath = (path) => {
@@ -86,14 +128,86 @@ const Header = () => {
             <Logo />
 
             <nav className="hidden lg:flex items-center space-x-2">
-              {navigationItems?.map((item) => (
+              {/* render first two nav items: Home, Portfolio */}
+              {navigationItems.slice(0, 2).map((item) => (
                 <Link
                   key={item?.path}
                   to={item?.path}
                   className={`inline-flex items-center gap-2 text-sm font-medium transition-all duration-200 px-3 py-1 rounded-full ${
-                    isActivePath(item?.path)
-                      ? 'bg-primary/10 text-primary shadow-sm'
-                      : 'text-gray-600 hover:text-primary hover:bg-gray-100'
+                    isActivePath(item?.path) ? 'bg-primary/10 text-primary shadow-sm' : 'text-gray-600 hover:text-primary hover:bg-gray-100'
+                  }`}
+                >
+                  <Icon name={item?.icon} size={16} />
+                  <span className="whitespace-nowrap">{item?.name}</span>
+                </Link>
+              ))}
+
+              {/* Why choose us dropdown - enhanced */}
+              <div
+                ref={dropdownRef}
+                className="relative"
+                onMouseEnter={handleDropdownMouseEnter}
+                onMouseLeave={handleDropdownMouseLeave}
+              >
+                <button
+                  onClick={() => setWhyDropdownOpen((s) => !s)}
+                  aria-expanded={whyDropdownOpen}
+                  aria-haspopup="menu"
+                  className={`inline-flex items-center gap-2 text-sm font-semibold transition-all duration-200 px-3 py-2 rounded-full ${
+                    whyDropdownOpen ? 'bg-primary/10 text-primary shadow-sm' : 'text-gray-700 hover:text-primary hover:bg-gray-100'
+                  }`}
+                >
+                  <span className="uppercase text-xs tracking-wide">Why choose us</span>
+                  <Icon name={whyDropdownOpen ? 'ChevronUp' : 'ChevronDown'} size={14} />
+                </button>
+
+                <div
+                  role="menu"
+                  className={`absolute right-0 mt-3 w-80 bg-gradient-to-br from-primary/5 to-accent/5 glass-morphism backdrop-blur-glass rounded-2xl shadow-glass z-50 transform origin-top-right transition-all duration-300 ${
+                    whyDropdownOpen ? 'opacity-100 translate-y-0 scale-100 pointer-events-auto' : 'opacity-0 translate-y-2 scale-95 pointer-events-none'
+                  }`}
+                >
+                  {/* decorative pointer */}
+                  <div className="absolute -top-2 right-6 w-4 h-4 bg-white/80 backdrop-blur-sm rotate-45 shadow-sm z-50" aria-hidden />
+                  <div className="p-4">
+                    <div className="mb-3 px-1">
+                      <h4 className="text-sm font-semibold text-glass-text-primary">Why choose R-tech Solution</h4>
+                      <p className="text-xs text-glass-text-secondary">Crafting digital experiences with strategy, design and engineering.</p>
+                    </div>
+
+                    <div className="grid grid-cols-1 gap-2">
+                      {whyChooseItems.map((it) => (
+                        <Link
+                          key={it.path}
+                          to={it.path}
+                          role="menuitem"
+                          onClick={() => setWhyDropdownOpen(false)}
+                          className="group flex items-start gap-3 p-3 rounded-lg transition-all duration-200 hover:translate-x-1"
+                        >
+                          <div className="flex items-center">
+                            <span className="w-1 h-10 rounded-full bg-transparent group-hover:bg-primary transition-all duration-200 mr-3" aria-hidden />
+                          </div>
+                          <div className="w-9 h-9 rounded-lg bg-white/60 flex items-center justify-center">
+                            <Icon name={it.icon} size={16} />
+                          </div>
+                          <div>
+                            <div className="text-sm font-medium text-glass-text-primary">{it.name}</div>
+                            <div className="text-xs text-glass-text-secondary">{it.desc}</div>
+                          </div>
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* remaining nav items (Blogs, Contact) */}
+              {navigationItems.slice(2).map((item) => (
+                <Link
+                  key={item?.path}
+                  to={item?.path}
+                  className={`inline-flex items-center gap-2 text-sm font-medium transition-all duration-200 px-3 py-1 rounded-full ${
+                    isActivePath(item?.path) ? 'bg-primary/10 text-primary shadow-sm' : 'text-gray-600 hover:text-primary hover:bg-gray-100'
                   }`}
                 >
                   <Icon name={item?.icon} size={16} />
@@ -166,13 +280,29 @@ const Header = () => {
                     <span className="whitespace-nowrap">{item?.name}</span>
                   </Link>
                 ))}
+
+                {/* Mobile Why choose us items - displayed directly without dropdown */}
+                <div className="mt-2 border-t border-gray-200 pt-2">
+                  {whyChooseItems.map((it) => (
+                    <Link
+                      key={it.path}
+                      to={it.path}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className={`flex items-center w-full gap-3 px-4 py-2 text-sm rounded-lg transition-colors duration-150 ${
+                        isActivePath(it.path)
+                          ? 'text-primary bg-primary/10'
+                          : 'text-gray-600 hover:text-primary hover:bg-gray-100'
+                      }`}
+                    >
+                      <Icon name={it.icon} size={18} />
+                      <span className="whitespace-nowrap">{it.name}</span>
+                    </Link>
+                  ))}
+                </div>
               </div>
 
               <div className="mt-6 border-t border-border/20 pt-4">
                 <div className="flex flex-col space-y-3 px-2">
-                  <Button variant="outline" size="sm" fullWidth className="glass-interactive border-primary/20 text-primary hover:bg-primary/10" onClick={() => setIsMobileMenuOpen(false)}>
-                    Explore Craft
-                  </Button>
                   <Button variant="default" size="sm" fullWidth className="bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90" onClick={() => setIsMobileMenuOpen(false)}>
                     Start Project
                   </Button>
