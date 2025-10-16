@@ -179,10 +179,7 @@ const TeamDimension = () => {
               <br />
               <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Expert Team</span>
             </h1>
-            <p className="text-xl text-glass-text-secondary max-w-3xl mx-auto leading-relaxed">
-              Discover the talented individuals behind GlassForge Studio's innovative digital experiences. Each team
-              member brings unique expertise and passion to craft exceptional solutions.
-            </p>
+            
           </motion.div>
 
           {/* Team Stats Overview */}

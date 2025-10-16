@@ -33,9 +33,10 @@ const Routes = () => {
 
 function InnerRoutes() {
   const location = useLocation();
-
-  // Hide Footer only on the /R-Tech route (normalize trailing slashes)
-  const hideFooter = location.pathname.replace(/\/+$/, "") === "/R-Tech_Solutions";
+  // normalize pathname (remove trailing slashes) but keep root as '/'
+  const normalized = location.pathname.replace(/\/+$/, '') || '/';
+  // Hide footer on the opening sequence / home routes (support aliases)
+  const hideFooter = normalized === '/' || normalized === '/R-Tech' || normalized === '/R-Tech_Solutions';
 
   return (
     <>

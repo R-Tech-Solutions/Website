@@ -104,7 +104,7 @@ const Header = () => {
   };
 
   const Logo = () => (
-    <Link to="/R-Tech" className="flex items-center space-x-3 group">
+    <Link to="/R-Tech_Solutions" className="flex items-center space-x-3 group">
       <div className="relative">
         <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
           <img src="/new_brand.png" alt="Logo" className="w-12 h-12 object-contain rounded-lg " />
