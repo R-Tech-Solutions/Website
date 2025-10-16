@@ -54,7 +54,7 @@ const TeamDimension = () => {
       role: "Digital Marketting & Buisness administartor",
       department: "Administration",
       experience: 1,
-      avatar: "/public/assets/Members/Gimhan.jpg",
+      avatar: "/assets/Members/Gimhan.jpg",
       specialties: ["Bsc (Hons) Software Engineer"],
     },
     {
@@ -72,7 +72,7 @@ const TeamDimension = () => {
       role: "Associate Full Stack Developer (WEB) & DevOps Engineer",
       department: "Developer Teams",
       experience: 2,
-      avatar: "/public/assets/Members/Shinan.jpeg",
+      avatar: "/assets/Members/Shinan.jpeg",
       specialties: ["BSc. (Hons) in Software Engineering"],
     },
     {
@@ -81,7 +81,7 @@ const TeamDimension = () => {
       role: "Junior Software Engineer(WEB, APP)",
       department: "Developer Teams",
       experience: 1,
-      avatar: "/public/assets/Members/Chathuri.jpg",
+      avatar: "/assets/Members/Chathuri.jpg",
       specialties: ["BSc. (Hons) in Software Engineering"],
     },
     {
@@ -90,7 +90,7 @@ const TeamDimension = () => {
       role: "Junior Software Engineer()",
       department: "Developer Teams",
       experience: 1,
-      avatar: "/public/assets/Members/Nihma1jpg.jpg",
+      avatar: "/assets/Members/Nihma1jpg.jpg",
       specialties: ["BEng (Hons) Software Engineer"],
     },
     {
@@ -99,7 +99,7 @@ const TeamDimension = () => {
       role: "Full Stack Developer (WEB)",
       department: "Developer Teams",
       experience: 1,
-      avatar: "/public/assets/Members/Nashad.jpg",
+      avatar: "/assets/Members/Nashad.jpg",
       specialties: ["BEng (Hons) Software Engineer"],
     },
     {
@@ -108,7 +108,7 @@ const TeamDimension = () => {
       role: "Full Stack Developer (APP)",
       department: "Developer Teams",
       experience: 1,
-      avatar: "/public/assets/Members/awishka.jpg",
+      avatar: "/assets/Members/awishka.jpg",
       specialties: ["UnderGraduate"],
     },
     {
@@ -117,7 +117,7 @@ const TeamDimension = () => {
       role: "Full Stack Developer (WEB)",
       department: "Developer Teams",
       experience: 1,
-      avatar: "/public/assets/Members/Dilki.jpg",
+      avatar: "/assets/Members/Dilki.jpg",
       specialties: ["Bsc (Hons) Software Engineer"],
     },
   ]
