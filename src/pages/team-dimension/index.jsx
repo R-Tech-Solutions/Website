@@ -7,8 +7,6 @@ import { generatePageSEO } from "../../utils/seoUtils"
 import Icon from "../../components/AppIcon"
 import Button from "../../components/ui/Button"
 import TeamMemberCard from './components/TeamMemberCard';
-import TeamProfileModal from './components/TeamProfileModal';
-// import TeamStatsOverview from './components/TeamStatsOverview';
 import TeamFilterBar from './components/TeamFilterBar';
 import TeamHierarchy from './components/TeamHierarchy';
 

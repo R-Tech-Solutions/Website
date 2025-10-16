@@ -330,6 +330,150 @@ export default function Hero() {
                     </div>
                 </div>
             </div>
+                {/* Advanced Our Vision & Mission Section - responsive cards on desktop, accordions on mobile */}
+                <div className="container mx-auto px-4 mt-12">
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        {/* Desktop: three cards; Mobile: stacked/accordion handled below */}
+                        <div className="hidden lg:block">
+                            <div className="glass-morphism rounded-2xl p-6 shadow-glass h-full transform transition-transform duration-300 hover:-translate-y-2">
+                                <div className="flex items-center gap-4 mb-4">
+                                    <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-sky-500 to-blue-600 flex items-center justify-center text-white shadow-inner">
+                                        <Cpu className="w-6 h-6" />
+                                    </div>
+                                    <div>
+                                        <h3 className="text-xl font-semibold text-glass-text-primary">Vision</h3>
+                                        <p className="text-sm text-glass-text-secondary">Where we want the world to be — our long-term aspiration.</p>
+                                    </div>
+                                </div>
+
+                                <ul className="mt-2 space-y-2 text-sm text-glass-text-secondary list-inside list-disc">
+                                    <li>Be the go-to partner for digital transformation in the region.</li>
+                                    <li>Advance secure, accessible and sustainable tech practices.</li>
+                                    <li>Empower clients to achieve measurable outcomes and growth.</li>
+                                </ul>
+
+                                <div className="mt-6">
+                                    <a href="/services" className="inline-block px-4 py-2 rounded-md bg-gradient-to-r from-sky-500 to-blue-600 text-white text-sm shadow hover:opacity-95 transition-opacity">Explore Services</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="hidden lg:block">
+                            <div className="glass-morphism rounded-2xl p-6 shadow-glass h-full transform transition-transform duration-300 hover:-translate-y-2">
+                                <div className="flex items-center gap-4 mb-4">
+                                    <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center text-white shadow-inner">
+                                        <ShieldCheck className="w-6 h-6" />
+                                    </div>
+                                    <div>
+                                        <h3 className="text-xl font-semibold text-glass-text-primary">Mission</h3>
+                                        <p className="text-sm text-glass-text-secondary">How we deliver — our everyday commitments to clients and craft.</p>
+                                    </div>
+                                </div>
+
+                                <ul className="mt-2 space-y-2 text-sm text-glass-text-secondary list-inside list-disc">
+                                    <li>Deliver high-performance web and mobile products on time.</li>
+                                    <li>Design secure, maintainable systems with clear ROI.</li>
+                                    <li>Collaborate closely with stakeholders for measurable impact.</li>
+                                </ul>
+
+                                <div className="mt-6">
+                                    <a href="/contact-inquiry-hub" className="inline-block px-4 py-2 rounded-md bg-gradient-to-r from-purple-500 to-indigo-600 text-white text-sm shadow hover:opacity-95 transition-opacity">Talk to us</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="hidden lg:block">
+                            <div className="glass-morphism rounded-2xl p-6 shadow-glass h-full transform transition-transform duration-300 hover:-translate-y-2">
+                                <div className="flex items-center gap-4 mb-4">
+                                    <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-emerald-500 to-green-600 flex items-center justify-center text-white shadow-inner">
+                                        <Network className="w-6 h-6" />
+                                    </div>
+                                    <div>
+                                        <h3 className="text-xl font-semibold text-glass-text-primary">Values & Principles</h3>
+                                        <p className="text-sm text-glass-text-secondary">What guides our decisions and work.</p>
+                                    </div>
+                                </div>
+
+                                <ul className="mt-2 space-y-2 text-sm text-glass-text-secondary list-inside list-disc">
+                                    <li>Quality-first engineering and pragmatic design.</li>
+                                    <li>Security and privacy baked into every solution.</li>
+                                    <li>Transparent collaboration and measurable outcomes.</li>
+                                </ul>
+
+                                <div className="mt-6">
+                                    <a href="/pricing" className="inline-block px-4 py-2 rounded-md bg-gradient-to-r from-emerald-500 to-green-600 text-white text-sm shadow hover:opacity-95 transition-opacity">See Pricing</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Mobile: Accordion style stacked items */}
+                        <div className="lg:hidden col-span-3 space-y-3">
+                            {[
+                                {
+                                    id: 'vision',
+                                    title: 'Vision',
+                                    icon: Cpu,
+                                    summary: 'Be the go-to partner for digital transformation in the region.',
+                                    bullets: [
+                                        'Trusted partner for digital transformation.',
+                                        'Promote accessible & sustainable tech.',
+                                        'Help clients grow with measurable outcomes.'
+                                    ],
+                                    cta: { href: '/services', label: 'Explore Services' },
+                                },
+                                {
+                                    id: 'mission',
+                                    title: 'Mission',
+                                    icon: ShieldCheck,
+                                    summary: 'Deliver high-performance web and mobile products on time.',
+                                    bullets: [
+                                        'Performance-optimized web & mobile solutions.',
+                                        'Secure and maintainable systems with clear ROI.',
+                                        'Close collaboration with stakeholders.'
+                                    ],
+                                    cta: { href: '/contact-inquiry-hub', label: 'Talk to us' },
+                                },
+                                {
+                                    id: 'values',
+                                    title: 'Values & Principles',
+                                    icon: Network,
+                                    summary: 'Quality-first engineering, security-first mindset.',
+                                    bullets: [
+                                        'Quality-first engineering.',
+                                        'Security and privacy by design.',
+                                        'Transparent collaboration.'
+                                    ],
+                                    cta: { href: '/pricing', label: 'See Pricing' },
+                                }
+                            ].map((item) => (
+                                <details key={item.id} className="open:bg-white/5 rounded-2xl glass-morphism p-4" style={{ backdropFilter: 'saturate(130%) blur(8px)' }}>
+                                    <summary className="flex items-center justify-between gap-3 cursor-pointer list-none">
+                                        <div className="flex items-center gap-3">
+                                            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-slate-700 to-slate-900 flex items-center justify-center text-white">
+                                                <item.icon className="w-5 h-5" />
+                                            </div>
+                                            <div>
+                                                <div className="font-semibold text-glass-text-primary">{item.title}</div>
+                                                <div className="text-xs text-glass-text-secondary">{item.summary}</div>
+                                            </div>
+                                        </div>
+                                        <div className="text-sm text-glass-text-secondary">Tap to expand</div>
+                                    </summary>
+
+                                    <div className="mt-3 text-sm text-glass-text-secondary space-y-2">
+                                        <ul className="list-disc ml-5">
+                                            {item.bullets.map((b, i) => <li key={i}>{b}</li>)}
+                                        </ul>
+
+                                        <div className="mt-3">
+                                            <a href={item.cta.href} className="inline-block px-3 py-2 rounded-md bg-gradient-to-r from-slate-700 to-slate-900 text-white text-sm">{item.cta.label}</a>
+                                        </div>
+                                    </div>
+                                </details>
+                            ))}
+                        </div>
+                    </div>
+                </div>
         </section>
     );
 }
