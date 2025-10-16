@@ -66,13 +66,22 @@ const TeamMemberCard = ({ member, index }) => {
               </div>
             </div>
 
-            <div className="text-center mb-4">
-              <h3 className={`text-xl text-xl font-bold mb-1 drop-shadow-lg ${(isHovered || isSelected) ? 'text-gray-400 bg-transparent backdrop-blur-none rounded-none' : 'text-white bg-gray-900/80 backdrop-blur-sm rounded-full'}`}>
+            <div className="text-center mb-4 w-full px-4">
+              <h3
+                title={member?.name}
+                className={`text-lg sm:text-xl font-bold mb-1 drop-shadow-lg px-4 py-2 inline-block max-w-full truncate whitespace-nowrap transition-all duration-300 ${
+                  (isHovered || isSelected)
+                    ? 'text-gray-400 bg-transparent backdrop-blur-none rounded-none'
+                    : 'text-white bg-gray-900/80 backdrop-blur-sm rounded-full'
+                }`}
+              >
                 {member?.name}
               </h3>
-              <span className={`px-3 py-1 text-xs font-medium ${(isHovered || isSelected) ? 'text-gray-400 bg-transparent backdrop-blur-none rounded-none' : 'text-white backdrop-blur-sm rounded-full'}`}>
-                {member?.role}
-              </span>
+              <div className="mt-2">
+                <span className={`px-4 py-1.5 text-xs sm:text-sm font-medium inline-block max-w-full transition-all duration-300 ${(isHovered || isSelected) ? 'text-gray-400 bg-transparent backdrop-blur-none rounded-none' : 'text-white  backdrop-blur-sm rounded-full'}`}>
+                  {member?.role}
+                </span>
+              </div>
             </div>
           </div>
 
@@ -164,4 +173,4 @@ const TeamMemberCard = ({ member, index }) => {
   )
 }
 
-export default TeamMemberCard     
+export default TeamMemberCard

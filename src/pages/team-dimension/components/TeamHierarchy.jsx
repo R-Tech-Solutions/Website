@@ -33,11 +33,6 @@ const TeamHierarchy = ({ hierarchyData, onMemberClick }) => {
                 className="w-full h-full object-cover rounded-full"
               />
             </div>
-            {member?.isOnline && (
-              <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-success rounded-full glass-morphism flex items-center justify-center">
-                <div className="w-2 h-2 bg-success rounded-full"></div>
-              </div>
-            )}
           </div>
 
           {/* Info */}

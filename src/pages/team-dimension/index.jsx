@@ -8,7 +8,7 @@ import Icon from "../../components/AppIcon"
 import Button from "../../components/ui/Button"
 import TeamMemberCard from './components/TeamMemberCard';
 import TeamProfileModal from './components/TeamProfileModal';
-import TeamStatsOverview from './components/TeamStatsOverview';
+// import TeamStatsOverview from './components/TeamStatsOverview';
 import TeamFilterBar from './components/TeamFilterBar';
 import TeamHierarchy from './components/TeamHierarchy';
 
@@ -50,7 +50,7 @@ const TeamDimension = () => {
     },
     {
       id: 4,
-      name: "Mrs Gimhani Maheshika",
+      name: "Mrs. Gimhani Maheshika",
       role: "Digital Marketting & Buisness administartor",
       department: "Administration",
       experience: 1,
@@ -59,7 +59,7 @@ const TeamDimension = () => {
     },
     {
       id: 5,
-      name: "Mrs Shehani Dayarathna",
+      name: "Mrs. Shehani Dayarathna",
       role: "HR",
       department: "Administration",
       experience: 8,
@@ -68,7 +68,7 @@ const TeamDimension = () => {
     },
     {
       id: 7,
-      name: "Mr Mohamed Shinan",
+      name: "Mr. Mohamed Shinan",
       role: "Associate Full Stack Developer (WEB) & DevOps Engineer",
       department: "Developer Teams",
       experience: 2,
@@ -77,7 +77,7 @@ const TeamDimension = () => {
     },
     {
       id: 8,
-      name: "Miss Chathuri Ranasinghe",
+      name: "Miss. Chathuri Ranasinghe",
       role: "Junior Software Engineer(WEB, APP)",
       department: "Developer Teams",
       experience: 1,
@@ -86,8 +86,8 @@ const TeamDimension = () => {
     },
     {
       id: 9,
-      name: "Miss Nihma Nushrath",
-      role: "Junior Software Engineer()",
+      name: "Miss. Nihma Nushrath",
+      role: "Junior Software Engineer(JAVA)",
       department: "Developer Teams",
       experience: 1,
       avatar: "/assets/Members/Nihma1jpg.jpg",
@@ -95,7 +95,7 @@ const TeamDimension = () => {
     },
     {
       id: 10,
-      name: "Mr Mohamed Nashad",
+      name: "Mr. Mohamed Nashad",
       role: "Full Stack Developer (WEB)",
       department: "Developer Teams",
       experience: 1,
@@ -104,7 +104,7 @@ const TeamDimension = () => {
     },
     {
       id: 11,
-      name: "Mr Avishka Madhushan",
+      name: "Mr. Avishka Madhushan",
       role: "Full Stack Developer (APP)",
       department: "Developer Teams",
       experience: 1,
@@ -113,7 +113,7 @@ const TeamDimension = () => {
     },
     {
       id: 12,
-      name: "Miss Dilki Nimeshika",
+      name: "Miss. Dilki Nimeshika",
       role: "Full Stack Developer (WEB)",
       department: "Developer Teams",
       experience: 1,
@@ -130,90 +130,6 @@ const TeamDimension = () => {
       teamMembers?.reduce((sum, member) => sum + Number.parseFloat(member?.clientRating), 0) / teamMembers?.length
     )?.toFixed(1),
   }
-
-  const hierarchyData = [
-    {
-      id: 1,
-      name: "Sarah Chen",
-      role: "Co-Founder & Creative Director",
-      avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=400",
-      isOnline: true,
-      teamSize: 3,
-      rating: "5.0",
-      reports: [
-        {
-          id: 9,
-          name: "Aisha Patel",
-          role: "UI/UX Designer",
-          avatar: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400",
-          isOnline: true,
-          rating: "4.9",
-        },
-      ],
-    },
-    {
-      id: 2,
-      name: "Michael Anderson",
-      role: "Co-Founder & Technical Director",
-      avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400",
-      isOnline: true,
-      teamSize: 5,
-      rating: "5.0",
-      reports: [
-        {
-          id: 7,
-          name: "Marcus Rodriguez",
-          role: "Lead Frontend Developer",
-          avatar: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400",
-          isOnline: true,
-          rating: "4.8",
-        },
-        {
-          id: 8,
-          name: "Elena Vasquez",
-          role: "Senior Backend Developer",
-          avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400",
-          isOnline: false,
-          rating: "4.9",
-        },
-        {
-          id: 10,
-          name: "James Thompson",
-          role: "DevOps Engineer",
-          avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400",
-          isOnline: false,
-          rating: "4.8",
-        },
-      ],
-    },
-    {
-      id: 4,
-      name: "David Kim",
-      role: "Operations Manager",
-      avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400",
-      isOnline: true,
-      teamSize: 2,
-      rating: "4.8",
-      reports: [
-        {
-          id: 5,
-          name: "Lisa Thompson",
-          role: "HR & Talent Manager",
-          avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400",
-          isOnline: true,
-          rating: "4.9",
-        },
-        {
-          id: 6,
-          name: "Robert Chen",
-          role: "Finance Director",
-          avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400",
-          isOnline: false,
-          rating: "4.8",
-        },
-      ],
-    },
-  ]
 
   const filteredMembers = teamMembers?.filter((member) => {
     const matchesFilter =
@@ -270,7 +186,7 @@ const TeamDimension = () => {
           </motion.div>
 
           {/* Team Stats Overview */}
-          <TeamStatsOverview stats={teamStats} />
+          {/* <TeamStatsOverview stats={teamStats} /> */}
 
           {/* Navigation Tabs */}
           <div className="flex justify-center mb-8">
@@ -284,16 +200,6 @@ const TeamDimension = () => {
                 className={!showHierarchy ? "bg-primary text-white" : "glass-surface"}
               >
                 Team Members
-              </Button>
-              <Button
-                variant={showHierarchy ? "default" : "ghost"}
-                size="sm"
-                onClick={() => setShowHierarchy(true)}
-                iconName="Workflow"
-                iconPosition="left"
-                className={showHierarchy ? "bg-primary text-white" : "glass-surface"}
-              >
-                Team Structure
               </Button>
             </div>
           </div>

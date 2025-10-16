@@ -35,7 +35,7 @@ function InnerRoutes() {
   const location = useLocation();
 
   // Hide Footer only on the /R-Tech route (normalize trailing slashes)
-  const hideFooter = location.pathname.replace(/\/+$/, "") === "/R-Tech";
+  const hideFooter = location.pathname.replace(/\/+$/, "") === "/R-Tech_Solutions";
 
   return (
     <>
@@ -44,7 +44,7 @@ function InnerRoutes() {
         <Route path="/" element={<OpeningSequence />} />
         <Route path="/services" element={<ServicesRevelation />} />
         {/* <Route path="/floating-navigation-ecosystem" element={<FloatingNavigationEcosystem />} /> */}
-        <Route path="/R-Tech" element={<OpeningSequence />} />
+        <Route path="/R-Tech_Solutions" element={<OpeningSequence />} />
         <Route path="/team" element={<TeamDimension />} />
         <Route path="/portfolio" element={<PortfolioShowcase />} />
         <Route path="/process" element={<ProcessTheater />} />
