@@ -5,7 +5,7 @@ const SEO = ({
   title = "R-Tech Solutions - Advanced Technology Solutions",
   description = "Leading provider of cutting-edge technology solutions including web development, mobile apps, AI integration, and digital transformation services.",
   keywords = "technology solutions, web development, mobile apps, AI integration, digital transformation, software development, tech consulting",
-  image = "/public/new brand.png",
+  image = "/public/new_brand.png",
   url = "http://rtechsl.lk",
   type = "website",
   author = "R-Tech Solutions",
@@ -115,7 +115,7 @@ const SEO = ({
             "@type": "Organization",
             "name": "R-Tech Solutions",
             "url": "http://rtechsl.lk",
-            "logo": `${url}/public/new brand.png`,
+            "logo": `${url}/public/new_brand.png`,
             "description": "Leading provider of cutting-edge technology solutions including web development, mobile apps, AI integration, and digital transformation services.",
             "foundingDate": "2020",
             "contactPoint": {

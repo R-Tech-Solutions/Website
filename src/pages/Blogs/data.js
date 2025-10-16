@@ -8,7 +8,7 @@ const POSTS = [
     author: 'R-Tech Team',
     published: 'Oct 2025',
     readTime: '6 min',
-    image: '/new brand.png',
+    image: '/new_brand.png',
     tags: ['Vite', 'Performance', 'React'],
     comments: [
       { id: 'c1', author: 'Jane', text: 'Great write-up — very actionable!', rating: 5 },
@@ -34,7 +34,7 @@ const POSTS = [
     author: 'Accessibility Team',
     published: 'Aug 2025',
     readTime: '5 min',
-    image: '/new brand.png',
+    image: '/new_brand.png',
     tags: ['Accessibility', 'Testing'],
     comments: [],
   },

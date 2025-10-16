@@ -2,7 +2,7 @@
 export const seoConfig = {
   siteName: "R-Tech Solutions",
   siteUrl: "http://rtechsl.lk",
-  defaultImage: "/public/new brand.png",
+  defaultImage: "/public/new_brand.png",
   twitterHandle: "@RTechSolutions",
   facebookPage: "https://www.facebook.com/rtechsolutions",
   linkedinCompany: "https://www.linkedin.com/company/r-tech-solutions",

@@ -114,7 +114,7 @@ const ContactInquiryHub = () => {
           >
             <div className="flex items-center justify-center mb-6">
               <img
-                src="/new brand.png"
+                src="/new_brand.png"
                 alt="R-tech Solution Pvt Ltd"
                 className="h-16 w-auto mr-4"
               />

@@ -59,7 +59,7 @@ const CompanyInfo = () => {
         className="glass-morphism rounded-3xl p-8 text-center"
       >
         <img 
-          src="/new brand.png" 
+          src="/new_brand.png" 
           alt="R-tech Solution Pvt Ltd" 
           className="h-20 w-auto mx-auto mb-6"
         />

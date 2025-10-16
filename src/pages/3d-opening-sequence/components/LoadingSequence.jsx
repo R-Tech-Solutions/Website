@@ -103,7 +103,7 @@ const LoadingSequence = ({ onComplete, duration = 4000, isMobile = false, device
                 }}
               >
                 <img
-                  src="/new brand.png"
+                  src="/new_brand.png"
                   alt="Logo"
                   className="w-full h-full object-contain"
                 />

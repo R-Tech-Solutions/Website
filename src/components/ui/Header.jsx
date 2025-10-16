@@ -107,7 +107,7 @@ const Header = () => {
     <Link to="/R-Tech" className="flex items-center space-x-3 group">
       <div className="relative">
         <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
-          <img src="/new brand.png" alt="Logo" className="w-12 h-12 object-contain rounded-lg " />
+          <img src="/new_brand.png" alt="Logo" className="w-12 h-12 object-contain rounded-lg " />
         </div>
         <div className="absolute inset-0 w-10 h-10 bg-gradient-to-br from-primary/20 to-accent/20 rounded-xl blur-lg group-hover:blur-xl transition-all duration-300"></div>
       </div>

@@ -45,7 +45,7 @@ function ParallaxImage() {
                     }}
                 />
                 <img
-                    src="/new brand.png"
+                    src="/new_brand.png"
                     alt="New Brand"
                     className="absolute inset-0 w-full h-full object-contain p-8 transition-all duration-500"
                     style={{ 
@@ -282,7 +282,7 @@ export default function Hero() {
                                 }}
                             />
                             <img
-                                src="/new brand.png"
+                                src="/new_brand.png"
                                 alt="New Brand"
                                 className="absolute inset-0 w-full h-full object-contain p-4 transition-all duration-500"
                                 style={{ 
